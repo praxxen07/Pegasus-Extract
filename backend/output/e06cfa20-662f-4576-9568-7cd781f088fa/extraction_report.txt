@@ -1,0 +1,8 @@
+PEGASUS EXTRACT — Extraction Report
+=====================================
+URL: https://webscraper.io/test-sites/e-commerce/allinone
+Pages: 1
+Records: 1
+Duplicates removed: 8
+Fields: ['name', 'price', 'description']
+=====================================

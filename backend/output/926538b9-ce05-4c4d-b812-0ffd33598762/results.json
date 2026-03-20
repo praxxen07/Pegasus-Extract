@@ -1,0 +1,212 @@
+[
+  {
+    "rank":"1",
+    "title":"Cockpit is a web-based graphical interface for servers",
+    "url":"https:\/\/github.com\/cockpit-project\/cockpit",
+    "points":"127",
+    "comments":"3"
+  },
+  {
+    "rank":"2",
+    "title":"Astral to Join OpenAI",
+    "url":"https:\/\/astral.sh\/blog\/openai",
+    "points":"1166",
+    "comments":"10"
+  },
+  {
+    "rank":"3",
+    "title":"Google details new 24-hour process to sideload unverified Android apps",
+    "url":"https:\/\/arstechnica.com\/gadgets\/2026\/03\/google-details-new-24-hour-process-to-sideload-unverified-android-apps\/",
+    "points":"410",
+    "comments":"6"
+  },
+  {
+    "rank":"4",
+    "title":"How the Turner twins are mythbusting modern technical apparel",
+    "url":"https:\/\/www.carryology.com\/insights\/how-the-turner-twins-are-mythbusting-modern-gear\/",
+    "points":"79",
+    "comments":"3"
+  },
+  {
+    "rank":"5",
+    "title":"Return of the Obra Dinn: spherical mapped dithering for a 1bpp first-person game",
+    "url":"https:\/\/forums.tigsource.com\/index.php?topic=40832.msg1363742#msg1363742",
+    "points":"212",
+    "comments":"6"
+  },
+  {
+    "rank":"6",
+    "title":"Show HN: Three new Kitten TTS models \u2013 smallest less than 25MB",
+    "url":"https:\/\/github.com\/KittenML\/KittenTTS",
+    "points":"287",
+    "comments":"7"
+  },
+  {
+    "rank":"7",
+    "title":"EsoLang-Bench: Evaluating Genuine Reasoning in LLMs via Esoteric Languages",
+    "url":"https:\/\/esolang-bench.vercel.app\/",
+    "points":"48",
+    "comments":"2"
+  },
+  {
+    "rank":"8",
+    "title":"Be intentional about how AI changes your codebase",
+    "url":"https:\/\/aicode.swerdlow.dev\/",
+    "points":"41",
+    "comments":"2"
+  },
+  {
+    "rank":"9",
+    "title":"Noq: n0's new QUIC implementation in Rust",
+    "url":"https:\/\/www.iroh.computer\/blog\/noq-announcement",
+    "points":"132",
+    "comments":"5"
+  },
+  {
+    "rank":"10",
+    "title":"Waymo Safety Impact",
+    "url":"https:\/\/waymo.com\/safety\/impact\/",
+    "points":"173",
+    "comments":"3"
+  },
+  {
+    "rank":"11",
+    "title":"Clockwise acquired by Salesforce and shutting down next week",
+    "url":"https:\/\/www.getclockwise.com\/",
+    "points":"50",
+    "comments":"3"
+  },
+  {
+    "rank":"12",
+    "title":"Bombarding gamblers with offers greatly increases betting and gambling harm",
+    "url":"https:\/\/www.bristol.ac.uk\/news\/2026\/march\/bombarding-gamblers-with-offers-greatly-increases-betting-and-gambling-harm.html",
+    "points":"5",
+    "comments":"40"
+  },
+  {
+    "rank":"13",
+    "title":"From Oscilloscope to Wireshark: A UDP Story (2022)",
+    "url":"https:\/\/www.mattkeeter.com\/blog\/2022-08-11-udp\/",
+    "points":"66",
+    "comments":"4"
+  },
+  {
+    "rank":"14",
+    "title":"NanoGPT Slowrun: 10x Data Efficiency with Infinite Compute",
+    "url":"https:\/\/qlabs.sh\/10x",
+    "points":"82",
+    "comments":"4"
+  },
+  {
+    "rank":"15",
+    "title":"4Chan mocks \u00a3520k fine for UK online safety breaches",
+    "url":"https:\/\/www.bbc.com\/news\/articles\/c624330lg1ko",
+    "points":"223",
+    "comments":"8"
+  },
+  {
+    "rank":"16",
+    "title":"\u201cYour frustration is the product\u201d",
+    "url":"https:\/\/daringfireball.net\/2026\/03\/your_frustration_is_the_product",
+    "points":"387",
+    "comments":"12"
+  },
+  {
+    "rank":"17",
+    "title":"Launch HN: Voltair (YC W26) \u2013 Drone and charging network for power utilities",
+    "url":"https:\/\/news.ycombinator.com\/item?id=47442452",
+    "points":"43",
+    "comments":"6"
+  },
+  {
+    "rank":"18",
+    "title":"Scaling Karpathy's Autoresearch: What Happens When the Agent Gets a GPU Cluster",
+    "url":"https:\/\/blog.skypilot.co\/scaling-autoresearch\/",
+    "points":"109",
+    "comments":"6"
+  },
+  {
+    "rank":"19",
+    "title":"OpenBSD: PF queues break the 4 Gbps barrier",
+    "url":"https:\/\/undeadly.org\/cgi?action=article;sid=20260319125859",
+    "points":"175",
+    "comments":"9"
+  },
+  {
+    "rank":"20",
+    "title":"Juggalo makeup blocks facial recognition technology (2019)",
+    "url":"https:\/\/consequence.net\/2019\/07\/juggalo-makeup-facial-recognition\/",
+    "points":"216",
+    "comments":"10"
+  },
+  {
+    "rank":"21",
+    "title":"My Random Forest Was Mostly Learning Time-to-Expiry Noise",
+    "url":"https:\/\/illya.sh\/threads\/out-of-sample-permutation-feature-importance-for-random",
+    "points":"6",
+    "comments":"1"
+  },
+  {
+    "rank":"22",
+    "title":"Minecraft Source Code Is Interesting",
+    "url":"https:\/\/www.karanjanthe.me\/posts\/minecraft-source\/",
+    "points":"7",
+    "comments":"1"
+  },
+  {
+    "rank":"23",
+    "title":"An update on Steam \/ GOG changes for OpenTTD",
+    "url":"https:\/\/www.openttd.org\/news\/2026\/03\/19\/steam-changes-update",
+    "points":"248",
+    "comments":"6"
+  },
+  {
+    "rank":"24",
+    "title":"Android developer verification: Balancing openness and choice with safety",
+    "url":"https:\/\/android-developers.googleblog.com\/2026\/03\/android-developer-verification.html",
+    "points":"19",
+    "comments":"3"
+  },
+  {
+    "rank":"25",
+    "title":"Tesla: Failure of the FSD's degradation detection system [pdf]",
+    "url":"https:\/\/static.nhtsa.gov\/odi\/inv\/2026\/INOA-EA26002-10023.pdf",
+    "points":"143",
+    "comments":"3"
+  },
+  {
+    "rank":"26",
+    "title":"The Need for an Independent AI Grid",
+    "url":"https:\/\/amppublic.com\/",
+    "points":"12",
+    "comments":"2"
+  },
+  {
+    "rank":"27",
+    "title":"Xiaomi launches next-gen SU7 with 902 km range and Lidar, still undercuts Tesla",
+    "url":"https:\/\/electrek.co\/2026\/03\/19\/xiaomi-launches-next-gen-su7-902-km-range-undercuts-tesla\/",
+    "points":"55",
+    "comments":"2"
+  },
+  {
+    "rank":"28",
+    "title":"The Shape of Inequalities",
+    "url":"https:\/\/www.andreinc.net\/2026\/03\/16\/the-shape-of-inequalities\/",
+    "points":"88",
+    "comments":"9"
+  },
+  {
+    "rank":"29",
+    "title":"macOS 26 breaks custom DNS settings including .internal",
+    "url":"https:\/\/gist.github.com\/adamamyl\/81b78eced40feae50eae7c4f3bec1f5a",
+    "points":"302",
+    "comments":"8"
+  },
+  {
+    "rank":"30",
+    "title":"Connecticut and the 1 Kilometer Effect",
+    "url":"https:\/\/alearningaday.blog\/2026\/03\/19\/connecticut-and-the-1-kilometer-effect\/",
+    "points":"36",
+    "comments":"5"
+  }
+]

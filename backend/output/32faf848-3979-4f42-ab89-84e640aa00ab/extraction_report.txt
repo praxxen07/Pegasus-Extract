@@ -1,0 +1,8 @@
+PEGASUS EXTRACT — Extraction Report
+=====================================
+URL: https://books.toscrape.com/
+Pages: 1
+Records: 20
+Duplicates removed: 0
+Fields: ['title', 'price', 'rating']
+=====================================

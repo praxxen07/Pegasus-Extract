@@ -1,0 +1,7 @@
+PEGASUS EXTRACT — Extraction Report
+URL: https://webscraper.io/test-sites/e-commerce/allinone
+Pages processed: 1
+Records extracted: 3
+Fields: ['product_name', 'product_price', 'product_description', 'product_rating']
+Heal attempts needed: 0
+Status: SUCCESS

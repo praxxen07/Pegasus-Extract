@@ -1,0 +1,12 @@
+repo_name,author,description,language,stars_today
+opendataloader-pdf,opendataloader-project,PDF Parser for AI-ready data. Automate PDF accessibility. Open-source.,Java,1394
+open-swe,langchain-ai,An Open-Source Asynchronous Coding Agent,Python,955
+superpowers,obra,An agentic skills framework & software development methodology that works.,Shell,3476
+claude-hud,jarrodwatts,"A Claude Code plugin that shows what's happening - context usage, active tools, running agents, and todo progress",JavaScript,1851
+unsloth,unslothai,"Unified web UI for training and running open models like Qwen, DeepSeek, gpt-oss and Gemma locally.",Python,1259
+Maestro,mobile-dev-inc,Painless E2E Automation for Mobile and Web,Kotlin,468
+newton,newton-physics,"An open-source, GPU-accelerated physics simulation engine built upon NVIDIA Warp, specifically targeting roboticists and simulation researchers.",Python,345
+arnis,louis-e,Gene any location from the real world in Minecraft with a high level of detail.,Rust,918
+MoneyPrinterV2,FujiwaraChoki,Automate the process of making money online.,Python,257
+get-shit-done,gsd-build,"A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code by TÂCHES.",JavaScript,1414
+learn-claude-code,shareAI-lab,"Bash is all you need - A nano claude code–like 「agent harness」, built from 0 to 1",TypeScript,1458

@@ -1,0 +1,79 @@
+[
+  {
+    "repo_name":"opendataloader-pdf",
+    "author":"opendataloader-project",
+    "description":"PDF Parser for AI-ready data. Automate PDF accessibility. Open-source.",
+    "language":"Java",
+    "stars_today":"1394"
+  },
+  {
+    "repo_name":"open-swe",
+    "author":"langchain-ai",
+    "description":"An Open-Source Asynchronous Coding Agent",
+    "language":"Python",
+    "stars_today":"955"
+  },
+  {
+    "repo_name":"superpowers",
+    "author":"obra",
+    "description":"An agentic skills framework & software development methodology that works.",
+    "language":"Shell",
+    "stars_today":"3476"
+  },
+  {
+    "repo_name":"claude-hud",
+    "author":"jarrodwatts",
+    "description":"A Claude Code plugin that shows what's happening - context usage, active tools, running agents, and todo progress",
+    "language":"JavaScript",
+    "stars_today":"1851"
+  },
+  {
+    "repo_name":"unsloth",
+    "author":"unslothai",
+    "description":"Unified web UI for training and running open models like Qwen, DeepSeek, gpt-oss and Gemma locally.",
+    "language":"Python",
+    "stars_today":"1259"
+  },
+  {
+    "repo_name":"Maestro",
+    "author":"mobile-dev-inc",
+    "description":"Painless E2E Automation for Mobile and Web",
+    "language":"Kotlin",
+    "stars_today":"468"
+  },
+  {
+    "repo_name":"newton",
+    "author":"newton-physics",
+    "description":"An open-source, GPU-accelerated physics simulation engine built upon NVIDIA Warp, specifically targeting roboticists and simulation researchers.",
+    "language":"Python",
+    "stars_today":"345"
+  },
+  {
+    "repo_name":"arnis",
+    "author":"louis-e",
+    "description":"Gene any location from the real world in Minecraft with a high level of detail.",
+    "language":"Rust",
+    "stars_today":"918"
+  },
+  {
+    "repo_name":"MoneyPrinterV2",
+    "author":"FujiwaraChoki",
+    "description":"Automate the process of making money online.",
+    "language":"Python",
+    "stars_today":"257"
+  },
+  {
+    "repo_name":"get-shit-done",
+    "author":"gsd-build",
+    "description":"A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code by T\u00c2CHES.",
+    "language":"JavaScript",
+    "stars_today":"1414"
+  },
+  {
+    "repo_name":"learn-claude-code",
+    "author":"shareAI-lab",
+    "description":"Bash is all you need - A nano claude code\u2013like \u300cagent harness\u300d, built from 0 to 1",
+    "language":"TypeScript",
+    "stars_today":"1458"
+  }
+]

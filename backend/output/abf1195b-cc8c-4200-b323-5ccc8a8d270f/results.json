@@ -1,0 +1,57 @@
+[
+  {
+    "name":"opendataloader-project \/ opendataloader-pdf",
+    "stars":"1,394 stars today",
+    "description":"PDF Parser for AI-ready data. Automate PDF accessibility. Open-source."
+  },
+  {
+    "name":"langchain-ai \/ open-swe",
+    "stars":"955 stars today",
+    "description":"An Open-Source Asynchronous Coding Agent"
+  },
+  {
+    "name":"obra \/ superpowers",
+    "stars":"3,476 stars today",
+    "description":"An agentic skills framework & software development methodology that works."
+  },
+  {
+    "name":"jarrodwatts \/ claude-hud",
+    "stars":"1,851 stars today",
+    "description":"A Claude Code plugin that shows what's happening - context usage, active tools, running agents, and todo progress"
+  },
+  {
+    "name":"unslothai \/ unsloth",
+    "stars":"1,259 stars today",
+    "description":"Unified web UI for training and running open models like Qwen, DeepSeek, gpt-oss and Gemma locally."
+  },
+  {
+    "name":"mobile-dev-inc \/ Maestro",
+    "stars":"468 stars today",
+    "description":"Painless E2E Automation for Mobile and Web"
+  },
+  {
+    "name":"newton-physics \/ newton",
+    "stars":"345 stars today",
+    "description":"An open-source, GPU-accelerated physics simulation engine built upon NVIDIA Warp, specifically targeting roboticists and simulation researchers."
+  },
+  {
+    "name":"louis-e \/ arnis",
+    "stars":"918 stars today",
+    "description":"Generate any location from the real world in Minecraft with a high level of detail."
+  },
+  {
+    "name":"FujiwaraChoki \/ MoneyPrinterV2",
+    "stars":"257 stars today",
+    "description":"Automate the process of making money online."
+  },
+  {
+    "name":"gsd-build \/ get-shit-done",
+    "stars":"1,414 stars today",
+    "description":"A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code by T\u00c2CHES."
+  },
+  {
+    "name":"shareAI-lab \/ learn-claude-code",
+    "stars":"1,458 stars today",
+    "description":"Bash is all you need - A nano claude code\u2013like \u300cagent harness\u300d, built from 0 to 1"
+  }
+]

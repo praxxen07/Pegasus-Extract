@@ -1,0 +1,9 @@
+PEGASUS EXTRACT — Extraction Report
+=====================================
+URL: https://news.ycombinator.com/
+Pages: 1
+Records: 30
+Duplicates removed: 0
+Fields: ['rank', 'title', 'url', 'points', 'comments']
+Engine: LiveDOMExtractor + UniversalAdapter
+=====================================

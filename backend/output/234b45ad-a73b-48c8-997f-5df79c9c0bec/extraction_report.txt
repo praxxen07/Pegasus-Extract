@@ -1,0 +1,4 @@
+Records extracted: 0
+Failed pages: 0
+Success rate: 0.0%
+Duration seconds: 5

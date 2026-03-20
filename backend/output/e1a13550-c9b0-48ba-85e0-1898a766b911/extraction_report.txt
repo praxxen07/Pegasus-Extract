@@ -1,0 +1,9 @@
+PEGASUS EXTRACT — Extraction Report
+=====================================
+URL: https://quotes.toscrape.com/
+Pages: 10
+Records: 100
+Duplicates removed: 0
+Fields: ['quote', 'author', 'tags']
+Engine: LiveDOMExtractor + UniversalAdapter
+=====================================

@@ -1,0 +1,152 @@
+[
+  {
+    "title":"Astral to Join OpenAI",
+    "points":"975 points",
+    "link":"https:\/\/astral.sh\/blog\/openai"
+  },
+  {
+    "title":"Anthropic takes legal action against OpenCode",
+    "points":"54 points",
+    "link":"https:\/\/github.com\/anomalyco\/opencode\/pull\/18186"
+  },
+  {
+    "title":"An update on Steam \/ GOG changes for OpenTTD",
+    "points":"175 points",
+    "link":"https:\/\/www.openttd.org\/news\/2026\/03\/19\/steam-changes-update"
+  },
+  {
+    "title":"Show HN: Three new Kitten TTS models \u2013 smallest less than 25MB",
+    "points":"181 points",
+    "link":"https:\/\/github.com\/KittenML\/KittenTTS"
+  },
+  {
+    "title":"Noq: n0's new QUIC implementation in Rust",
+    "points":"70 points",
+    "link":"https:\/\/www.iroh.computer\/blog\/noq-announcement"
+  },
+  {
+    "title":"NanoGPT Slowrun: 10x Data Efficiency with Infinite Compute",
+    "points":"29 points",
+    "link":"https:\/\/qlabs.sh\/10x"
+  },
+  {
+    "title":"Return of the Obra Dinn: spherical mapped dithering for a 1bpp first-person game",
+    "points":"78 points",
+    "link":"https:\/\/forums.tigsource.com\/index.php?topic=40832.msg1363742#msg1363742"
+  },
+  {
+    "title":"Google details new 24-hour process to sideload unverified Android apps",
+    "points":"107 points",
+    "link":"https:\/\/arstechnica.com\/gadgets\/2026\/03\/google-details-new-24-hour-process-to-sideload-unverified-android-apps\/"
+  },
+  {
+    "title":"OpenBSD: PF queues break the 4 Gbps barrier",
+    "points":"153 points",
+    "link":"https:\/\/undeadly.org\/cgi?action=article;sid=20260319125859"
+  },
+  {
+    "title":"Juggalo makeup blocks facial recognition technology (2019)",
+    "points":"196 points",
+    "link":"https:\/\/consequence.net\/2019\/07\/juggalo-makeup-facial-recognition\/"
+  },
+  {
+    "title":"Scaling Karpathy's Autoresearch: What Happens When the Agent Gets a GPU Cluster",
+    "points":"56 points",
+    "link":"https:\/\/blog.skypilot.co\/scaling-autoresearch\/"
+  },
+  {
+    "title":"Launch HN: Voltair (YC W26) \u2013 Drone and charging network for power utilities",
+    "points":"29 points",
+    "link":"https:\/\/news.ycombinator.com\/item?id=47442452"
+  },
+  {
+    "title":"4Chan mocks \u00a3520k fine for UK online safety breaches",
+    "points":"118 points",
+    "link":"https:\/\/www.bbc.com\/news\/articles\/c624330lg1ko"
+  },
+  {
+    "title":"World Happiness Report 2026",
+    "points":"89 points",
+    "link":"https:\/\/www.worldhappiness.report\/ed\/2026\/"
+  },
+  {
+    "title":"From Oscilloscope to Wireshark: A UDP Story",
+    "points":"8 points",
+    "link":"https:\/\/www.mattkeeter.com\/blog\/2022-08-11-udp\/"
+  },
+  {
+    "title":"The Shape of Inequalities",
+    "points":"77 points",
+    "link":"https:\/\/www.andreinc.net\/2026\/03\/16\/the-shape-of-inequalities\/"
+  },
+  {
+    "title":"macOS 26 breaks custom DNS settings including .internal",
+    "points":"241 points",
+    "link":"https:\/\/gist.github.com\/adamamyl\/81b78eced40feae50eae7c4f3bec1f5a"
+  },
+  {
+    "title":"I turned Markdown into a protocol for generative UI",
+    "points":"46 points",
+    "link":"https:\/\/fabian-kuebler.com\/posts\/markdown-agentic-ui\/"
+  },
+  {
+    "title":"Launch HN: Canary (YC W26) \u2013 AI QA that understands your code",
+    "points":"21 points",
+    "link":"https:\/\/news.ycombinator.com\/item?id=47441629"
+  },
+  {
+    "title":"Prompt Injecting Contributing.md",
+    "points":"78 points",
+    "link":"https:\/\/glama.ai\/blog\/2026-03-19-open-source-has-a-bot-problem"
+  },
+  {
+    "title":"How to defer US taxes",
+    "points":"99 points",
+    "link":"https:\/\/taylor.town\/succession-000"
+  },
+  {
+    "title":"A rogue AI led to a serious security incident at Meta",
+    "points":"57 points",
+    "link":"https:\/\/www.theverge.com\/ai-artificial-intelligence\/897528\/meta-rogue-ai-agent-security-incident"
+  },
+  {
+    "title":"Connecticut and the 1 Kilometer Effect",
+    "points":"19 points",
+    "link":"https:\/\/alearningaday.blog\/2026\/03\/19\/connecticut-and-the-1-kilometer-effect\/"
+  },
+  {
+    "title":"Afroman found not liable in defamation case",
+    "points":"987 points",
+    "link":"https:\/\/nypost.com\/2026\/03\/18\/us-news\/afroman-found-not-liable-in-bizarre-ohio-defamation-case\/"
+  },
+  {
+    "title":"Show HN: I built a P2P network where AI agents publish formally verified science",
+    "points":"16 points",
+    "link":"https:\/\/news.ycombinator.com\/item?id=47444212"
+  },
+  {
+    "title":"What if Python was natively distributable?",
+    "points":"49 points",
+    "link":"https:\/\/medium.com\/@bzurak\/what-if-python-was-natively-distributable-3bfae485a408"
+  },
+  {
+    "title":"Hyper-optimized reverse geocoding API",
+    "points":"48 points",
+    "link":"https:\/\/github.com\/traccar\/traccar-geocoder"
+  },
+  {
+    "title":"Consensus Board Game",
+    "points":"65 points",
+    "link":"https:\/\/matklad.github.io\/2026\/03\/19\/consensus-board-game.html"
+  },
+  {
+    "title":"Conway's Game of Life, in real life",
+    "points":"303 points",
+    "link":"https:\/\/lcamtuf.substack.com\/p\/conways-game-of-life-in-real-life"
+  },
+  {
+    "title":"Ramtrack.eu \u2013 RAM Price Intelligence",
+    "points":"71 points",
+    "link":"https:\/\/ramtrack.eu"
+  }
+]

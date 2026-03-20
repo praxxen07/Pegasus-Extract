@@ -1,0 +1,152 @@
+[
+  {
+    "title":"Astral to Join OpenAI",
+    "points":"917 points",
+    "link":"https:\/\/astral.sh\/blog\/openai"
+  },
+  {
+    "title":"An update on Steam \/ GOG changes for OpenTTD",
+    "points":"121 points",
+    "link":"https:\/\/www.openttd.org\/news\/2026\/03\/19\/steam-changes-update"
+  },
+  {
+    "title":"Show HN: Three new Kitten TTS models \u2013 smallest less than 25MB",
+    "points":"152 points",
+    "link":"https:\/\/github.com\/KittenML\/KittenTTS"
+  },
+  {
+    "title":"Noq: n0's new QUIC implementation in Rust",
+    "points":"44 points",
+    "link":"https:\/\/www.iroh.computer\/blog\/noq-announcement"
+  },
+  {
+    "title":"Return of the Obra Dinn: spherical mapped dithering for a 1bpp first-person game",
+    "points":"45 points",
+    "link":"https:\/\/forums.tigsource.com\/index.php?topic=40832.msg1363742#msg1363742"
+  },
+  {
+    "title":"OpenBSD: PF queues break the 4 Gbps barrier",
+    "points":"144 points",
+    "link":"https:\/\/undeadly.org\/cgi?action=article;sid=20260319125859"
+  },
+  {
+    "title":"Juggalo Makeup Blocks Facial Recognition Technology (2019)",
+    "points":"191 points",
+    "link":"https:\/\/consequence.net\/2019\/07\/juggalo-makeup-facial-recognition\/"
+  },
+  {
+    "title":"World Happiness Report 2026",
+    "points":"71 points",
+    "link":"https:\/\/www.worldhappiness.report\/ed\/2026\/"
+  },
+  {
+    "title":"Launch HN: Voltair (YC W26) \u2013 Drone and charging network for power utilities",
+    "points":"22 points",
+    "link":"https:\/\/news.ycombinator.com\/item?id=47442452"
+  },
+  {
+    "title":"The Shape of Inequalities",
+    "points":"71 points",
+    "link":"https:\/\/www.andreinc.net\/2026\/03\/16\/the-shape-of-inequalities\/"
+  },
+  {
+    "title":"Scaling Karpathy's Autoresearch: What Happens When the Agent Gets a GPU Cluster",
+    "points":"43 points",
+    "link":"https:\/\/blog.skypilot.co\/scaling-autoresearch\/"
+  },
+  {
+    "title":"macOS 26 breaks custom DNS settings including .internal",
+    "points":"222 points",
+    "link":"https:\/\/gist.github.com\/adamamyl\/81b78eced40feae50eae7c4f3bec1f5a"
+  },
+  {
+    "title":"NanoGPT Slowrun: 10x Data Efficiency with Infinite Compute",
+    "points":"6 points",
+    "link":"https:\/\/qlabs.sh\/10x"
+  },
+  {
+    "title":"I turned Markdown into a protocol for generative UI",
+    "points":"33 points",
+    "link":"https:\/\/fabian-kuebler.com\/posts\/markdown-agentic-ui\/"
+  },
+  {
+    "title":"Prompt Injecting Contributing.md",
+    "points":"68 points",
+    "link":"https:\/\/glama.ai\/blog\/2026-03-19-open-source-has-a-bot-problem"
+  },
+  {
+    "title":"Show HN: I built a P2P network where AI agents publish formally verified science",
+    "points":"6 points",
+    "link":"https:\/\/news.ycombinator.com\/item?id=47444212"
+  },
+  {
+    "title":"A rogue AI led to a serious security incident at Meta",
+    "points":"22 points",
+    "link":"https:\/\/www.theverge.com\/ai-artificial-intelligence\/897528\/meta-rogue-ai-agent-security-incident"
+  },
+  {
+    "title":"Launch HN: Canary (YC W26) \u2013 AI QA that understands your code",
+    "points":"18 points",
+    "link":"https:\/\/news.ycombinator.com\/item?id=47441629"
+  },
+  {
+    "title":"Afroman found not liable in defamation case",
+    "points":"950 points",
+    "link":"https:\/\/nypost.com\/2026\/03\/18\/us-news\/afroman-found-not-liable-in-bizarre-ohio-defamation-case\/"
+  },
+  {
+    "title":"What if Python was natively distributable?",
+    "points":"44 points",
+    "link":"https:\/\/medium.com\/@bzurak\/what-if-python-was-natively-distributable-3bfae485a408"
+  },
+  {
+    "title":"Hyper-optimized reverse geocoding API",
+    "points":"43 points",
+    "link":"https:\/\/github.com\/traccar\/traccar-geocoder"
+  },
+  {
+    "title":"4Chan mocks \u00a3520k fine for UK online safety breaches",
+    "points":"90 points",
+    "link":"https:\/\/www.bbc.com\/news\/articles\/c624330lg1ko"
+  },
+  {
+    "title":"How to Not Pay Your Taxes",
+    "points":"79 points",
+    "link":"https:\/\/taylor.town\/succession-000"
+  },
+  {
+    "title":"Consensus Board Game",
+    "points":"62 points",
+    "link":"https:\/\/matklad.github.io\/2026\/03\/19\/consensus-board-game.html"
+  },
+  {
+    "title":"Connecticut and the 1 Kilometer Effect",
+    "points":"13 points",
+    "link":"https:\/\/alearningaday.blog\/2026\/03\/19\/connecticut-and-the-1-kilometer-effect\/"
+  },
+  {
+    "title":"Show HN: Dumped Wix for an AI Edge agent so I never have to hire junior staff",
+    "points":"10 points",
+    "link":"https:\/\/news.ycombinator.com\/item?id=47441587"
+  },
+  {
+    "title":"Conway's Game of Life, in real life",
+    "points":"297 points",
+    "link":"https:\/\/lcamtuf.substack.com\/p\/conways-game-of-life-in-real-life"
+  },
+  {
+    "title":"Ramtrack.eu \u2013 RAM Price Intelligence",
+    "points":"63 points",
+    "link":"https:\/\/ramtrack.eu"
+  },
+  {
+    "title":"Monuses and Heaps",
+    "points":"14 points",
+    "link":"https:\/\/doisinkidney.com\/posts\/2026-03-03-monus-heaps.html"
+  },
+  {
+    "title":"Eniac, the First General-Purpose Digital Computer, Turns 80",
+    "points":"100 points",
+    "link":"https:\/\/spectrum.ieee.org\/eniac-80-ieee-milestone"
+  }
+]

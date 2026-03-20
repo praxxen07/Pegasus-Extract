@@ -1,0 +1,17 @@
+[
+  {
+    "name":"Dell XPS 13",
+    "price":"$1281.99",
+    "description":"13.3\" Touch, Core i5-4210U, 8GB, 128GB SSD, Windows 8.1"
+  },
+  {
+    "name":"IdeaTab A3500L",
+    "price":"$88.99",
+    "description":"Black, 7\" IPS, Quad-Core 1.2GHz, 8GB, Android 4.2"
+  },
+  {
+    "name":"Asus AsusPro A...",
+    "price":"$1139.54",
+    "description":"Asus AsusPro Advanced BU401LA-FA271G Dark Grey, 14\", Core i5-4210U, 4GB, 128GB SSD, Win7 Pro 64bit, ENG"
+  }
+]

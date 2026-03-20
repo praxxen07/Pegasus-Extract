@@ -1,0 +1,9 @@
+PEGASUS EXTRACT — Extraction Report
+=====================================
+URL: https://github.com/trending
+Pages: 1
+Records: 11
+Duplicates removed: 0
+Fields: ['repo_name', 'author', 'description', 'language', 'stars_today']
+Engine: LiveDOMExtractor + UniversalAdapter
+=====================================

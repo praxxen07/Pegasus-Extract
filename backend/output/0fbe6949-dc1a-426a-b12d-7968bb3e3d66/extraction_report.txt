@@ -1,0 +1,7 @@
+PEGASUS EXTRACT — Extraction Report
+URL: https://books.toscrape.com/
+Pages processed: 1
+Records extracted: 20
+Fields: ['title', 'price', 'rating']
+Heal attempts needed: 0
+Status: SUCCESS

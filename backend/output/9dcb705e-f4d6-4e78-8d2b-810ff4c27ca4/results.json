@@ -1,0 +1,22 @@
+[
+  {
+    "name":"Samsung Galaxy",
+    "price":"$93.99",
+    "description":"5 mpx. Android 5.0 | 3 reviews"
+  },
+  {
+    "name":"",
+    "price":"$93.99 | $1179 | $408.98",
+    "description":"CLOUD SCRAPER | PRICING | MARKETPLACE | LEARN | Welcome to WebScraper e-commerce site. You can use this site for training to learn how to use the Web Scraper. Items listed here are not for sale. | 5 mpx. Android 5.0 | 3 reviews | MSI GS63 7RD Stealth, 15.6\" FHD IPS, Core i7-7700HQ, 8GB, 256GB SSD, GeForce GTX 1050 2GB, DOS + Windows 10 Home | 2 reviews"
+  },
+  {
+    "name":"MSI GS63 7RD S...",
+    "price":"$1179",
+    "description":"MSI GS63 7RD Stealth, 15.6\" FHD IPS, Core i7-7700HQ, 8GB, 256GB SSD, GeForce GTX 1050 2GB, DOS + Windows 10 Home | 2 reviews"
+  },
+  {
+    "name":"Acer Aspire 3...",
+    "price":"$408.98",
+    "description":"Acer Aspire 3 A315-31 Black, 15.6\" HD, Pentium N4200 1.1GHz, 4GB, 128GB SSD, Windows 10 Home | 10 reviews"
+  }
+]

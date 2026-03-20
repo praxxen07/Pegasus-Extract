@@ -1,0 +1,7 @@
+PEGASUS EXTRACT — Extraction Report
+URL: https://quotes.toscrape.com/
+Pages processed: 2
+Records extracted: 20
+Fields: ['quote', 'author', 'tags']
+Heal attempts needed: 0
+Status: SUCCESS
