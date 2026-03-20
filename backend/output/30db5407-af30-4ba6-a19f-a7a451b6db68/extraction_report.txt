@@ -1,0 +1,9 @@
+PEGASUS EXTRACT — Extraction Report
+=====================================
+URL: https://www.worldometers.info/world-population/population-by-country/
+Pages: 1
+Records: 234
+Duplicates removed: 0
+Fields: ['country name', 'population', 'yearly change', 'net change', 'density', 'land area', 'migrants', 'fertility rate', 'median age', 'urban population percentage', 'world share percentage']
+Engine: LiveDOMExtractor + UniversalAdapter
+=====================================

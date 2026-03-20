@@ -31,75 +31,7 @@ class AIProvider:
         user_prompt: str,
         json_mode: bool = False,
     ) -> dict:
-        # ── 1. DeepSeek direct API (top priority — paid, reliable, great at code) ──
-        if self.deepseek_key:
-            try:
-                from openai import OpenAI
-
-                client = OpenAI(
-                    base_url="https://api.deepseek.com",
-                    api_key=self.deepseek_key,
-                )
-
-                messages = [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
-                ]
-                kwargs: dict = {
-                    "model": "deepseek-chat",
-                    "messages": messages,
-                    "max_tokens": 4096,
-                    "temperature": 0.1,
-                }
-                if json_mode:
-                    kwargs["response_format"] = {"type": "json_object"}
-
-                response = client.chat.completions.create(**kwargs)
-                text = response.choices[0].message.content
-                log.info("DeepSeek answered successfully")
-                return {"text": text, "provider": "deepseek"}
-            except Exception as e:  # noqa: BLE001
-                log.warning(f"DeepSeek failed: {e} — trying OpenRouter")
-
-        # ── 2. OpenRouter (multiple free models) ──
-        if self.openrouter_key:
-            try:
-                from openai import OpenAI
-
-                client = OpenAI(
-                    base_url="https://openrouter.ai/api/v1",
-                    api_key=self.openrouter_key,
-                )
-
-                messages = [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
-                ]
-
-                for model_id in self.OPENROUTER_MODELS:
-                    try:
-                        kwargs: dict = {
-                            "model": model_id,
-                            "messages": messages,
-                            "max_tokens": 4096,
-                            "temperature": 0.1,
-                        }
-                        if json_mode:
-                            kwargs["response_format"] = {"type": "json_object"}
-
-                        response = client.chat.completions.create(**kwargs)
-                        text = response.choices[0].message.content
-                        log.info(f"OpenRouter ({model_id}) answered successfully")
-                        return {"text": text, "provider": f"openrouter/{model_id}"}
-                    except Exception as model_err:  # noqa: BLE001
-                        log.warning(f"OpenRouter {model_id} failed: {model_err}")
-                        continue
-
-                log.warning("All OpenRouter models failed — trying Groq")
-            except Exception as e:  # noqa: BLE001
-                log.warning(f"OpenRouter setup failed: {e} — trying Groq")
-
-        # ── 3. Fallback to Groq ──
+        # ── 1. Try Groq first ──
         if self.groq_key:
             try:
                 from groq import Groq
@@ -142,6 +74,74 @@ class AIProvider:
                     log.error(f"Groq failed: {e}")
             except Exception as e:  # noqa: BLE001
                 log.error(f"Groq also failed: {e}")
+
+        # ── 2. DeepSeek direct API ──
+        if self.deepseek_key:
+            try:
+                from openai import OpenAI
+
+                client = OpenAI(
+                    base_url="https://api.deepseek.com",
+                    api_key=self.deepseek_key,
+                )
+
+                messages = [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ]
+                kwargs: dict = {
+                    "model": "deepseek-chat",
+                    "messages": messages,
+                    "max_tokens": 4096,
+                    "temperature": 0.1,
+                }
+                if json_mode:
+                    kwargs["response_format"] = {"type": "json_object"}
+
+                response = client.chat.completions.create(**kwargs)
+                text = response.choices[0].message.content
+                log.info("DeepSeek answered successfully")
+                return {"text": text, "provider": "deepseek"}
+            except Exception as e:  # noqa: BLE001
+                log.warning(f"DeepSeek failed: {e} — trying OpenRouter")
+
+        # ── 3. OpenRouter (multiple free models) ──
+        if self.openrouter_key:
+            try:
+                from openai import OpenAI
+
+                client = OpenAI(
+                    base_url="https://openrouter.ai/api/v1",
+                    api_key=self.openrouter_key,
+                )
+
+                messages = [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ]
+
+                for model_id in self.OPENROUTER_MODELS:
+                    try:
+                        kwargs: dict = {
+                            "model": model_id,
+                            "messages": messages,
+                            "max_tokens": 4096,
+                            "temperature": 0.1,
+                        }
+                        if json_mode:
+                            kwargs["response_format"] = {"type": "json_object"}
+
+                        response = client.chat.completions.create(**kwargs)
+                        text = response.choices[0].message.content
+                        log.info(f"OpenRouter ({model_id}) answered successfully")
+                        return {"text": text, "provider": f"openrouter/{model_id}"}
+                    except Exception as model_err:  # noqa: BLE001
+                        log.warning(f"OpenRouter {model_id} failed: {model_err}")
+                        continue
+
+                log.warning("All OpenRouter models failed — trying Claude")
+            except Exception as e:  # noqa: BLE001
+                log.warning(f"OpenRouter setup failed: {e} — trying Claude")
 
         # ── 4. Last resort: Claude direct ──
         if self.anthropic_key:
