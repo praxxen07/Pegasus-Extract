@@ -8,6 +8,14 @@ import pandas as pd
 from playwright.async_api import async_playwright
 
 from engine.live_dom_extractor import LiveDOMExtractor
+from engine.multi_level_crawler import MultiLevelCrawler
+from engine.stealth_browser import (
+    create_stealth_context,
+    gentle_scroll_to_load,
+    launch_stealth_browser,
+    new_stealth_page,
+    validate_and_retry,
+)
 from engine.universal_adapter import UniversalAdapter
 
 log = logging.getLogger("PegasusExtract")
@@ -66,12 +74,23 @@ async def _smart_load_page(page, url: str, browser_config: dict) -> None:
     # ── Wait for bot challenges (AWS WAF, Cloudflare) to resolve ──
     # These inject JS that refreshes/redirects after verification.
     # We poll until real content appears or timeout after ~30s.
+    # NOTE: page.evaluate() can fail if the page navigates mid-poll
+    # (execution context destroyed). We catch and retry after settling.
     for wait_round in range(15):
-        body_len = await page.evaluate("(document.body.innerText || '').length")
-        title = await page.evaluate("document.title || ''")
-        page_html_sample = await page.evaluate(
-            "document.documentElement.outerHTML.substring(0, 500)"
-        )
+        try:
+            body_len = await page.evaluate("(document.body.innerText || '').length")
+            title = await page.evaluate("document.title || ''")
+            page_html_sample = await page.evaluate(
+                "document.documentElement.outerHTML.substring(0, 500)"
+            )
+        except Exception:
+            # Page navigated/refreshed — context destroyed. Wait and retry.
+            await page.wait_for_timeout(2000)
+            try:
+                await page.wait_for_load_state("domcontentloaded", timeout=10000)
+            except Exception:
+                pass
+            continue
 
         is_challenge = (
             "AwsWafIntegration" in page_html_sample
@@ -79,6 +98,8 @@ async def _smart_load_page(page, url: str, browser_config: dict) -> None:
             or "cf-challenge" in page_html_sample
             or "_cf_chl" in page_html_sample
             or "Just a moment" in title
+            or "something is missing" in title.lower()
+            or "oops" in title.lower()
         )
 
         if not is_challenge and body_len > 200:
@@ -103,34 +124,43 @@ async def _smart_load_page(page, url: str, browser_config: dict) -> None:
             pass
     else:
         # After all waits, log final state
-        body_len = await page.evaluate("(document.body.innerText || '').length")
-        title = await page.evaluate("document.title || ''")
-        log.warning(
-            f"Page may still be blocked after 30s wait: "
-            f"title='{title}', bodyText={body_len} chars"
-        )
+        try:
+            body_len = await page.evaluate("(document.body.innerText || '').length")
+            title = await page.evaluate("document.title || ''")
+            log.warning(
+                f"Page may still be blocked after 30s wait: "
+                f"title='{title}', bodyText={body_len} chars"
+            )
+        except Exception:
+            log.warning("Page may still be blocked after 30s wait (context destroyed)")
 
     # Extra settle time for JS rendering after challenge passes
     await page.wait_for_timeout(2000)
 
     # Scroll to trigger lazy loading — essential for many modern sites
     if browser_config.get("scroll_to_load", True):
-        prev_h = 0
-        for _ in range(20):
-            h = await page.evaluate("document.body.scrollHeight")
-            if h == prev_h:
-                break
-            await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-            await page.wait_for_timeout(800)
-            prev_h = h
-        # Scroll back to top
-        await page.evaluate("window.scrollTo(0, 0)")
-        await page.wait_for_timeout(1000)
+        try:
+            prev_h = 0
+            for _ in range(20):
+                h = await page.evaluate("document.body.scrollHeight")
+                if h == prev_h:
+                    break
+                await page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                await page.wait_for_timeout(800)
+                prev_h = h
+            # Scroll back to top
+            await page.evaluate("window.scrollTo(0, 0)")
+            await page.wait_for_timeout(1000)
+        except Exception as e:
+            log.warning(f"Scroll-to-load failed (page may have navigated): {e}")
 
     # Final diagnostic
-    body_len = await page.evaluate("(document.body.innerText || '').length")
-    title = await page.evaluate("document.title")
-    log.info(f"Page fully loaded: title='{title}', bodyText={body_len} chars")
+    try:
+        body_len = await page.evaluate("(document.body.innerText || '').length")
+        title = await page.evaluate("document.title")
+        log.info(f"Page fully loaded: title='{title}', bodyText={body_len} chars")
+    except Exception:
+        log.warning("Could not read final page state (context may have been destroyed)")
 
 
 async def run_extraction(
@@ -160,149 +190,157 @@ async def run_extraction(
     adapter = UniversalAdapter(plan)
 
     async with async_playwright() as p:
-        exe = _resolve_chromium_executable()
-        launch_kwargs: Dict[str, Any] = {
-            "headless": True,
-            "args": [
-                "--no-sandbox",
-                "--disable-setuid-sandbox",
-                "--disable-blink-features=AutomationControlled",
-                "--disable-dev-shm-usage",
-                "--window-size=1440,900",
-            ],
-        }
-        if exe:
-            launch_kwargs["executable_path"] = exe
-        browser = await p.chromium.launch(**launch_kwargs)
-        context = await browser.new_context(
-            user_agent=(
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/124.0.0.0 Safari/537.36"
-            ),
-            viewport={"width": 1440, "height": 900},
-            locale="en-US",
-            timezone_id="America/New_York",
-            extra_http_headers={
-                "Accept-Language": "en-US,en;q=0.9",
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                "Sec-Fetch-Site": "none",
-                "Sec-Fetch-Mode": "navigate",
-                "Sec-Fetch-User": "?1",
-                "Sec-Fetch-Dest": "document",
-            },
+        browser = await launch_stealth_browser(p)
+        context = await create_stealth_context(browser)
+
+        # ── Check if AI recommends multi-level crawling ──
+        multilevel_crawler = MultiLevelCrawler()
+        crawl_plan = None
+        probe_page = await new_stealth_page(context)
+        try:
+            await _smart_load_page(probe_page, target_url, browser_config)
+            crawl_plan = await multilevel_crawler.get_crawl_plan(probe_page, description)
+        except Exception as e:
+            log.warning(f"CrawlPlan probe failed: {e}")
+        finally:
+            await probe_page.close()
+
+        is_multilevel = (
+            crawl_plan is not None
+            and crawl_plan.get("strategy") == "multilevel"
         )
 
-        # Comprehensive anti-bot stealth
-        await context.add_init_script(
-            """
-            // Hide webdriver flag
-            Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
-            // Fake chrome runtime
-            window.chrome = { runtime: {}, loadTimes: function(){}, csi: function(){} };
-            // Fake plugins
-            Object.defineProperty(navigator, 'plugins', {
-                get: () => [1, 2, 3, 4, 5]
-            });
-            // Fake languages
-            Object.defineProperty(navigator, 'languages', {
-                get: () => ['en-US', 'en']
-            });
-            // Remove automation indicators
-            delete window.__playwright;
-            delete window.__pw_manual;
-            // Fake permissions
-            const originalQuery = window.navigator.permissions.query;
-            window.navigator.permissions.query = (parameters) => (
-                parameters.name === 'notifications' ?
-                    Promise.resolve({ state: Notification.permission }) :
-                    originalQuery(parameters)
-            );
-            """
-        )
-
-        # Build URL queue
-        input_records = adapter.get_input_records()
-        ptype = adapter.pagination.get("type", "none")
-        use_dynamic = ptype in ("none", "next_button", "infinite_scroll")
-
-        if use_dynamic:
-            urls_queue = [input_records[0]["url"]] if input_records else [target_url]
-        else:
-            urls_queue = [r["url"] for r in input_records]
-
-        visited: set[str] = set()
-
-        while urls_queue and current_page <= max_pages:
-            url = urls_queue.pop(0)
-            if url in visited:
-                continue
-            visited.add(url)
-
-            await progress_callback(
-                job_id,
-                int(current_page / max_pages * 80),
-                f"Page {current_page}/{max_pages} — loading {url}",
-                len(all_results),
+        if is_multilevel:
+            # ── MULTI-LEVEL PATH ──
+            log.info("Strategy: MULTILEVEL — executing crawl plan")
+            all_results = await multilevel_crawler.run(
+                context=context,
+                plan=plan,
+                crawl_plan=crawl_plan,
+                start_url=target_url,
+                description=description,
+                field_names=field_names,
+                max_pages=max_pages,
+                progress_callback=progress_callback,
+                job_id=job_id,
             )
+        else:
+            # ── SINGLE-LEVEL PATH (existing flow — unchanged) ──
+            log.info("Strategy: SINGLE — using LiveDOMExtractor")
 
-            page = await context.new_page()
-            try:
-                # ── Smart page load ──
-                await _smart_load_page(page, url, browser_config)
+            # Build URL queue
+            input_records = adapter.get_input_records()
+            ptype = adapter.pagination.get("type", "none")
+            use_dynamic = ptype in ("none", "next_button", "infinite_scroll")
+
+            if use_dynamic:
+                urls_queue = [input_records[0]["url"]] if input_records else [target_url]
+            else:
+                urls_queue = [r["url"] for r in input_records]
+
+            visited: set[str] = set()
+
+            while urls_queue and current_page <= max_pages:
+                url = urls_queue.pop(0)
+                if url in visited:
+                    continue
+                visited.add(url)
 
                 await progress_callback(
                     job_id,
-                    int(current_page / max_pages * 85),
-                    f"Page {current_page}/{max_pages} — inspecting DOM",
+                    int(current_page / max_pages * 80),
+                    f"Page {current_page}/{max_pages} — loading {url}",
                     len(all_results),
                 )
 
-                # ── PRIMARY ENGINE: LiveDOMExtractor ──
-                log.info(f"Page {current_page}: LiveDOMExtractor starting on {url}")
-                results = await live_extractor.extract(
-                    page, url, plan_fields=fields_config
-                )
+                page = await new_stealth_page(context)
+                try:
+                    # ── Smart page load ──
+                    await _smart_load_page(page, url, browser_config)
 
-                # ── FALLBACK: UniversalAdapter (if primary got 0 results) ──
-                if not results:
-                    log.info(
-                        f"Page {current_page}: LiveDOM got 0 — trying UniversalAdapter"
+                    # ── Generic page validation (bot wall detection) ──
+                    page_valid, val_reason = await validate_and_retry(
+                        page, url, browser_config
                     )
+                    if not page_valid:
+                        log.warning(
+                            f"Page {current_page}: skipping {url} — {val_reason}"
+                        )
+                        continue
+
                     await progress_callback(
                         job_id,
-                        int(current_page / max_pages * 88),
-                        f"Page {current_page}/{max_pages} — fallback extraction",
+                        int(current_page / max_pages * 85),
+                        f"Page {current_page}/{max_pages} — inspecting DOM",
                         len(all_results),
                     )
-                    # Re-load page for adapter (it has its own load logic)
-                    results = await adapter.extract_page(
-                        page,
-                        {"url": url, "page_num": current_page},
+
+                    # ── PRIMARY ENGINE: LiveDOMExtractor ──
+                    log.info(f"Page {current_page}: LiveDOMExtractor starting on {url}")
+                    results = await live_extractor.extract(
+                        page, url, plan_fields=fields_config
                     )
 
-                if results:
-                    all_results.extend(results)
-                    log.info(
-                        f"Page {current_page}: {len(results)} records. "
-                        f"Total: {len(all_results)}"
-                    )
-                else:
-                    log.warning(f"Page {current_page}: 0 records from {url}")
+                    # ── Gentle scroll retry for lazy-load pages ──
+                    if not results:
+                        body_len = await page.evaluate(
+                            "(document.body.innerText || '').length"
+                        )
+                        if body_len < 15000:
+                            log.info(
+                                f"Page {current_page}: 0 results + thin body "
+                                f"({body_len} chars) — trying gentle scroll"
+                            )
+                            loaded = await gentle_scroll_to_load(page)
+                            if loaded > 0:
+                                results = await live_extractor.extract(
+                                    page, url, plan_fields=fields_config
+                                )
+                                if results:
+                                    log.info(
+                                        f"Page {current_page}: scroll loaded "
+                                        f"{len(results)} records"
+                                    )
 
-                # Discover next page
-                if use_dynamic and current_page < max_pages:
-                    next_url = await adapter.get_next_url(page, current_page)
-                    if next_url and next_url not in visited:
-                        urls_queue.append(next_url)
-                        log.info(f"Next page: {next_url}")
-            except Exception as e:
-                log.error(f"Page {current_page} error: {e}")
-            finally:
-                await page.close()
+                    # ── FALLBACK: UniversalAdapter (if primary got 0 results) ──
+                    if not results:
+                        log.info(
+                            f"Page {current_page}: LiveDOM got 0 — trying UniversalAdapter"
+                        )
+                        await progress_callback(
+                            job_id,
+                            int(current_page / max_pages * 88),
+                            f"Page {current_page}/{max_pages} — fallback extraction",
+                            len(all_results),
+                        )
+                        # Re-load page for adapter (it has its own load logic)
+                        results = await adapter.extract_page(
+                            page,
+                            {"url": url, "page_num": current_page},
+                        )
 
-            current_page += 1
-            await asyncio.sleep(1.0)
+                    if results:
+                        all_results.extend(results)
+                        log.info(
+                            f"Page {current_page}: {len(results)} records. "
+                            f"Total: {len(all_results)}"
+                        )
+                    else:
+                        log.warning(f"Page {current_page}: 0 records from {url}")
+
+                    # Discover next page
+                    if use_dynamic and current_page < max_pages:
+                        next_url = await adapter.get_next_url(page, current_page)
+                        if next_url and next_url not in visited:
+                            urls_queue.append(next_url)
+                            log.info(f"Next page: {next_url}")
+                except Exception as e:
+                    log.error(f"Page {current_page} error: {e}")
+                finally:
+                    await page.close()
+
+                current_page += 1
+                await asyncio.sleep(1.0)
 
         await browser.close()
 

@@ -11,6 +11,7 @@ log = logging.getLogger("PegasusExtract")
 
 class AIProvider:
     def __init__(self):
+        self.gemini_key = os.getenv("GEMINI_API_KEY", "")
         self.deepseek_key = os.getenv("DEEPSEEK_API_KEY", "")
         self.anthropic_key = os.getenv("ANTHROPIC_API_KEY", "")
         self.groq_key = os.getenv("GROQ_API_KEY", "")
@@ -31,7 +32,37 @@ class AIProvider:
         user_prompt: str,
         json_mode: bool = False,
     ) -> dict:
-        # ── 1. Try Groq first ──
+        # ── 1. Try Gemini 2.0 Flash first (1M tokens/day free) ──
+        if self.gemini_key:
+            try:
+                from openai import OpenAI
+
+                client = OpenAI(
+                    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+                    api_key=self.gemini_key,
+                )
+
+                messages = [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
+                ]
+                kwargs: dict = {
+                    "model": "gemini-2.0-flash",
+                    "messages": messages,
+                    "max_tokens": 4096,
+                    "temperature": 0.1,
+                }
+                if json_mode:
+                    kwargs["response_format"] = {"type": "json_object"}
+
+                response = client.chat.completions.create(**kwargs)
+                text = response.choices[0].message.content
+                log.info("Gemini 2.0 Flash answered successfully")
+                return {"text": text, "provider": "gemini"}
+            except Exception as e:  # noqa: BLE001
+                log.warning(f"Gemini failed: {e}")
+
+        # ── 2. Try Groq ──
         if self.groq_key:
             try:
                 from groq import Groq
@@ -75,7 +106,7 @@ class AIProvider:
             except Exception as e:  # noqa: BLE001
                 log.error(f"Groq also failed: {e}")
 
-        # ── 2. DeepSeek direct API ──
+        # ── 3. DeepSeek direct API ──
         if self.deepseek_key:
             try:
                 from openai import OpenAI
@@ -105,7 +136,7 @@ class AIProvider:
             except Exception as e:  # noqa: BLE001
                 log.warning(f"DeepSeek failed: {e} — trying OpenRouter")
 
-        # ── 3. OpenRouter (multiple free models) ──
+        # ── 4. OpenRouter (multiple free models) ──
         if self.openrouter_key:
             try:
                 from openai import OpenAI
@@ -143,7 +174,7 @@ class AIProvider:
             except Exception as e:  # noqa: BLE001
                 log.warning(f"OpenRouter setup failed: {e} — trying Claude")
 
-        # ── 4. Last resort: Claude direct ──
+        # ── 5. Last resort: Claude direct ──
         if self.anthropic_key:
             try:
                 import anthropic
@@ -168,6 +199,7 @@ class AIProvider:
 
     def status(self):
         return {
+            "gemini": bool(self.gemini_key),
             "deepseek": bool(self.deepseek_key),
             "openrouter": bool(self.openrouter_key),
             "groq": bool(self.groq_key),

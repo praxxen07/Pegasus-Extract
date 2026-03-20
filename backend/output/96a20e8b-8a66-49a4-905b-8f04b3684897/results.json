@@ -1,0 +1,534 @@
+[
+  {
+    "brand_name":"AC",
+    "model_links":"[{'text': 'AC 428 Coupe', 'href': 'https:\/\/www.autoevolution.com\/cars\/ac-428-coupe-1966.html'}, {'text': 'AC Aceca', 'href': 'https:\/\/www.autoevolution.com\/cars\/ac-aceca-1998.html'}, {'text': 'AC Ace', 'href': 'https:\/\/www.autoevolution.com\/cars\/ac-ace-1993.html'}]"
+  },
+  {
+    "brand_name":"ACURA",
+    "model_links":"[{'text': 'ACURA ZDX', 'href': 'https:\/\/www.autoevolution.com\/cars\/acura-zdx-2023.html'}, {'text': 'ACURA MDX Type S', 'href': 'https:\/\/www.autoevolution.com\/cars\/acura-mdx-2024.html'}, {'text': 'ACURA ADX', 'href': 'https:\/\/www.autoevolution.com\/cars\/acura-adx-20245.html'}]"
+  },
+  {
+    "brand_name":"ALFA ROMEO",
+    "model_links":"[{'text': 'ALFA ROMEO Junior', 'href': 'https:\/\/www.autoevolution.com\/cars\/alfa-romeo-junior-2024.html'}, {'text': 'ALFA ROMEO Junior Ibrida Q4', 'href': 'https:\/\/www.autoevolution.com\/cars\/alfa-romeo-junior-ibrida-q4-2025.html'}, {'text': 'ALFA ROMEO Tonale', 'href': 'https:\/\/www.autoevolution.com\/cars\/alfa-romeo-tonale-2025.html'}]"
+  },
+  {
+    "brand_name":"ALPINE",
+    "model_links":"[{'text': 'ALPINE A290', 'href': 'https:\/\/www.autoevolution.com\/cars\/alpine-a290-2024.html'}, {'text': 'ALPINE A110 R Ultime', 'href': 'https:\/\/www.autoevolution.com\/cars\/alpine-a110-r-ultime-2024.html'}, {'text': 'ALPINE A390', 'href': 'https:\/\/www.autoevolution.com\/cars\/alpine-a390-2025.html'}]"
+  },
+  {
+    "brand_name":"ARIEL",
+    "model_links":"[{'text': 'ARIEL Atom 3', 'href': 'https:\/\/www.autoevolution.com\/cars\/ariel-atom-3-2008.html'}, {'text': 'ARIEL Atom 500 V8', 'href': 'https:\/\/www.autoevolution.com\/cars\/ariel-atom-500-v8-2011.html'}, {'text': 'ARIEL Nomad', 'href': 'https:\/\/www.autoevolution.com\/cars\/ariel-nomad-2015.html'}]"
+  },
+  {
+    "brand_name":"ARO",
+    "model_links":"[{'text': 'ARO M59', 'href': 'https:\/\/www.autoevolution.com\/cars\/aro-m59-1959.html'}, {'text': 'ARO M 461', 'href': 'https:\/\/www.autoevolution.com\/cars\/aro-m-461-1963.html'}, {'text': 'ARO 24', 'href': 'https:\/\/www.autoevolution.com\/cars\/aro-24-1972.html'}]"
+  },
+  {
+    "brand_name":"ARTEGA",
+    "model_links":"[{'text': 'ARTEGA GT', 'href': 'https:\/\/www.autoevolution.com\/cars\/artega-gt-2010.html'}, {'text': 'ARTEGA Scalo', 'href': 'https:\/\/www.autoevolution.com\/cars\/artega-scalo-2015.html'}]"
+  },
+  {
+    "brand_name":"ASTON MARTIN",
+    "model_links":"[{'text': 'ASTON MARTIN Vanquish', 'href': 'https:\/\/www.autoevolution.com\/cars\/aston-martin-vanquish-2024.html'}, {'text': 'ASTON MARTIN Vanquish Volante', 'href': 'https:\/\/www.autoevolution.com\/cars\/aston-martin-vanquish-volante-2025.html'}, {'text': 'ASTON MARTIN DBX S', 'href': 'https:\/\/www.autoevolution.com\/cars\/aston-martin-dbx-s-2025.html'}]"
+  },
+  {
+    "brand_name":"AUDI",
+    "model_links":"[{'text': 'AUDI S5 Cabriolet', 'href': 'https:\/\/www.autoevolution.com\/cars\/audi-s5-cabriolet-2016.html'}, {'text': 'AUDI S4', 'href': 'https:\/\/www.autoevolution.com\/cars\/audi-s4-2016.html'}, {'text': 'AUDI SQ5', 'href': 'https:\/\/www.autoevolution.com\/cars\/audi-sq5-2017.html'}]"
+  },
+  {
+    "brand_name":"AURUS",
+    "model_links":"[{'text': 'AURUS Senat', 'href': 'https:\/\/www.autoevolution.com\/cars\/aurus-senat-2018.html'}, {'text': 'AURUS Senat Limousine', 'href': 'https:\/\/www.autoevolution.com\/cars\/aurus-senat-limousine-2018.html'}]"
+  },
+  {
+    "brand_name":"BAIC MOTOR",
+    "model_links":"[{'text': 'BAIC MOTOR BJ60', 'href': 'https:\/\/www.autoevolution.com\/cars\/baic-motor-bj60-2023.html'}]"
+  },
+  {
+    "brand_name":"BENTLEY",
+    "model_links":"[{'text': 'BENTLEY Flying Spur Speed', 'href': 'https:\/\/www.autoevolution.com\/cars\/bentley-flying-spur-speed-2024.html'}, {'text': 'BENTLEY Batur Convertible', 'href': 'https:\/\/www.autoevolution.com\/cars\/bentley-batur-convertible-2024.html'}, {'text': 'BENTLEY Bentayga Speed', 'href': 'https:\/\/www.autoevolution.com\/cars\/bentley-bentayga-speed-2025.html'}]"
+  },
+  {
+    "brand_name":"BMW",
+    "model_links":"[{'text': 'BMW X7 (G07)', 'href': 'https:\/\/www.autoevolution.com\/cars\/bmw-x7-2018.html'}, {'text': 'BMW 8 Series Convertible (G14)', 'href': 'https:\/\/www.autoevolution.com\/cars\/bmw-8-series-convcertible-2018.html'}, {'text': 'BMW 7 Series (G11) LCI', 'href': 'https:\/\/www.autoevolution.com\/cars\/bmw-7-series-2019.html'}]"
+  },
+  {
+    "brand_name":"BORGWARD",
+    "model_links":"[{'text': 'BORGWARD BX7', 'href': 'https:\/\/www.autoevolution.com\/cars\/borgward-bx7-2016.html'}]"
+  },
+  {
+    "brand_name":"BRISTOL",
+    "model_links":"[{'text': 'BRISTOL Fighter T', 'href': 'https:\/\/www.autoevolution.com\/cars\/bristol-fighter-t-2006.html'}, {'text': 'BRISTOL Series 6', 'href': 'https:\/\/www.autoevolution.com\/cars\/bristol-serie-6-2000.html'}, {'text': 'BRISTOL Bullet', 'href': 'https:\/\/www.autoevolution.com\/cars\/bristol-bullet-2017.html'}]"
+  },
+  {
+    "brand_name":"BUFORI",
+    "model_links":"[{'text': 'BUFORI MK II', 'href': 'https:\/\/www.autoevolution.com\/cars\/bufori-mk-ii-1992.html'}, {'text': 'BUFORI V6i', 'href': 'https:\/\/www.autoevolution.com\/cars\/bufori-v6i-1992.html'}, {'text': 'BUFORI CS8', 'href': 'https:\/\/www.autoevolution.com\/cars\/bufori-cs8-2025.html'}]"
+  },
+  {
+    "brand_name":"BUGATTI",
+    "model_links":"[{'text': 'BUGATTI Bolide', 'href': 'https:\/\/www.autoevolution.com\/cars\/bugatti-bolide-2022.html'}, {'text': 'BUGATTI Tourbillon', 'href': 'https:\/\/www.autoevolution.com\/cars\/bugatti-tourbillon-2024.html'}, {'text': 'BUGATTI Brouillard', 'href': 'https:\/\/www.autoevolution.com\/cars\/bugatti-brouillard-2025.html'}]"
+  },
+  {
+    "brand_name":"BUICK",
+    "model_links":"[{'text': 'BUICK Envista', 'href': 'https:\/\/www.autoevolution.com\/cars\/buick-envista-2023.html'}, {'text': 'BUICK Envision', 'href': 'https:\/\/www.autoevolution.com\/cars\/buick-envision-2023.html'}, {'text': 'BUICK Enclave', 'href': 'https:\/\/www.autoevolution.com\/cars\/buick-enclave-2024.html'}]"
+  },
+  {
+    "brand_name":"BYD",
+    "model_links":"[]"
+  },
+  {
+    "brand_name":"CADILLAC",
+    "model_links":"[{'text': 'CADILLAC Lyriq-V', 'href': 'https:\/\/www.autoevolution.com\/cars\/cadillac-lyriq-v-2025.html'}, {'text': 'CADILLAC Escalade-V', 'href': 'https:\/\/www.autoevolution.com\/cars\/cadillac-escalade-v-2024.html'}, {'text': 'CADILLAC Optiq-V', 'href': 'https:\/\/www.autoevolution.com\/cars\/cadillac-optiq-v-2025.html'}]"
+  },
+  {
+    "brand_name":"CATERHAM",
+    "model_links":"[{'text': 'CATERHAM Superlight', 'href': 'https:\/\/www.autoevolution.com\/cars\/caterham-superlight-2013.html'}, {'text': 'CATERHAM Seven 620 R', 'href': 'https:\/\/www.autoevolution.com\/cars\/caterham-seven-620-r-2013.html'}, {'text': 'CATERHAM Super Seven 1600', 'href': 'https:\/\/www.autoevolution.com\/cars\/caterham-super-seven-1600-2020.html'}]"
+  },
+  {
+    "brand_name":"CHERY",
+    "model_links":"[{'text': 'CHERY Tiggo 8', 'href': 'https:\/\/www.autoevolution.com\/cars\/chery-tiggo-8-2025.html'}, {'text': 'CHERY Tiggo 8', 'href': 'https:\/\/www.autoevolution.com\/cars\/chery-tiggo-8-2022.html'}, {'text': 'CHERY Tiggo 7', 'href': 'https:\/\/www.autoevolution.com\/cars\/chery-tiggo-7-2025.html'}]"
+  },
+  {
+    "brand_name":"CHEVROLET",
+    "model_links":"[{'text': 'CHEVROLET Traverse', 'href': 'https:\/\/www.autoevolution.com\/cars\/chevrolet-traverse-2020.html'}, {'text': 'CHEVROLET SS', 'href': 'https:\/\/www.autoevolution.com\/cars\/chevrolet-ss-2016.html'}, {'text': 'CHEVROLET Sonic', 'href': 'https:\/\/www.autoevolution.com\/cars\/chevrolet-sonic-2016.html'}]"
+  },
+  {
+    "brand_name":"CHRYSLER",
+    "model_links":"[{'text': 'CHRYSLER Pacifica', 'href': 'https:\/\/www.autoevolution.com\/cars\/chrysler-pacifica-2016.html'}, {'text': 'CHRYSLER Pacifica', 'href': 'https:\/\/www.autoevolution.com\/cars\/chrysler-pacifica-2020.html'}, {'text': 'CHRYSLER Chrysler 300C', 'href': 'https:\/\/www.autoevolution.com\/cars\/chrysler-chrysler-300c-2022.html'}]"
+  },
+  {
+    "brand_name":"CITROEN",
+    "model_links":"[{'text': 'CITROEN C4', 'href': 'https:\/\/www.autoevolution.com\/cars\/citroen-c4-2024.html'}, {'text': 'CITROEN C5 Aircross', 'href': 'https:\/\/www.autoevolution.com\/cars\/citroen-c5-aircross-2021.html'}, {'text': 'CITROEN C5 Aircross', 'href': 'https:\/\/www.autoevolution.com\/cars\/citroen-c5-aircross-2025.html'}]"
+  },
+  {
+    "brand_name":"CUPRA",
+    "model_links":"[{'text': 'CUPRA Leon Sportstourer', 'href': 'https:\/\/www.autoevolution.com\/cars\/cupra-leon-sportstourer-2024.html'}, {'text': 'CUPRA Terramar', 'href': 'https:\/\/www.autoevolution.com\/cars\/cupra-terramar-2024.html'}, {'text': 'CUPRA Born', 'href': 'https:\/\/www.autoevolution.com\/cars\/cupra-born-2026.html'}]"
+  },
+  {
+    "brand_name":"DACIA",
+    "model_links":"[{'text': 'DACIA Sandero Stepway', 'href': 'https:\/\/www.autoevolution.com\/cars\/dacia-sandero-stepway-2026.html'}, {'text': 'DACIA Jogger', 'href': 'https:\/\/www.autoevolution.com\/cars\/dacia-jogger-2026.html'}, {'text': 'DACIA Striker', 'href': 'https:\/\/www.autoevolution.com\/cars\/dacia-striker-2026.html'}]"
+  },
+  {
+    "brand_name":"DAEWOO",
+    "model_links":"[{'text': 'DAEWOO Nubira Estate', 'href': 'https:\/\/www.autoevolution.com\/cars\/daewoo-nubira-estate-1997.html'}, {'text': 'DAEWOO Nubira Hatchback', 'href': 'https:\/\/www.autoevolution.com\/cars\/daewoo-nubira-hatchback-1997.html'}, {'text': 'DAEWOO Matiz', 'href': 'https:\/\/www.autoevolution.com\/cars\/daewoo-matiz-2001.html'}]"
+  },
+  {
+    "brand_name":"DAIHATSU",
+    "model_links":"[{'text': 'DAIHATSU Altis', 'href': 'https:\/\/www.autoevolution.com\/cars\/daihatsu-altis-2012.html'}, {'text': 'DAIHATSU Applause', 'href': 'https:\/\/www.autoevolution.com\/cars\/daihatsu-applause-1989.html'}, {'text': 'DAIHATSU Applause', 'href': 'https:\/\/www.autoevolution.com\/cars\/daihatsu-applause-1997.html'}]"
+  },
+  {
+    "brand_name":"DATSUN",
+    "model_links":"[{'text': 'DATSUN Mi-Do', 'href': 'https:\/\/www.autoevolution.com\/cars\/datsun-mi-do-2014.html'}, {'text': 'DATSUN GO', 'href': 'https:\/\/www.autoevolution.com\/cars\/datsun-go-2018.html'}, {'text': 'DATSUN GO+', 'href': 'https:\/\/www.autoevolution.com\/cars\/datsun-go-2018-1.html'}]"
+  },
+  {
+    "brand_name":"DeLorean",
+    "model_links":"[{'text': 'DeLorean DMC-12', 'href': 'https:\/\/www.autoevolution.com\/cars\/dmc-delorean-1981.html'}]"
+  },
+  {
+    "brand_name":"DODGE",
+    "model_links":"[{'text': 'DODGE Hornet', 'href': 'https:\/\/www.autoevolution.com\/cars\/dodge-hornet-2022.html'}, {'text': 'DODGE Challenger SRT Demon 170', 'href': 'https:\/\/www.autoevolution.com\/cars\/dodge-challenger-srt-demon-170-2023.html'}, {'text': 'DODGE Charger Daytona', 'href': 'https:\/\/www.autoevolution.com\/cars\/dodge-charger-daytona-2024.html'}]"
+  },
+  {
+    "brand_name":"DONKERVOORT",
+    "model_links":"[{'text': 'DONKERVOORT D8', 'href': 'https:\/\/www.autoevolution.com\/cars\/donkervoort-d8-1993.html'}, {'text': 'DONKERVOORT P24 RS', 'href': 'https:\/\/www.autoevolution.com\/cars\/donkervoort-p24-rs-2026.html'}]"
+  },
+  {
+    "brand_name":"DR MOTOR",
+    "model_links":"[{'text': 'DR MOTOR dr2', 'href': 'https:\/\/www.autoevolution.com\/cars\/dr-motor-dr2-2010.html'}, {'text': 'DR MOTOR dr5', 'href': 'https:\/\/www.autoevolution.com\/cars\/dr-motor-dr5-2007.html'}, {'text': 'DR MOTOR dr CityCross', 'href': 'https:\/\/www.autoevolution.com\/cars\/dr-motor-dr-citycross-2013.html'}]"
+  },
+  {
+    "brand_name":"DS AUTOMOBILES",
+    "model_links":"[{'text': 'DS AUTOMOBILES DS 8', 'href': 'https:\/\/www.autoevolution.com\/cars\/ds-automobiles-ds-8-2024.html'}, {'text': 'DS AUTOMOBILES No 4', 'href': 'https:\/\/www.autoevolution.com\/cars\/ds-automobiles-n4-2025.html'}, {'text': 'DS AUTOMOBILES DS 7', 'href': 'https:\/\/www.autoevolution.com\/cars\/ds-automobiles-ds-7-2026.html'}]"
+  },
+  {
+    "brand_name":"EAGLE",
+    "model_links":"[{'text': 'EAGLE Summit', 'href': 'https:\/\/www.autoevolution.com\/cars\/eagle-summit-1993.html'}, {'text': 'EAGLE Summit Wagon', 'href': 'https:\/\/www.autoevolution.com\/cars\/eagle-summit-wagon-1992.html'}, {'text': 'EAGLE Talon', 'href': 'https:\/\/www.autoevolution.com\/cars\/eagle-talon-1995.html'}]"
+  },
+  {
+    "brand_name":"FERRARI",
+    "model_links":"[{'text': 'FERRARI 849 Testarossa', 'href': 'https:\/\/www.autoevolution.com\/cars\/ferrari-849-testarossa-2025.html'}, {'text': 'FERRARI 849 Testarossa Spider', 'href': 'https:\/\/www.autoevolution.com\/cars\/ferrari-849-testarossa-spider-2025.html'}, {'text': 'FERRARI Amalfi Spider', 'href': 'https:\/\/www.autoevolution.com\/cars\/ferrari-amalfi-spider-2026.html'}]"
+  },
+  {
+    "brand_name":"FIAT",
+    "model_links":"[{'text': 'FIAT 600e', 'href': 'https:\/\/www.autoevolution.com\/cars\/fiat-600e-2023.html'}, {'text': 'FIAT Stilo 5 Doors', 'href': 'https:\/\/www.autoevolution.com\/cars\/fiat-stilo-5-doors-2004.html'}, {'text': 'FIAT Stilo 3 Doors', 'href': 'https:\/\/www.autoevolution.com\/cars\/fiat-stilo-3-doors-2004.html'}]"
+  },
+  {
+    "brand_name":"FISKER",
+    "model_links":"[{'text': 'FISKER Karma', 'href': 'https:\/\/www.autoevolution.com\/cars\/fisker-karma-2011.html'}, {'text': 'FISKER Ocean', 'href': 'https:\/\/www.autoevolution.com\/cars\/fisker-ocean-2021.html'}]"
+  },
+  {
+    "brand_name":"FORD",
+    "model_links":"[{'text': 'FORD F-150 Super Crew', 'href': 'https:\/\/www.autoevolution.com\/cars\/ford-f-150-super-crew-2009.html'}, {'text': 'FORD F-150 Raptor SVT', 'href': 'https:\/\/www.autoevolution.com\/cars\/ford-f-150-raptor-svt-2009.html'}, {'text': 'FORD C-Max', 'href': 'https:\/\/www.autoevolution.com\/cars\/ford-c-max-2007.html'}]"
+  },
+  {
+    "brand_name":"FSO",
+    "model_links":"[{'text': 'FSO Polonez Caro', 'href': 'https:\/\/www.autoevolution.com\/cars\/fso-polonez-caro-1991.html'}, {'text': 'FSO Polonez Kombi', 'href': 'https:\/\/www.autoevolution.com\/cars\/fso-polonez-kombi-1999.html'}, {'text': 'FSO Prima', 'href': 'https:\/\/www.autoevolution.com\/cars\/fso-prima-1988.html'}]"
+  },
+  {
+    "brand_name":"GEELY",
+    "model_links":"[{'text': 'GEELY Emgrand EC718', 'href': 'https:\/\/www.autoevolution.com\/cars\/geely-emgrand-ec718-2009.html'}, {'text': 'GEELY Galaxy L6', 'href': 'https:\/\/www.autoevolution.com\/cars\/geely-galaxy-l6-2023.html'}, {'text': 'GEELY Galaxy M9', 'href': 'https:\/\/www.autoevolution.com\/cars\/geely-galaxy-m9-2025.html'}]"
+  },
+  {
+    "brand_name":"GENESIS",
+    "model_links":"[{'text': 'GENESIS GV80 Coupe', 'href': 'https:\/\/www.autoevolution.com\/cars\/genesis-gv80-coupe-2023.html'}, {'text': 'GENESIS GV80', 'href': 'https:\/\/www.autoevolution.com\/cars\/genesis-gv80-2023.html'}, {'text': 'GENESIS GV70', 'href': 'https:\/\/www.autoevolution.com\/cars\/genesis-gv70-2024.html'}]"
+  },
+  {
+    "brand_name":"GMC",
+    "model_links":"[{'text': 'GMC Terrain', 'href': 'https:\/\/www.autoevolution.com\/cars\/gmc-terrain-2024.html'}, {'text': 'GMC Yukon', 'href': 'https:\/\/www.autoevolution.com\/cars\/gmc-yukon-2024.html'}, {'text': 'GMC Typhoon', 'href': 'https:\/\/www.autoevolution.com\/cars\/gmc-typhoon-1992.html'}]"
+  },
+  {
+    "brand_name":"GORDON MURRAY Automotive",
+    "model_links":"[{'text': 'GORDON MURRAY Automotive T.33', 'href': 'https:\/\/www.autoevolution.com\/cars\/gordon-murray-automotive-t33-2022.html'}, {'text': 'GORDON MURRAY Automotive T.50', 'href': 'https:\/\/www.autoevolution.com\/cars\/gordon-murray-automotive-t50-2022.html'}]"
+  },
+  {
+    "brand_name":"GTA Motor",
+    "model_links":"[{'text': 'GTA Motor GTA Spano', 'href': 'https:\/\/www.autoevolution.com\/cars\/gta-motor-gta-spano-2012.html'}]"
+  },
+  {
+    "brand_name":"HINDUSTAN",
+    "model_links":"[{'text': 'HINDUSTAN Ambassador', 'href': 'https:\/\/www.autoevolution.com\/cars\/hindustan-ambassador-1959.html'}, {'text': 'HINDUSTAN Pushpak\/Trekker', 'href': 'https:\/\/www.autoevolution.com\/cars\/hindustan-pushpaktrekker-1999.html'}, {'text': 'HINDUSTAN RTV\/Ranger', 'href': 'https:\/\/www.autoevolution.com\/cars\/hindustan-rtvranger-1998.html'}]"
+  },
+  {
+    "brand_name":"HOLDEN",
+    "model_links":"[{'text': 'HOLDEN Captiva', 'href': 'https:\/\/www.autoevolution.com\/cars\/holden-captiva-2016.html'}, {'text': 'HOLDEN Trax', 'href': 'https:\/\/www.autoevolution.com\/cars\/holden-trax-2016.html'}, {'text': 'HOLDEN Caprice\/Satesman', 'href': 'https:\/\/www.autoevolution.com\/cars\/holden-caprice-satesman-1999.html'}]"
+  },
+  {
+    "brand_name":"HONDA",
+    "model_links":"[{'text': 'HONDA HR-V', 'href': 'https:\/\/www.autoevolution.com\/cars\/honda-hr-v-2025.html'}, {'text': 'HONDA Prelude', 'href': 'https:\/\/www.autoevolution.com\/cars\/honda-prelude-2025.html'}, {'text': 'HONDA Pilot', 'href': 'https:\/\/www.autoevolution.com\/cars\/honda-pilot-2025.html'}]"
+  },
+  {
+    "brand_name":"HUMMER",
+    "model_links":"[{'text': 'HUMMER H2 SUT', 'href': 'https:\/\/www.autoevolution.com\/cars\/hummer-h2-sut-2004.html'}, {'text': 'HUMMER H3', 'href': 'https:\/\/www.autoevolution.com\/cars\/hummer-h3-2005.html'}, {'text': 'HUMMER H3 Alpha', 'href': 'https:\/\/www.autoevolution.com\/cars\/hummer-h3-alpha-2007.html'}]"
+  },
+  {
+    "brand_name":"HYUNDAI",
+    "model_links":"[{'text': 'HYUNDAI NEXO', 'href': 'https:\/\/www.autoevolution.com\/cars\/hyundai-nexo-2025.html'}, {'text': 'HYUNDAI Palisade', 'href': 'https:\/\/www.autoevolution.com\/cars\/hyundai-palisade-2025.html'}, {'text': 'HYUNDAI Ioniq 6 N', 'href': 'https:\/\/www.autoevolution.com\/cars\/hyundai-ioniq-6-n-2025.html'}]"
+  },
+  {
+    "brand_name":"INEOS",
+    "model_links":"[{'text': 'INEOS Grenadier', 'href': 'https:\/\/www.autoevolution.com\/cars\/ineos-grenadier-2022.html'}]"
+  },
+  {
+    "brand_name":"INFINITI",
+    "model_links":"[{'text': 'INFINITI QX80', 'href': 'https:\/\/www.autoevolution.com\/cars\/infiniti-qx80-2021.html'}, {'text': 'INFINITI QX80', 'href': 'https:\/\/www.autoevolution.com\/cars\/infiniti-qx80-2024.html'}, {'text': 'INFINITI QX60', 'href': 'https:\/\/www.autoevolution.com\/cars\/infiniti-qx60-2025.html'}]"
+  },
+  {
+    "brand_name":"ISUZU",
+    "model_links":"[{'text': 'ISUZU D-Max Arctic Trucks AT35', 'href': 'https:\/\/www.autoevolution.com\/cars\/isuzu-d-max-arctic-trucks-at35-2016.html'}, {'text': 'ISUZU i-Series Extended Cab', 'href': 'https:\/\/www.autoevolution.com\/cars\/isuzu-i-series-crew-cab-2005-1.html'}, {'text': 'ISUZU i-Series Crew Cab', 'href': 'https:\/\/www.autoevolution.com\/cars\/isuzu-i-series-crew-cab-2005.html'}]"
+  },
+  {
+    "brand_name":"JAGUAR",
+    "model_links":"[{'text': 'JAGUAR XF (X260)', 'href': 'https:\/\/www.autoevolution.com\/cars\/jaguar-xf-x260-2020.html'}, {'text': 'JAGUAR XF Sportbrake (X260)', 'href': 'https:\/\/www.autoevolution.com\/cars\/jaguar-xf-sportbrake-x260-2020.html'}, {'text': 'JAGUAR F-Pace SVR', 'href': 'https:\/\/www.autoevolution.com\/cars\/jaguar-f-pace-svr-2020.html'}]"
+  },
+  {
+    "brand_name":"JEEP",
+    "model_links":"[{'text': 'JEEP Grand Wagoneer', 'href': 'https:\/\/www.autoevolution.com\/cars\/jeep-grand-wagoneer-2025.html'}, {'text': 'JEEP Recon', 'href': 'https:\/\/www.autoevolution.com\/cars\/jeep-recon-2025.html'}, {'text': 'JEEP Compass', 'href': 'https:\/\/www.autoevolution.com\/cars\/jeep-compass-2025.html'}]"
+  },
+  {
+    "brand_name":"Karma",
+    "model_links":"[{'text': 'Karma Revero GT', 'href': 'https:\/\/www.autoevolution.com\/cars\/karma-revero-gt-2019.html'}, {'text': 'Karma Revero GTS', 'href': 'https:\/\/www.autoevolution.com\/cars\/karma-gts-2019.html'}]"
+  },
+  {
+    "brand_name":"KIA",
+    "model_links":"[{'text': 'KIA Telluride', 'href': 'https:\/\/www.autoevolution.com\/cars\/kia-telluride-2025.html'}, {'text': 'KIA Seltos', 'href': 'https:\/\/www.autoevolution.com\/cars\/kia-seltos-2025.html'}, {'text': 'KIA EV2', 'href': 'https:\/\/www.autoevolution.com\/cars\/kia-ev2-2026.html'}]"
+  },
+  {
+    "brand_name":"KOENIGSEGG",
+    "model_links":"[{'text': 'KOENIGSEGG Jesko', 'href': 'https:\/\/www.autoevolution.com\/cars\/koenigsegg-jesko-2019.html'}, {'text': 'KOENIGSEGG Gemera', 'href': 'https:\/\/www.autoevolution.com\/cars\/koenigsegg-gemera-2020.html'}, {'text': 'KOENIGSEGG Sadairs Spear', 'href': 'https:\/\/www.autoevolution.com\/cars\/koenigsegg-sadairs-spear-2025.html'}]"
+  },
+  {
+    "brand_name":"KTM",
+    "model_links":"[{'text': 'KTM X-Bow R', 'href': 'https:\/\/www.autoevolution.com\/cars\/ktm-x-bow-r-2011.html'}, {'text': 'KTM X-Bow RR', 'href': 'https:\/\/www.autoevolution.com\/cars\/ktm-x-bow-rr-2012.html'}, {'text': 'KTM X-Bow GT', 'href': 'https:\/\/www.autoevolution.com\/cars\/ktm-x-bow-gt-2013.html'}]"
+  },
+  {
+    "brand_name":"LADA",
+    "model_links":"[{'text': 'LADA Kalina Sedan', 'href': 'https:\/\/www.autoevolution.com\/cars\/lada-kalina-sedan-2006.html'}, {'text': 'LADA Kalina Hatchback', 'href': 'https:\/\/www.autoevolution.com\/cars\/lada-kalina-hatchback-2007.html'}, {'text': 'LADA Priora', 'href': 'https:\/\/www.autoevolution.com\/cars\/lada-priora-2008.html'}]"
+  },
+  {
+    "brand_name":"LAMBORGHINI",
+    "model_links":"[{'text': 'LAMBORGHINI Revuelto', 'href': 'https:\/\/www.autoevolution.com\/cars\/lamborghini-revuelto-2023.html'}, {'text': 'LAMBORGHINI Urus SE', 'href': 'https:\/\/www.autoevolution.com\/cars\/lamborghini-urus-se-2024.html'}, {'text': 'LAMBORGHINI Temerario', 'href': 'https:\/\/www.autoevolution.com\/cars\/lamborghini-temerario-2024.html'}]"
+  },
+  {
+    "brand_name":"LANCIA",
+    "model_links":"[{'text': 'LANCIA Ypsilon', 'href': 'https:\/\/www.autoevolution.com\/cars\/lancia-ypsilon-2015.html'}, {'text': 'LANCIA Ypsilon (846)', 'href': 'https:\/\/www.autoevolution.com\/cars\/lancia-ypsilon-846-2021.html'}, {'text': 'LANCIA Ypsilon', 'href': 'https:\/\/www.autoevolution.com\/cars\/lancia-ypsilon-2024.html'}]"
+  },
+  {
+    "brand_name":"LAND ROVER",
+    "model_links":"[{'text': 'LAND ROVER Range Rover Sport SV', 'href': 'https:\/\/www.autoevolution.com\/cars\/land-rover-range-rover-sport-sv-2023.html'}, {'text': 'LAND ROVER Range Rover Evoque', 'href': 'https:\/\/www.autoevolution.com\/cars\/land-rover-range-rover-evoque-2023.html'}, {'text': 'LAND ROVER Defender OCTA', 'href': 'https:\/\/www.autoevolution.com\/cars\/land-rover-defender-octa-2024.html'}]"
+  },
+  {
+    "brand_name":"LEXUS",
+    "model_links":"[{'text': 'LEXUS RZ 550e F SPORT', 'href': 'https:\/\/www.autoevolution.com\/cars\/lexus-rz-550e-f-sport-2025.html'}, {'text': 'LEXUS ES', 'href': 'https:\/\/www.autoevolution.com\/cars\/lexus-es-2025.html'}, {'text': 'LEXUS IS 350', 'href': 'https:\/\/www.autoevolution.com\/cars\/lexus-is-2025.html'}]"
+  },
+  {
+    "brand_name":"LIGHTYEAR",
+    "model_links":"[{'text': 'LIGHTYEAR Lightyear 0', 'href': 'https:\/\/www.autoevolution.com\/cars\/lightyear-lightyear-0-2022.html'}, {'text': 'LIGHTYEAR Lightyear 2', 'href': 'https:\/\/www.autoevolution.com\/cars\/lightyear-lightyear-2-2023.html'}]"
+  },
+  {
+    "brand_name":"LINCOLN",
+    "model_links":"[{'text': 'LINCOLN Corsair Grand Touring', 'href': 'https:\/\/www.autoevolution.com\/cars\/lincoln-corsair-grand-touring-2022.html'}, {'text': 'LINCOLN Nautilus', 'href': 'https:\/\/www.autoevolution.com\/cars\/lincoln-nautilus-2023.html'}, {'text': 'LINCOLN Aviator', 'href': 'https:\/\/www.autoevolution.com\/cars\/lincoln-aviator-2024.html'}]"
+  },
+  {
+    "brand_name":"LOTUS",
+    "model_links":"[{'text': 'LOTUS Emira', 'href': 'https:\/\/www.autoevolution.com\/cars\/lotus-emira-2021.html'}, {'text': 'LOTUS Eletre', 'href': 'https:\/\/www.autoevolution.com\/cars\/lotus-eletre-2022.html'}, {'text': 'LOTUS Emeya GT', 'href': 'https:\/\/www.autoevolution.com\/cars\/lotus-emira-2023.html'}]"
+  },
+  {
+    "brand_name":"Lucid Motors",
+    "model_links":"[{'text': 'Lucid Motors Air', 'href': 'https:\/\/www.autoevolution.com\/cars\/lucid-motors-lucid-air-2020.html'}, {'text': 'Lucid Motors Gravity', 'href': 'https:\/\/www.autoevolution.com\/cars\/lucid-motors-gravity-2023.html'}]"
+  },
+  {
+    "brand_name":"Mahindra",
+    "model_links":"[{'text': 'Mahindra Bolero', 'href': 'https:\/\/www.autoevolution.com\/cars\/mahindra-bolero-2011.html'}, {'text': 'Mahindra Thar', 'href': 'https:\/\/www.autoevolution.com\/cars\/mahindra-thar-2010.html'}, {'text': 'Mahindra Verito', 'href': 'https:\/\/www.autoevolution.com\/cars\/mahindra-verito-2012.html'}]"
+  },
+  {
+    "brand_name":"MARUSSIA",
+    "model_links":"[{'text': 'MARUSSIA B1', 'href': 'https:\/\/www.autoevolution.com\/cars\/marussia-b1-2010.html'}, {'text': 'MARUSSIA B2', 'href': 'https:\/\/www.autoevolution.com\/cars\/marussia-b2-2010.html'}]"
+  },
+  {
+    "brand_name":"MARUTI SUZUKI",
+    "model_links":"[{'text': 'MARUTI SUZUKI Wagon R', 'href': 'https:\/\/www.autoevolution.com\/cars\/maruti-suzuki-wagon-r-2005.html'}, {'text': 'MARUTI SUZUKI Zen Estilo', 'href': 'https:\/\/www.autoevolution.com\/cars\/maruti-suzuki-zen-estilo-2006.html'}, {'text': 'MARUTI SUZUKI Ciaz', 'href': 'https:\/\/www.autoevolution.com\/cars\/maruti-suzuki-ciaz-2014.html'}]"
+  },
+  {
+    "brand_name":"MASERATI",
+    "model_links":"[{'text': 'MASERATI GT2 Stradale', 'href': 'https:\/\/www.autoevolution.com\/cars\/maserati-2025-gt2-stradale-2025.html'}, {'text': 'MASERATI MCPura', 'href': 'https:\/\/www.autoevolution.com\/cars\/maserati-mcpura-2025.html'}, {'text': 'MASERATI MCPura Cielo', 'href': 'https:\/\/www.autoevolution.com\/cars\/maserati-mcpura-cielo-2025.html'}]"
+  },
+  {
+    "brand_name":"MAYBACH",
+    "model_links":"[{'text': 'MAYBACH 57 Zeppelin', 'href': 'https:\/\/www.autoevolution.com\/cars\/maybach-57-zeppelin-2009.html'}, {'text': 'MAYBACH 62 Zeppelin', 'href': 'https:\/\/www.autoevolution.com\/cars\/maybach-62-zeppelin-2009.html'}, {'text': 'MAYBACH Landaulet', 'href': 'https:\/\/www.autoevolution.com\/cars\/maybach-landaulet-2008.html'}]"
+  },
+  {
+    "brand_name":"MAZDA",
+    "model_links":"[{'text': 'MAZDA 6e', 'href': 'https:\/\/www.autoevolution.com\/cars\/mazda-6e-2025.html'}, {'text': 'MAZDA CX-5', 'href': 'https:\/\/www.autoevolution.com\/cars\/mazda-cx-5-2025.html'}, {'text': 'MAZDA CX-6e', 'href': 'https:\/\/www.autoevolution.com\/cars\/mazda-cx-6e-2026.html'}]"
+  },
+  {
+    "brand_name":"MCLAREN",
+    "model_links":"[{'text': 'MCLAREN 750S Spider', 'href': 'https:\/\/www.autoevolution.com\/cars\/mclaren-750s-spider-2023.html'}, {'text': 'MCLAREN GTS', 'href': 'https:\/\/www.autoevolution.com\/cars\/mclaren-gts-2023.html'}, {'text': 'MCLAREN Artura Spider', 'href': 'https:\/\/www.autoevolution.com\/cars\/mclaren-artura-spider-2024.html'}]"
+  },
+  {
+    "brand_name":"MERCEDES BENZ",
+    "model_links":"[{'text': 'MERCEDES BENZ \"Grosser Mercedes\" Pullman\/Limousine (W07)', 'href': 'https:\/\/www.autoevolution.com\/cars\/mercedes-benz-grosser-mercedes-pullmanlimousine-w07-1930.html'}, {'text': 'MERCEDES BENZ \"Grosser Mercedes\" Cabriolet F (W07)', 'href': 'https:\/\/www.autoevolution.com\/cars\/mercedes-benz-grosser-mercedes-cabriolet-f-w07-1931.html'}, {'text': 'MERCEDES BENZ \"Grosser Mercedes\" Tourenwagen (W07)', 'href': 'https:\/\/www.autoevolution.com\/cars\/mercedes-benz-grosser-mercedes-tourenwagen-w07-1931.html'}]"
+  },
+  {
+    "brand_name":"Mercedes-AMG",
+    "model_links":"[{'text': 'Mercedes-AMG GT63 S AMG E Performance', 'href': 'https:\/\/www.autoevolution.com\/cars\/mercedes-amg-gt63-s-amg-e-performance-2024.html'}, {'text': 'Mercedes-AMG CLE 53 Cabriolet', 'href': 'https:\/\/www.autoevolution.com\/cars\/mercedes-amg-cle-53-cabriolet-2024.html'}, {'text': 'Mercedes-AMG GLC 53 Coupe (C254)', 'href': 'https:\/\/www.autoevolution.com\/cars\/mercedes-amg-glc53-amg-coupe-2026.html'}]"
+  },
+  {
+    "brand_name":"MERCURY",
+    "model_links":"[{'text': 'MERCURY Milan', 'href': 'https:\/\/www.autoevolution.com\/cars\/mercury-milan-2009.html'}, {'text': 'MERCURY Grand Marquis', 'href': 'https:\/\/www.autoevolution.com\/cars\/mercury-grand-marquis-2008.html'}, {'text': 'MERCURY Mariner', 'href': 'https:\/\/www.autoevolution.com\/cars\/mercury-mariner-2008.html'}]"
+  },
+  {
+    "brand_name":"MG",
+    "model_links":"[{'text': 'MG IM6', 'href': 'https:\/\/www.autoevolution.com\/cars\/mg-im6-2025.html'}, {'text': 'MG IM5', 'href': 'https:\/\/www.autoevolution.com\/cars\/mg-im5-2025.html'}, {'text': 'MG U9', 'href': 'https:\/\/www.autoevolution.com\/cars\/mg-u9-2025.html'}]"
+  },
+  {
+    "brand_name":"MINI",
+    "model_links":"[{'text': 'MINI Countryman C', 'href': 'https:\/\/www.autoevolution.com\/cars\/mini-countryman-c-2023.html'}, {'text': 'MINI Aceman', 'href': 'https:\/\/www.autoevolution.com\/cars\/mini-aceman-2024.html'}, {'text': 'MINI Cooper S 5-door', 'href': 'https:\/\/www.autoevolution.com\/cars\/mini-cooper-s-5-door-2024.html'}]"
+  },
+  {
+    "brand_name":"MITSUBISHI",
+    "model_links":"[{'text': 'MITSUBISHI ASX', 'href': 'https:\/\/www.autoevolution.com\/cars\/mitsubishi-asx-2023.html'}, {'text': 'MITSUBISHI Colt', 'href': 'https:\/\/www.autoevolution.com\/cars\/mitsubishi-colt-2023.html'}, {'text': 'MITSUBISHI Eclipse Cross', 'href': 'https:\/\/www.autoevolution.com\/cars\/mitsubishi-eclipse-cross-2025.html'}]"
+  },
+  {
+    "brand_name":"MORGAN",
+    "model_links":"[{'text': 'MORGAN Plus Four', 'href': 'https:\/\/www.autoevolution.com\/cars\/morgan-plus-four-2020.html'}, {'text': 'MORGAN Plus Four', 'href': 'https:\/\/www.autoevolution.com\/cars\/morgan-plus-four-2022.html'}, {'text': 'MORGAN Plus Six', 'href': 'https:\/\/www.autoevolution.com\/cars\/morgan-plus-six-2022.html'}]"
+  },
+  {
+    "brand_name":"NIO",
+    "model_links":"[{'text': 'NIO ES6', 'href': 'https:\/\/www.autoevolution.com\/cars\/nio-es6-2018.html'}, {'text': 'NIO ES8', 'href': 'https:\/\/www.autoevolution.com\/cars\/nio-es8-2018.html'}, {'text': 'NIO ET7', 'href': 'https:\/\/www.autoevolution.com\/cars\/nio-et7-2020.html'}]"
+  },
+  {
+    "brand_name":"NISSAN",
+    "model_links":"[{'text': 'NISSAN X-Trail', 'href': 'https:\/\/www.autoevolution.com\/cars\/nissan-x-trail-2022.html'}, {'text': 'NISSAN Versa', 'href': 'https:\/\/www.autoevolution.com\/cars\/nissan-versa-2022.html'}, {'text': 'NISSAN GT-R', 'href': 'https:\/\/www.autoevolution.com\/cars\/nissan-gt-r-2023.html'}]"
+  },
+  {
+    "brand_name":"OLDSMOBILE",
+    "model_links":"[{'text': 'OLDSMOBILE Aurora', 'href': 'https:\/\/www.autoevolution.com\/cars\/oldsmobile-aurora-1994.html'}, {'text': 'OLDSMOBILE Aurora', 'href': 'https:\/\/www.autoevolution.com\/cars\/oldsmobile-aurora-2000.html'}, {'text': 'OLDSMOBILE Intrigue', 'href': 'https:\/\/www.autoevolution.com\/cars\/oldsmobile-intrigue-1997.html'}]"
+  },
+  {
+    "brand_name":"OPEL",
+    "model_links":"[{'text': 'OPEL Frontera', 'href': 'https:\/\/www.autoevolution.com\/cars\/opel-frontera-2024.html'}, {'text': 'OPEL Mokka', 'href': 'https:\/\/www.autoevolution.com\/cars\/opel-mokka-2024.html'}, {'text': 'OPEL Astra', 'href': 'https:\/\/www.autoevolution.com\/cars\/opel-astra-2026.html'}]"
+  },
+  {
+    "brand_name":"PAGANI",
+    "model_links":"[{'text': 'PAGANI Huayra Roadster BC', 'href': 'https:\/\/www.autoevolution.com\/cars\/pagani-huayra-roadster-bc-2019.html'}, {'text': 'PAGANI Imola', 'href': 'https:\/\/www.autoevolution.com\/cars\/pagani-imola-2020.html'}, {'text': 'PAGANI Utopia', 'href': 'https:\/\/www.autoevolution.com\/cars\/pagani-utopia-2022.html'}]"
+  },
+  {
+    "brand_name":"PANOZ",
+    "model_links":"[{'text': 'PANOZ Esperante GTLM', 'href': 'https:\/\/www.autoevolution.com\/cars\/panoz-esperante-gtlm-2004.html'}, {'text': 'PANOZ Avezzano', 'href': 'https:\/\/www.autoevolution.com\/cars\/panoz-avezzano-2017.html'}, {'text': 'PANOZ Roadster', 'href': 'https:\/\/www.autoevolution.com\/cars\/panoz-roadster-2015.html'}]"
+  },
+  {
+    "brand_name":"PERODUA",
+    "model_links":"[{'text': 'PERODUA Aruz', 'href': 'https:\/\/www.autoevolution.com\/cars\/perodua-aruz-2019.html'}, {'text': 'PERODUA Bezza', 'href': 'https:\/\/www.autoevolution.com\/cars\/perodua-bezza-2016.html'}, {'text': 'PERODUA Bezza AV', 'href': 'https:\/\/www.autoevolution.com\/cars\/perodua-bezza-av-2019.html'}]"
+  },
+  {
+    "brand_name":"PEUGEOT",
+    "model_links":"[{'text': 'PEUGEOT 308', 'href': 'https:\/\/www.autoevolution.com\/cars\/peugeot-308-2025.html'}, {'text': 'PEUGEOT 308 SW', 'href': 'https:\/\/www.autoevolution.com\/cars\/peugeot-308-sw-2025.html'}, {'text': 'PEUGEOT 408', 'href': 'https:\/\/www.autoevolution.com\/cars\/peugeot-408-2026.html'}]"
+  },
+  {
+    "brand_name":"Pininfarina",
+    "model_links":"[{'text': 'Pininfarina Battista', 'href': 'https:\/\/www.autoevolution.com\/cars\/pininfarina-battista-2019.html'}, {'text': 'Pininfarina B95', 'href': 'https:\/\/www.autoevolution.com\/cars\/pininfarina-b95-2023.html'}]"
+  },
+  {
+    "brand_name":"PLYMOUTH",
+    "model_links":"[{'text': 'PLYMOUTH Voyager', 'href': 'https:\/\/www.autoevolution.com\/cars\/plymouth-voyager-1984.html'}, {'text': 'PLYMOUTH Voyager', 'href': 'https:\/\/www.autoevolution.com\/cars\/plymouth-voyager-1995.html'}, {'text': 'PLYMOUTH Valiant 4-door', 'href': 'https:\/\/www.autoevolution.com\/cars\/plymouth-valiant-4-door-1968.html'}]"
+  },
+  {
+    "brand_name":"Polestar",
+    "model_links":"[{'text': 'Polestar 2', 'href': 'https:\/\/www.autoevolution.com\/cars\/polestar-2-2023.html'}, {'text': 'Polestar 4', 'href': 'https:\/\/www.autoevolution.com\/cars\/polestar-4-2023.html'}, {'text': 'Polestar 5', 'href': 'https:\/\/www.autoevolution.com\/cars\/polestar-5-2025.html'}]"
+  },
+  {
+    "brand_name":"PONTIAC",
+    "model_links":"[{'text': 'PONTIAC Sunfire Sedan', 'href': 'https:\/\/www.autoevolution.com\/cars\/pontiac-sunfire-sedan-1994.html'}, {'text': 'PONTIAC Sunfire Cabrio', 'href': 'https:\/\/www.autoevolution.com\/cars\/pontiac-sunfire-cabrio-1994.html'}, {'text': 'PONTIAC Sunfire Sedan', 'href': 'https:\/\/www.autoevolution.com\/cars\/pontiac-sunfire-sedan-1999.html'}]"
+  },
+  {
+    "brand_name":"PORSCHE",
+    "model_links":"[{'text': 'PORSCHE Panamera 4S Sport Turismo (971)', 'href': 'https:\/\/www.autoevolution.com\/cars\/porsche-panamera-4s-sport-turismo-971-2017.html'}, {'text': 'PORSCHE Panamera 4 E-Hybrid Sport Turismo (971)', 'href': 'https:\/\/www.autoevolution.com\/cars\/porsche-panamera-4-e-hybrid-sport-turismo-2017.html'}, {'text': 'PORSCHE Panamera 4S Diesel Sport Turismo (971)', 'href': 'https:\/\/www.autoevolution.com\/cars\/porsche-panamera-4s-diesel-sport-turismo-971-2017.html'}]"
+  },
+  {
+    "brand_name":"PROTON",
+    "model_links":"[{'text': 'PROTON Iriz', 'href': 'https:\/\/www.autoevolution.com\/cars\/proton-iriz-2014.html'}, {'text': 'PROTON Perdana', 'href': 'https:\/\/www.autoevolution.com\/cars\/proton-perdana-2016.html'}, {'text': 'PROTON Ertiga', 'href': 'https:\/\/www.autoevolution.com\/cars\/proton-ertiga-2016.html'}]"
+  },
+  {
+    "brand_name":"QOROS",
+    "model_links":"[{'text': 'QOROS 3 Hatchbach', 'href': 'https:\/\/www.autoevolution.com\/cars\/qoros-3-hatchbach-2014.html'}, {'text': 'QOROS 3 City SUV', 'href': 'https:\/\/www.autoevolution.com\/cars\/qoros-3-city-suv-2015.html'}, {'text': 'QOROS 5', 'href': 'https:\/\/www.autoevolution.com\/cars\/qoros-5-2016.html'}]"
+  },
+  {
+    "brand_name":"RAM Trucks",
+    "model_links":"[{'text': 'RAM Trucks 1500 TRX', 'href': 'https:\/\/www.autoevolution.com\/cars\/ram-trucks-trx-2020.html'}, {'text': 'RAM Trucks 1500 REV', 'href': 'https:\/\/www.autoevolution.com\/cars\/ram-trucks-1500-rev-2023.html'}, {'text': 'RAM Trucks 1500', 'href': 'https:\/\/www.autoevolution.com\/cars\/ram-trucks-1500-2024.html'}]"
+  },
+  {
+    "brand_name":"RENAULT",
+    "model_links":"[{'text': 'RENAULT Clio', 'href': 'https:\/\/www.autoevolution.com\/cars\/renault-clio-2023.html'}, {'text': 'RENAULT Rafale', 'href': 'https:\/\/www.autoevolution.com\/cars\/renault-rafale-2023.html'}, {'text': 'RENAULT Arkana', 'href': 'https:\/\/www.autoevolution.com\/cars\/renault-arkana-2023.html'}]"
+  },
+  {
+    "brand_name":"RIMAC",
+    "model_links":"[{'text': 'RIMAC Nevera', 'href': 'https:\/\/www.autoevolution.com\/cars\/rimac-nevera-2021.html'}, {'text': 'RIMAC Nevera R', 'href': 'https:\/\/www.autoevolution.com\/cars\/rimac-nevera-r-2024.html'}]"
+  },
+  {
+    "brand_name":"RIVIAN",
+    "model_links":"[{'text': 'RIVIAN R3X', 'href': 'https:\/\/www.autoevolution.com\/cars\/rivian-r3x-2024.html'}, {'text': 'RIVIAN R3', 'href': 'https:\/\/www.autoevolution.com\/cars\/rivian-r3-2024.html'}, {'text': 'RIVIAN R2', 'href': 'https:\/\/www.autoevolution.com\/cars\/rivian-r2-2024.html'}]"
+  },
+  {
+    "brand_name":"ROLLS-ROYCE",
+    "model_links":"[{'text': 'ROLLS-ROYCE Arcadia Droptail', 'href': 'https:\/\/www.autoevolution.com\/cars\/rolls-royce-arcadia-droptail-2024.html'}, {'text': 'ROLLS-ROYCE Cullinan Series II', 'href': 'https:\/\/www.autoevolution.com\/cars\/rolls-royce-cullinan-series-ii-2024.html'}, {'text': 'ROLLS-ROYCE Spectre Black Badge', 'href': 'https:\/\/www.autoevolution.com\/cars\/rolls-royce-spectre-black-badge-2025.html'}]"
+  },
+  {
+    "brand_name":"ROVER",
+    "model_links":"[{'text': 'ROVER 100', 'href': 'https:\/\/www.autoevolution.com\/cars\/rover-100-1994.html'}]"
+  },
+  {
+    "brand_name":"SAAB",
+    "model_links":"[{'text': 'SAAB 9-3 Aero', 'href': 'https:\/\/www.autoevolution.com\/cars\/saab-9-3-aero-2014.html'}, {'text': 'SAAB 9-5', 'href': 'https:\/\/www.autoevolution.com\/cars\/saab-9-5-1997.html'}, {'text': 'SAAB 9-5 SportCombi', 'href': 'https:\/\/www.autoevolution.com\/cars\/saab-95-sportcombi-1998.html'}]"
+  },
+  {
+    "brand_name":"SALEEN",
+    "model_links":"[{'text': 'SALEEN S7', 'href': 'https:\/\/www.autoevolution.com\/cars\/saleen-s7-2000.html'}, {'text': 'SALEEN S7', 'href': 'https:\/\/www.autoevolution.com\/cars\/saleen-s7-2005.html'}]"
+  },
+  {
+    "brand_name":"SAMSUNG",
+    "model_links":"[{'text': 'SAMSUNG SM 5', 'href': 'https:\/\/www.autoevolution.com\/cars\/samsung-sm-5-1998.html'}, {'text': 'SAMSUNG SM 5', 'href': 'https:\/\/www.autoevolution.com\/cars\/samsung-sm-5-2004.html'}, {'text': 'SAMSUNG SM 7', 'href': 'https:\/\/www.autoevolution.com\/cars\/samsung-sm-7-2005.html'}]"
+  },
+  {
+    "brand_name":"SANTANA",
+    "model_links":"[{'text': 'SANTANA PS 10 Pickup', 'href': 'https:\/\/www.autoevolution.com\/cars\/santana-ps-10-pickup-2003.html'}, {'text': 'SANTANA PS 10 Shortline', 'href': 'https:\/\/www.autoevolution.com\/cars\/santana-ps-10-shortline-2006.html'}, {'text': 'SANTANA 300 - 350', 'href': 'https:\/\/www.autoevolution.com\/cars\/santana-300-350-2005.html'}]"
+  },
+  {
+    "brand_name":"SATURN",
+    "model_links":"[{'text': 'SATURN Astra (5 Doors)', 'href': 'https:\/\/www.autoevolution.com\/cars\/saturn-astra-5-doors-2008.html'}, {'text': 'SATURN Aura', 'href': 'https:\/\/www.autoevolution.com\/cars\/saturn-aura-2006.html'}, {'text': 'SATURN Outlook', 'href': 'https:\/\/www.autoevolution.com\/cars\/saturn-outlook-2006.html'}]"
+  },
+  {
+    "brand_name":"SCION",
+    "model_links":"[{'text': 'SCION iQ', 'href': 'https:\/\/www.autoevolution.com\/cars\/scion-iq-2011.html'}, {'text': 'SCION iA', 'href': 'https:\/\/www.autoevolution.com\/cars\/scion-ia-2016.html'}, {'text': 'SCION iM', 'href': 'https:\/\/www.autoevolution.com\/cars\/scion-im-2016.html'}]"
+  },
+  {
+    "brand_name":"SCOUT MOTORS",
+    "model_links":"[{'text': 'SCOUT MOTORS Traveler', 'href': 'https:\/\/www.autoevolution.com\/cars\/scout-motors-traveler-2024.html'}, {'text': 'SCOUT MOTORS Terra', 'href': 'https:\/\/www.autoevolution.com\/cars\/scout-motors-terra-2024.html'}]"
+  },
+  {
+    "brand_name":"SEAT",
+    "model_links":"[{'text': 'SEAT Arona', 'href': 'https:\/\/www.autoevolution.com\/cars\/seat-arona-2021.html'}, {'text': 'SEAT Ibiza', 'href': 'https:\/\/www.autoevolution.com\/cars\/seat-ibiza-2025.html'}, {'text': 'SEAT Arona', 'href': 'https:\/\/www.autoevolution.com\/cars\/seat-arona-2025.html'}]"
+  },
+  {
+    "brand_name":"SKODA",
+    "model_links":"[{'text': 'SKODA Enyaq RS', 'href': 'https:\/\/www.autoevolution.com\/cars\/skoda-enyaq-rs-2025.html'}, {'text': 'SKODA Enyaq Coupe RS', 'href': 'https:\/\/www.autoevolution.com\/cars\/skoda-enyaq-coupe-rs-2025.html'}, {'text': 'SKODA Kushaq', 'href': 'https:\/\/www.autoevolution.com\/cars\/skoda-kushaq-2026.html'}]"
+  },
+  {
+    "brand_name":"SMART",
+    "model_links":"[{'text': 'SMART 1', 'href': 'https:\/\/www.autoevolution.com\/cars\/smart-1-2022.html'}, {'text': 'SMART 5', 'href': 'https:\/\/www.autoevolution.com\/cars\/smart-5-2024.html'}, {'text': 'SMART 3', 'href': 'https:\/\/www.autoevolution.com\/cars\/smart-3-2023.html'}]"
+  },
+  {
+    "brand_name":"SPYKER",
+    "model_links":"[{'text': 'SPYKER C8 Double 12 S', 'href': 'https:\/\/www.autoevolution.com\/cars\/spyker-c8-double-12-s-2002.html'}, {'text': 'SPYKER C12 LaTurbie', 'href': 'https:\/\/www.autoevolution.com\/cars\/spyker-c12-laturbie-2006.html'}, {'text': 'SPYKER C8 Preliator', 'href': 'https:\/\/www.autoevolution.com\/cars\/spyker-c8-preliator-2016.html'}]"
+  },
+  {
+    "brand_name":"SSANGYONG",
+    "model_links":"[{'text': 'SSANGYONG Korando', 'href': 'https:\/\/www.autoevolution.com\/cars\/ssangyong-korando-2019.html'}, {'text': 'SSANGYONG Tivoli', 'href': 'https:\/\/www.autoevolution.com\/cars\/ssangyong-tivoli-2019.html'}, {'text': 'SSANGYONG Rexton', 'href': 'https:\/\/www.autoevolution.com\/cars\/ssangyong-rexton-2021.html'}]"
+  },
+  {
+    "brand_name":"SUBARU",
+    "model_links":"[{'text': 'SUBARU Outback', 'href': 'https:\/\/www.autoevolution.com\/cars\/subaru-outback-2025.html'}, {'text': 'SUBARU Outback Wilderness', 'href': 'https:\/\/www.autoevolution.com\/cars\/subaru-outback-wilderness-2025.html'}, {'text': 'SUBARU Uncharted', 'href': 'https:\/\/www.autoevolution.com\/cars\/subaru-uncharted-2025.html'}]"
+  },
+  {
+    "brand_name":"SUZUKI",
+    "model_links":"[{'text': 'SUZUKI Jimny', 'href': 'https:\/\/www.autoevolution.com\/cars\/suzuki-jimny-2023.html'}, {'text': 'SUZUKI Swift', 'href': 'https:\/\/www.autoevolution.com\/cars\/suzuki-swift-2023.html'}, {'text': 'SUZUKI Across', 'href': 'https:\/\/www.autoevolution.com\/cars\/suzuki-across-2026.html'}]"
+  },
+  {
+    "brand_name":"TATA MOTORS",
+    "model_links":"[{'text': 'TATA MOTORS Altroz', 'href': 'https:\/\/www.autoevolution.com\/cars\/tata-motors-altroz-2019.html'}, {'text': 'TATA MOTORS Harrier', 'href': 'https:\/\/www.autoevolution.com\/cars\/tata-motors-harrier-2018.html'}, {'text': 'TATA MOTORS Nexon', 'href': 'https:\/\/www.autoevolution.com\/cars\/tata-motors-nexon-2017.html'}]"
+  },
+  {
+    "brand_name":"TESLA",
+    "model_links":"[{'text': 'TESLA Model S', 'href': 'https:\/\/www.autoevolution.com\/cars\/tesla-model-s-2019.html'}, {'text': 'TESLA Model S', 'href': 'https:\/\/www.autoevolution.com\/cars\/tesla-model-s-2021.html'}, {'text': 'TESLA Model Y', 'href': 'https:\/\/www.autoevolution.com\/cars\/tesla-model-y-2024.html'}]"
+  },
+  {
+    "brand_name":"TOGG",
+    "model_links":"[{'text': 'TOGG T10X', 'href': 'https:\/\/www.autoevolution.com\/cars\/togg-t10x-2022.html'}, {'text': 'TOGG T10F', 'href': 'https:\/\/www.autoevolution.com\/cars\/togg-t10f-2024.html'}]"
+  },
+  {
+    "brand_name":"TOYOTA",
+    "model_links":"[{'text': 'TOYOTA Avensis Wagon', 'href': 'https:\/\/www.autoevolution.com\/cars\/toyota-avensis-wagon-2015.html'}, {'text': 'TOYOTA Highlander', 'href': 'https:\/\/www.autoevolution.com\/cars\/toyota-highlander-2016.html'}, {'text': 'TOYOTA Land Cruiser 200 \/ V8', 'href': 'https:\/\/www.autoevolution.com\/cars\/toyota-land-cruiser-200-v8-2011.html'}]"
+  },
+  {
+    "brand_name":"TVR",
+    "model_links":"[{'text': 'TVR Chimaera', 'href': 'https:\/\/www.autoevolution.com\/cars\/tvr-chimaera-1992.html'}, {'text': 'TVR 280i\/ 350i Convertible', 'href': 'https:\/\/www.autoevolution.com\/cars\/tvr-280i-350i-convertible-1983.html'}, {'text': 'TVR Griffith', 'href': 'https:\/\/www.autoevolution.com\/cars\/tvr-griffith-2017.html'}]"
+  },
+  {
+    "brand_name":"VAUXHALL",
+    "model_links":"[{'text': 'VAUXHALL Astra GSe', 'href': 'https:\/\/www.autoevolution.com\/cars\/vauxhall-astra-gse-2022.html'}, {'text': 'VAUXHALL Astra Sports Tourer', 'href': 'https:\/\/www.autoevolution.com\/cars\/vauxhall-astra-sports-tourer-2021.html'}, {'text': 'VAUXHALL Grandland', 'href': 'https:\/\/www.autoevolution.com\/cars\/vauxhall-grandland-2024.html'}]"
+  },
+  {
+    "brand_name":"VinFast",
+    "model_links":"[{'text': 'VinFast VF 8', 'href': 'https:\/\/www.autoevolution.com\/cars\/vinfast-vf-8-2022.html'}, {'text': 'VinFast VF 9', 'href': 'https:\/\/www.autoevolution.com\/cars\/vinfast-vf-9-2022.html'}]"
+  },
+  {
+    "brand_name":"VOLKSWAGEN",
+    "model_links":"[{'text': 'VOLKSWAGEN Passat GTE', 'href': 'https:\/\/www.autoevolution.com\/cars\/volkswagen-passat-gte-2019.html'}, {'text': 'VOLKSWAGEN T-Roc Cabriolet', 'href': 'https:\/\/www.autoevolution.com\/cars\/volkswagen-t-roc-cabriolet-2019.html'}, {'text': 'VOLKSWAGEN ID.3', 'href': 'https:\/\/www.autoevolution.com\/cars\/volkswagen-id3-1st-edition-2019.html'}]"
+  },
+  {
+    "brand_name":"VOLVO",
+    "model_links":"[{'text': 'VOLVO XC70', 'href': 'https:\/\/www.autoevolution.com\/cars\/volvo-xc70-2025.html'}, {'text': 'VOLVO EX60 Cross Country', 'href': 'https:\/\/www.autoevolution.com\/cars\/volvo-ex60-cross-country-2026.html'}, {'text': 'VOLVO EX60', 'href': 'https:\/\/www.autoevolution.com\/cars\/volvo-ex60-2026.html'}]"
+  },
+  {
+    "brand_name":"WIESMANN",
+    "model_links":"[{'text': 'WIESMANN GT MF4-CS', 'href': 'https:\/\/www.autoevolution.com\/cars\/wiesmann-gt-mf4-cs-2013.html'}, {'text': 'WIESMANN MF5 Roadster', 'href': 'https:\/\/www.autoevolution.com\/cars\/wiesmann-mf5-roadster-2012.html'}, {'text': 'WIESMANN GT MF5', 'href': 'https:\/\/www.autoevolution.com\/cars\/wiesmann-gt-mf5-2011.html'}]"
+  },
+  {
+    "brand_name":"Xiaomi",
+    "model_links":"[{'text': 'Xiaomi SU7', 'href': 'https:\/\/www.autoevolution.com\/cars\/xiaomi-su7-2024.html'}]"
+  },
+  {
+    "brand_name":"Xpeng",
+    "model_links":"[{'text': 'Xpeng G9', 'href': 'https:\/\/www.autoevolution.com\/cars\/xpeng-g9-2021.html'}, {'text': 'Xpeng G3', 'href': 'https:\/\/www.autoevolution.com\/cars\/xpeng-g3-2018.html'}, {'text': 'Xpeng G3i', 'href': 'https:\/\/www.autoevolution.com\/cars\/xpeng-g3i-2021.html'}]"
+  },
+  {
+    "brand_name":"Zeekr",
+    "model_links":"[{'text': 'Zeekr X', 'href': 'https:\/\/www.autoevolution.com\/cars\/zeekr-x-2023.html'}, {'text': 'Zeekr 7X', 'href': 'https:\/\/www.autoevolution.com\/cars\/zeekr-7x-2024.html'}, {'text': 'Zeekr 7GT', 'href': 'https:\/\/www.autoevolution.com\/cars\/zeekr-7gt-2026.html'}]"
+  },
+  {
+    "brand_name":"ZENDER",
+    "model_links":"[{'text': 'ZENDER Thirty 7', 'href': 'https:\/\/www.autoevolution.com\/cars\/zender-thirty-7-1999.html'}, {'text': 'ZENDER Escape 6', 'href': 'https:\/\/www.autoevolution.com\/cars\/zender-escape-6-2000.html'}, {'text': 'ZENDER Straight 8', 'href': 'https:\/\/www.autoevolution.com\/cars\/zender-straight-8-2001.html'}]"
+  },
+  {
+    "brand_name":"Zenvo",
+    "model_links":"[{'text': 'Zenvo TSR-S', 'href': 'https:\/\/www.autoevolution.com\/cars\/zenvo-tsr-s-2018.html'}, {'text': 'Zenvo Aurora Agil', 'href': 'https:\/\/www.autoevolution.com\/cars\/zenvo-aurora-agil-2023.html'}, {'text': 'Zenvo Aurora Tur', 'href': 'https:\/\/www.autoevolution.com\/cars\/zenvo-aurora-tur-2023.html'}]"
+  }
+]

@@ -26,6 +26,7 @@ from typing import Any, Dict, List, Optional
 from playwright.async_api import Page
 
 from core.ai_provider import ai_provider
+from core.dom_preprocessor import preprocess_dom
 
 log = logging.getLogger("PegasusExtract")
 
@@ -274,11 +275,8 @@ CRITICAL RULES:
 8. Clean text values: trim whitespace, remove excessive newlines.
 9. For numeric fields (rating, price, rank, year), extract JUST the number."""
 
-    # Build a focused DOM context for the AI
-    dom_context = json.dumps(dom_report, indent=2, default=str)
-    # Truncate if too long
-    if len(dom_context) > 15000:
-        dom_context = dom_context[:15000] + "\n...[truncated]"
+    # Build a focused DOM context for the AI — use compressed summary
+    dom_context = preprocess_dom(dom_report)
 
     USER = f"""Write a JavaScript extraction function for this page.
 
@@ -386,7 +384,12 @@ class LiveDOMExtractor:
             log.warning("Empty DOM report — page may not have loaded")
             return []
 
-        # Step 2: Try AI-generated JS extraction with self-healing
+        # Step 2: Deterministic shortcut — skip AI entirely for obvious pages
+        results = await self._try_deterministic_shortcut(page, dom_report)
+        if results:
+            return results
+
+        # Step 3: Try AI-generated JS extraction with self-healing
         results = []
         last_error = ""
 
@@ -431,6 +434,76 @@ class LiveDOMExtractor:
             results = await self._deterministic_extract(page, dom_report)
 
         return results
+
+    def _field_coverage(self, records: List[Dict[str, Any]]) -> float:
+        """Return fraction (0.0-1.0) of requested fields that have data."""
+        if not records or not self.fields:
+            return 0.0
+        total_cells = len(records) * len(self.fields)
+        filled = sum(
+            1
+            for rec in records
+            for f in self.fields
+            if rec.get(f) and str(rec[f]).strip()
+            and str(rec[f]).strip().lower() not in ("none", "null", "undefined", "")
+        )
+        return filled / max(total_cells, 1)
+
+    async def _try_deterministic_shortcut(
+        self, page: Page, dom_report: dict
+    ) -> List[Dict[str, Any]]:
+        """
+        If the DOM has an obvious table or repeated pattern, extract
+        directly without calling AI.  Returns [] if no shortcut applies.
+
+        Quality gate: extracted records must populate ≥30% of requested
+        fields — otherwise the shortcut found the wrong container.
+        """
+        compressed = preprocess_dom(dom_report)
+        min_coverage = 0.30
+
+        # ── Shortcut A: TABLE_FOUND — extract table with zero AI tokens ──
+        if "TABLE_FOUND" in compressed:
+            tables = dom_report.get("tables", [])
+            if tables:
+                best_table = max(tables, key=lambda t: t.get("rowCount", 0))
+                if best_table.get("rowCount", 0) >= 5:
+                    results = await self._extract_from_table(page, best_table)
+                    if results:
+                        cov = self._field_coverage(results)
+                        if cov >= min_coverage:
+                            log.info(
+                                f"Table detected — zero AI tokens used "
+                                f"({len(results)} records, {cov:.0%} field coverage)"
+                            )
+                            return results
+                        log.info(
+                            f"Table shortcut skipped — low field coverage "
+                            f"({cov:.0%} < {min_coverage:.0%}), falling through to AI"
+                        )
+
+        # ── Shortcut B: REPEATED_PATTERN_FOUND — use selector directly ──
+        if "REPEATED_PATTERN_FOUND" in compressed:
+            candidates = dom_report.get("topCandidates", [])
+            for cand in candidates[:3]:
+                if cand.get("count", 0) >= 10:
+                    results = await self._extract_from_containers(page, cand)
+                    if results:
+                        cov = self._field_coverage(results)
+                        if cov >= min_coverage:
+                            log.info(
+                                f"Pattern detected — zero AI tokens used "
+                                f"({len(results)} records via {cand.get('selector', '?')}, "
+                                f"{cov:.0%} field coverage)"
+                            )
+                            return results
+                        log.info(
+                            f"Pattern shortcut skipped ({cand.get('selector', '?')}) — "
+                            f"low field coverage ({cov:.0%} < {min_coverage:.0%}), "
+                            f"falling through to AI"
+                        )
+
+        return []
 
     # UI junk patterns to strip from extracted values
     _JUNK_PATTERNS = re.compile(

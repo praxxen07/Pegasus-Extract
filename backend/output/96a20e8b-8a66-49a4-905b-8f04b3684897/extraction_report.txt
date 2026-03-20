@@ -1,0 +1,9 @@
+PEGASUS EXTRACT — Extraction Report
+=====================================
+URL: https://www.autoevolution.com/cars/
+Pages: 1
+Records: 133
+Duplicates removed: 0
+Fields: ['brand_name', 'model_links']
+Engine: LiveDOMExtractor + UniversalAdapter
+=====================================
