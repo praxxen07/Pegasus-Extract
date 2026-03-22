@@ -7,6 +7,8 @@ from typing import Any, Awaitable, Callable, Dict
 import pandas as pd
 from playwright.async_api import async_playwright
 
+from engine.agent_navigator import AgentNavigator
+from engine.curl_fetcher import CurlFetcher
 from engine.live_dom_extractor import LiveDOMExtractor
 from engine.multi_level_crawler import MultiLevelCrawler
 from engine.stealth_browser import (
@@ -17,6 +19,7 @@ from engine.stealth_browser import (
     validate_and_retry,
 )
 from engine.universal_adapter import UniversalAdapter
+from engine.xhr_interceptor import XHRInterceptor
 
 log = logging.getLogger("PegasusExtract")
 
@@ -188,18 +191,51 @@ async def run_extraction(
     # Initialize both engines
     live_extractor = LiveDOMExtractor(fields=field_names, description=description)
     adapter = UniversalAdapter(plan)
+    xhr_interceptor = XHRInterceptor()
+    curl_fetcher = CurlFetcher()
+    agent_navigator = AgentNavigator()
 
     async with async_playwright() as p:
         browser = await launch_stealth_browser(p)
         context = await create_stealth_context(browser)
 
         # ── Check if AI recommends multi-level crawling ──
+        # Only plan multilevel if the probe page is actually the target page.
+        # If a bot wall redirects us to homepage, planning on the wrong page
+        # produces a wrong strategy (e.g. 230-page home-page crawl).
         multilevel_crawler = MultiLevelCrawler()
         crawl_plan = None
+        search_form_detected = False
         probe_page = await new_stealth_page(context)
         try:
             await _smart_load_page(probe_page, target_url, browser_config)
-            crawl_plan = await multilevel_crawler.get_crawl_plan(probe_page, description)
+            probe_valid, probe_reason = await validate_and_retry(
+                probe_page, target_url, browser_config
+            )
+            if probe_valid:
+                # Check for search-form page BEFORE multi-level planning.
+                # Search-form pages (portals) have links that mislead the
+                # multi-level crawler into crawling random internal pages.
+                probe_snapshot = await agent_navigator._get_dom_snapshot(
+                    probe_page
+                )
+                if agent_navigator.is_search_form_page(
+                    probe_snapshot, records_found=0
+                ):
+                    search_form_detected = True
+                    log.info(
+                        "Search form detected on probe — "
+                        "skipping multilevel, will use AgentNavigator"
+                    )
+                else:
+                    crawl_plan = await multilevel_crawler.get_crawl_plan(
+                        probe_page, description
+                    )
+            else:
+                log.info(
+                    f"Bot wall on probe page ({probe_reason}) — "
+                    "skipping multilevel planning, will use XHR tier"
+                )
         except Exception as e:
             log.warning(f"CrawlPlan probe failed: {e}")
         finally:
@@ -262,31 +298,71 @@ async def run_extraction(
                     page_valid, val_reason = await validate_and_retry(
                         page, url, browser_config
                     )
-                    if not page_valid:
+                    bot_wall_detected = not page_valid
+                    if bot_wall_detected:
                         log.warning(
-                            f"Page {current_page}: skipping {url} — {val_reason}"
+                            f"Page {current_page}: LiveDOM returned 0 — bot wall detected ({val_reason})"
                         )
-                        continue
 
-                    await progress_callback(
-                        job_id,
-                        int(current_page / max_pages * 85),
-                        f"Page {current_page}/{max_pages} — inspecting DOM",
-                        len(all_results),
-                    )
+                    try:
+                        body_len = await page.evaluate("(document.body.innerText || '').length")
+                    except Exception:
+                        body_len = 0
 
-                    # ── PRIMARY ENGINE: LiveDOMExtractor ──
-                    log.info(f"Page {current_page}: LiveDOMExtractor starting on {url}")
-                    results = await live_extractor.extract(
-                        page, url, plan_fields=fields_config
-                    )
-
-                    # ── Gentle scroll retry for lazy-load pages ──
-                    if not results:
-                        body_len = await page.evaluate(
-                            "(document.body.innerText || '').length"
+                    results: list[dict] = []
+                    livedom_was_junk = False
+                    if page_valid:
+                        await progress_callback(
+                            job_id,
+                            int(current_page / max_pages * 85),
+                            f"Page {current_page}/{max_pages} — inspecting DOM",
+                            len(all_results),
                         )
-                        if body_len < 15000:
+
+                        # ── Step 0: Agentic navigation for search-form pages ──
+                        nav_snapshot = await agent_navigator._get_dom_snapshot(page)
+                        if agent_navigator.is_search_form_page(
+                            nav_snapshot,
+                            records_found=len(all_results),
+                        ):
+                            log.info("Search form detected — starting agentic navigation")
+                            nav_result = await agent_navigator.navigate_to_results(
+                                start_url=url,
+                                client_description=description,
+                                page=page,
+                            )
+                            if nav_result["success"]:
+                                log.info(
+                                    f"AgentNavigator: reached results "
+                                    f"at {nav_result['results_url']}"
+                                )
+                                url = nav_result["results_url"]
+                                page = nav_result["page"]
+                            else:
+                                log.warning(
+                                    f"AgentNavigator: {nav_result['message']}"
+                                )
+
+                        # ── PRIMARY ENGINE: LiveDOMExtractor ──
+                        log.info(f"Page {current_page}: LiveDOMExtractor starting on {url}")
+                        results = await live_extractor.extract(
+                            page, url, plan_fields=fields_config
+                        )
+
+                        # ── Quality gate: discard low-coverage junk ──
+                        if results:
+                            cov = live_extractor._field_coverage(results)
+                            if cov < 0.60:
+                                log.info(
+                                    f"Page {current_page}: LiveDOM returned {len(results)} "
+                                    f"records but only {cov:.0%} field coverage — "
+                                    f"discarding as junk, falling through to XHR tiers"
+                                )
+                                results = []
+                                livedom_was_junk = True
+
+                        # ── Gentle scroll retry for lazy-load pages ──
+                        if not results and body_len < 15000:
                             log.info(
                                 f"Page {current_page}: 0 results + thin body "
                                 f"({body_len} chars) — trying gentle scroll"
@@ -302,10 +378,38 @@ async def run_extraction(
                                         f"{len(results)} records"
                                     )
 
-                    # ── FALLBACK: UniversalAdapter (if primary got 0 results) ──
-                    if not results:
+                    # ── TIER 3: XHR Interceptor (generic JS API extraction) ──
+                    if not results and not bot_wall_detected:
+                        log.info("LiveDOM returned 0 — switching to XHR interception")
+                        results = await xhr_interceptor.extract(
+                            url=url,
+                            client_description=description,
+                            target_fields=field_names,
+                        )
+
+                    # ── TIER 4: curl_cffi session bootstrap + XHR ──
+                    elif not results and bot_wall_detected:
+                        session = await curl_fetcher.bootstrap_session(url)
+                        if session and session.get("cookies"):
+                            results = await xhr_interceptor.extract(
+                                url=url,
+                                client_description=description,
+                                target_fields=field_names,
+                                session=session,
+                            )
+
+                    # ── TIER 5: UniversalAdapter (final fallback) ──
+                    # Skip if LiveDOM found junk and XHR found 0 API calls:
+                    # page is likely a search-form homepage that needs
+                    # user interaction, not blind CSS scraping.
+                    if not results and livedom_was_junk:
                         log.info(
-                            f"Page {current_page}: LiveDOM got 0 — trying UniversalAdapter"
+                            f"Page {current_page}: Homepage has no listing API "
+                            f"calls — search form interaction required"
+                        )
+                    elif not results:
+                        log.info(
+                            f"Page {current_page}: LiveDOM/XHR got 0 — trying UniversalAdapter"
                         )
                         await progress_callback(
                             job_id,
@@ -313,7 +417,6 @@ async def run_extraction(
                             f"Page {current_page}/{max_pages} — fallback extraction",
                             len(all_results),
                         )
-                        # Re-load page for adapter (it has its own load logic)
                         results = await adapter.extract_page(
                             page,
                             {"url": url, "page_num": current_page},
@@ -329,7 +432,7 @@ async def run_extraction(
                         log.warning(f"Page {current_page}: 0 records from {url}")
 
                     # Discover next page
-                    if use_dynamic and current_page < max_pages:
+                    if use_dynamic and current_page < max_pages and page_valid:
                         next_url = await adapter.get_next_url(page, current_page)
                         if next_url and next_url not in visited:
                             urls_queue.append(next_url)

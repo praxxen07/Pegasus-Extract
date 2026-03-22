@@ -1,0 +1,217 @@
+{
+  "url": "https://www.magicbricks.com/",
+  "title": "Real Estate | Property in India | Buy/Sale/Rent Properties | MagicBricks",
+  "bodyTextLength": 10720,
+  "interactiveElements": [
+    {
+      "tag": "input",
+      "type": "text",
+      "role": "",
+      "text": "",
+      "placeholder": "Add more...",
+      "ariaLabel": "",
+      "classNames": "mb-search__input",
+      "id": "keyword",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Next slide",
+      "classNames": "swiper-button-next swiper-button-disabled",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Previous slide",
+      "classNames": "swiper-button-prev swiper-button-disabled",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Next slide",
+      "classNames": "swiper-button-next",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Previous slide",
+      "classNames": "swiper-button-prev swiper-button-disabled",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Next slide",
+      "classNames": "swiper-button-next",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Previous slide",
+      "classNames": "swiper-button-prev swiper-button-disabled",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Next slide",
+      "classNames": "swiper-button-next",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Previous slide",
+      "classNames": "swiper-button-prev swiper-button-disabled",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Next slide",
+      "classNames": "swiper-button-next",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Previous slide",
+      "classNames": "swiper-button-prev swiper-button-disabled",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Next slide",
+      "classNames": "swiper-button-next",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Next slide",
+      "classNames": "swiper-button-next",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Next slide",
+      "classNames": "swiper-button-next recommended-blog-swiper-button",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Previous slide",
+      "classNames": "swiper-button-prev recommended-blog-swiper-button swiper-button-disabled",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Next slide",
+      "classNames": "swiper-button-next recommended-blog-swiper-button",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Previous slide",
+      "classNames": "swiper-button-prev recommended-blog-swiper-button swiper-button-disabled",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Next slide",
+      "classNames": "swiper-button-next recommended-blog-swiper-button forareaCalc",
+      "id": "",
+      "name": ""
+    },
+    {
+      "tag": "div",
+      "type": "",
+      "role": "button",
+      "text": "",
+      "placeholder": "",
+      "ariaLabel": "Previous slide",
+      "classNames": "swiper-button-prev recommended-blog-swiper-button forareaCalc swiper-button-disa",
+      "id": "",
+      "name": ""
+    }
+  ],
+  "tableDataRows": 0
+}
