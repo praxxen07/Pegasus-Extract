@@ -34,7 +34,7 @@ COPY . .
 
 # Build-time env var — will be baked into the client bundle
 # Override at build time: docker build --build-arg NEXT_PUBLIC_API_URL=https://...
-ARG NEXT_PUBLIC_API_URL=http://localhost:8001
+ARG NEXT_PUBLIC_API_URL=https://pegasus-extract.onrender.com
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 
 # Enable Next.js standalone output for minimal Docker image
