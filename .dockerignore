@@ -1,0 +1,43 @@
+# Git
+.git
+.gitignore
+
+# IDE
+.cursor
+.windsurf
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# Node
+node_modules
+.next
+
+# Environment files (secrets — pass via docker-compose env vars)
+.env
+.env.local
+.env.production
+
+# Output data (mounted as volume)
+backend/output
+
+# Test files
+backend/test_*.py
+backend/tmp_*.json
+
+# Plans
+plans/

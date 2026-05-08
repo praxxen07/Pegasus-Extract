@@ -26,6 +26,80 @@ log = logging.getLogger("PegasusExtract")
 ProgressCallback = Callable[[str, int, str, int], Awaitable[None]]
 
 
+_DATA_RECORD_COUNTER_JS = """
+(() => {
+    // Count table data rows (strong signal — tables with 5+ rows are real data)
+    let tableRows = 0;
+    document.querySelectorAll('table').forEach(t => {
+        const rows = t.querySelectorAll('tbody tr, tr').length;
+        if (rows > tableRows) tableRows = rows;
+    });
+    if (tableRows >= 5) return tableRows;
+
+    // Count repeated containers — STRICT filtering
+    // Skip: nav, menu, header, footer, sidebar, carousel, slider, promo, hero, banner
+    const skipRe = /nav|menu|header|footer|sidebar|breadcrumb|pagination|social|share|banner|cookie|toolbar|topbar|carousel|slider|swiper|hero|promo|featured|sponsor|advert|modal|popup|tooltip|dropdown/i;
+    // Only count data-centric selectors (not generic li or item)
+    const selectors = [
+        '[class*="result"]', '[class*="listing"]',
+        '[class*="product"]', '[class*="entry"]',
+        'article',
+    ];
+    let best = 0;
+    for (const sel of selectors) {
+        try {
+            const els = document.querySelectorAll(sel);
+            if (els.length < 5) continue;
+
+            // Check that elements are NOT inside a carousel/slider/promo ancestor
+            let validCount = 0;
+            for (let i = 0; i < Math.min(els.length, 10); i++) {
+                let el = els[i];
+                let skip = false;
+                // Walk up to check for promo/carousel ancestors
+                let ancestor = el.parentElement;
+                for (let d = 0; d < 5 && ancestor; d++) {
+                    const ac = (ancestor.className || '') + ' ' + (ancestor.id || '');
+                    if (skipRe.test(ac)) { skip = true; break; }
+                    const tag = ancestor.tagName.toLowerCase();
+                    if (tag === 'nav' || tag === 'header' || tag === 'footer') { skip = true; break; }
+                    ancestor = ancestor.parentElement;
+                }
+                // Require meaningful text (not just images/icons)
+                if (!skip) {
+                    const txt = (el.innerText || '').trim();
+                    if (txt.length > 20) validCount++;
+                }
+            }
+            // At least 50% of sampled elements must be valid data
+            if (validCount >= Math.min(els.length, 10) * 0.5) {
+                if (els.length > best) best = els.length;
+            }
+        } catch(e) {}
+    }
+    return best;
+})()
+"""
+
+
+async def _count_visible_records(page) -> int:
+    """
+    Count visible data records on a live page.
+
+    Uses two signals via lightweight JS:
+    1. Table data rows (>= 5 rows)
+    2. Repeated container elements (cards, results, listings, etc.)
+       — skips nav/menu/header/footer containers
+
+    Returns the highest record count found, or 0.
+    """
+    try:
+        count = await page.evaluate(_DATA_RECORD_COUNTER_JS)
+        return int(count) if count else 0
+    except Exception:
+        return 0
+
+
 def _resolve_chromium_executable() -> str | None:
     """
     Ensure Playwright can launch in environments where only the x64
@@ -216,15 +290,25 @@ async def run_extraction(
                 # Check for search-form page BEFORE multi-level planning.
                 # Search-form pages (portals) have links that mislead the
                 # multi-level crawler into crawling random internal pages.
+                probe_records = await _count_visible_records(probe_page)
                 probe_snapshot = await agent_navigator._get_dom_snapshot(
                     probe_page
                 )
-                if agent_navigator.is_search_form_page(
+                if probe_records > 0:
+                    log.info(
+                        f"Probe: {probe_records} data records visible "
+                        f"— data page, skipping AgentNavigator"
+                    )
+                    # Data page — go to multilevel planning or single-level
+                    crawl_plan = await multilevel_crawler.get_crawl_plan(
+                        probe_page, description
+                    )
+                elif agent_navigator.is_search_form_page(
                     probe_snapshot, records_found=0
                 ):
                     search_form_detected = True
                     log.info(
-                        "Search form detected on probe — "
+                        "Probe: 0 records + search form detected — "
                         "skipping multilevel, will use AgentNavigator"
                     )
                 else:
@@ -236,6 +320,32 @@ async def run_extraction(
                     f"Bot wall on probe page ({probe_reason}) — "
                     "skipping multilevel planning, will use XHR tier"
                 )
+            # ── Override multilevel if listing page can extract all fields ──
+            if (
+                crawl_plan is not None
+                and crawl_plan.get("strategy") == "multilevel"
+                and probe_valid
+            ):
+                try:
+                    probe_results = await live_extractor.extract(
+                        probe_page, target_url, plan_fields=fields_config
+                    )
+                    if probe_results:
+                        probe_cov = live_extractor._field_coverage(probe_results)
+                        if probe_cov >= 0.80:
+                            log.info(
+                                f"Listing page extraction: {len(probe_results)} records, "
+                                f"{probe_cov:.0%} coverage — overriding to SINGLE strategy"
+                            )
+                            crawl_plan["strategy"] = "single"
+                        else:
+                            log.info(
+                                f"Listing page extraction: {probe_cov:.0%} coverage "
+                                f"— keeping MULTILEVEL strategy"
+                            )
+                except Exception as e:
+                    log.debug(f"Listing page pre-check failed: {e}")
+
         except Exception as e:
             log.warning(f"CrawlPlan probe failed: {e}")
         finally:
@@ -311,6 +421,7 @@ async def run_extraction(
 
                     results: list[dict] = []
                     livedom_was_junk = False
+                    agent_navigated = False
                     if page_valid:
                         await progress_callback(
                             job_id,
@@ -319,19 +430,30 @@ async def run_extraction(
                             len(all_results),
                         )
 
-                        # ── Step 0: Agentic navigation for search-form pages ──
+                        # ── DECISION GATE: count visible data before AgentNavigator ──
+                        visible_records = await _count_visible_records(page)
                         nav_snapshot = await agent_navigator._get_dom_snapshot(page)
-                        if agent_navigator.is_search_form_page(
+
+                        if visible_records > 0:
+                            # Page already has data. AgentNavigator forbidden.
+                            log.info(
+                                f"Decision gate: {visible_records} data records "
+                                f"visible on landing page — skipping AgentNavigator, "
+                                f"going directly to Tier 1"
+                            )
+                        elif agent_navigator.is_search_form_page(
                             nav_snapshot,
                             records_found=len(all_results),
                         ):
-                            log.info("Search form detected — starting agentic navigation")
+                            # No data + search form = AgentNavigator needed
+                            log.info("Decision gate: 0 records + search form detected — starting AgentNavigator")
                             nav_result = await agent_navigator.navigate_to_results(
                                 start_url=url,
                                 client_description=description,
                                 page=page,
                             )
                             if nav_result["success"]:
+                                agent_navigated = True
                                 log.info(
                                     f"AgentNavigator: reached results "
                                     f"at {nav_result['results_url']}"
@@ -342,6 +464,12 @@ async def run_extraction(
                                 log.warning(
                                     f"AgentNavigator: {nav_result['message']}"
                                 )
+                        else:
+                            # No data, no form — proceed to tiers directly
+                            log.info(
+                                "Decision gate: 0 records, no search form — "
+                                "proceeding to Tier 1 directly"
+                            )
 
                         # ── PRIMARY ENGINE: LiveDOMExtractor ──
                         log.info(f"Page {current_page}: LiveDOMExtractor starting on {url}")
@@ -349,20 +477,29 @@ async def run_extraction(
                             page, url, plan_fields=fields_config
                         )
 
-                        # ── Quality gate: discard low-coverage junk ──
+                        # ── Quality gate: 80% requested-field coverage ──
+                        livedom_stash = []
+                        livedom_cov = 0.0
                         if results:
-                            cov = live_extractor._field_coverage(results)
-                            if cov < 0.60:
+                            livedom_cov = live_extractor._field_coverage(results)
+                            if livedom_cov >= 0.80:
                                 log.info(
-                                    f"Page {current_page}: LiveDOM returned {len(results)} "
-                                    f"records but only {cov:.0%} field coverage — "
-                                    f"discarding as junk, falling through to XHR tiers"
+                                    f"Page {current_page}: LiveDOM coverage "
+                                    f"{livedom_cov:.0%} on requested fields — accepted "
+                                    f"({len(results)} records)"
                                 )
+                            else:
+                                log.info(
+                                    f"Page {current_page}: LiveDOM coverage "
+                                    f"{livedom_cov:.0%} on requested fields — "
+                                    f"too low, stashing {len(results)} records, trying XHR"
+                                )
+                                livedom_stash = results
+                                livedom_was_junk = livedom_cov < 0.25
                                 results = []
-                                livedom_was_junk = True
 
                         # ── Gentle scroll retry for lazy-load pages ──
-                        if not results and body_len < 15000:
+                        if not results and not livedom_stash and body_len < 15000:
                             log.info(
                                 f"Page {current_page}: 0 results + thin body "
                                 f"({body_len} chars) — trying gentle scroll"
@@ -373,36 +510,83 @@ async def run_extraction(
                                     page, url, plan_fields=fields_config
                                 )
                                 if results:
-                                    log.info(
-                                        f"Page {current_page}: scroll loaded "
-                                        f"{len(results)} records"
-                                    )
+                                    cov = live_extractor._field_coverage(results)
+                                    if cov >= 0.80:
+                                        log.info(
+                                            f"Page {current_page}: scroll loaded "
+                                            f"{len(results)} records, coverage {cov:.0%} — accepted"
+                                        )
+                                    else:
+                                        log.info(
+                                            f"Page {current_page}: scroll loaded "
+                                            f"{len(results)} records but coverage {cov:.0%} — stashing"
+                                        )
+                                        if not livedom_stash or cov > livedom_cov:
+                                            livedom_stash = results
+                                            livedom_cov = cov
+                                        results = []
 
                     # ── TIER 3: XHR Interceptor (generic JS API extraction) ──
                     if not results and not bot_wall_detected:
-                        log.info("LiveDOM returned 0 — switching to XHR interception")
-                        results = await xhr_interceptor.extract(
+                        log.info(
+                            f"LiveDOM coverage insufficient — switching to XHR interception"
+                        )
+                        xhr_results = await xhr_interceptor.extract(
                             url=url,
                             client_description=description,
                             target_fields=field_names,
                         )
+                        if xhr_results:
+                            xhr_cov = live_extractor._field_coverage(xhr_results)
+                            log.info(f"XHR returned {len(xhr_results)} records, coverage {xhr_cov:.0%}")
+                            if xhr_cov > livedom_cov:
+                                results = xhr_results
+                            elif livedom_stash:
+                                log.info("XHR coverage not better — using LiveDOM stash")
+                                results = livedom_stash
+                            else:
+                                results = xhr_results
+                        elif livedom_stash:
+                            log.info(
+                                f"XHR returned 0 — restoring LiveDOM stash "
+                                f"({len(livedom_stash)} records, {livedom_cov:.0%} coverage)"
+                            )
+                            results = livedom_stash
 
                     # ── TIER 4: curl_cffi session bootstrap + XHR ──
                     elif not results and bot_wall_detected:
                         session = await curl_fetcher.bootstrap_session(url)
                         if session and session.get("cookies"):
-                            results = await xhr_interceptor.extract(
+                            xhr_results = await xhr_interceptor.extract(
                                 url=url,
                                 client_description=description,
                                 target_fields=field_names,
                                 session=session,
                             )
+                            if xhr_results:
+                                xhr_cov = live_extractor._field_coverage(xhr_results)
+                                if xhr_cov > livedom_cov:
+                                    results = xhr_results
+                                elif livedom_stash:
+                                    results = livedom_stash
+                                else:
+                                    results = xhr_results
+                            elif livedom_stash:
+                                results = livedom_stash
+
+                    # Restore stash if nothing worked yet
+                    if not results and livedom_stash:
+                        log.info(
+                            f"All XHR tiers failed — restoring LiveDOM stash "
+                            f"({len(livedom_stash)} records, {livedom_cov:.0%} coverage)"
+                        )
+                        results = livedom_stash
 
                     # ── TIER 5: UniversalAdapter (final fallback) ──
-                    # Skip if LiveDOM found junk and XHR found 0 API calls:
-                    # page is likely a search-form homepage that needs
-                    # user interaction, not blind CSS scraping.
-                    if not results and livedom_was_junk:
+                    # Skip if LiveDOM found junk and XHR found 0 API calls
+                    # AND we didn't navigate (still on homepage).
+                    # After agent navigation we're on a results page — always try.
+                    if not results and livedom_was_junk and not agent_navigated:
                         log.info(
                             f"Page {current_page}: Homepage has no listing API "
                             f"calls — search form interaction required"
@@ -448,11 +632,15 @@ async def run_extraction(
         await browser.close()
 
     # ── Post-processing: clean & deduplicate ──
+    if all_results:
+        log.info(f"Pre-postprocess: {len(all_results)} records. Sample: {all_results[0]}")
     unique = _postprocess_results(all_results, target_url)
 
     removed = len(all_results) - len(unique)
     if removed:
         log.info(f"Removed {removed} duplicate/junk records")
+        if removed == len(all_results) and all_results:
+            log.warning(f"ALL records removed! Sample record: {all_results[0]}")
 
     # ── Export ──
     out = Path(output_dir) / job_id
@@ -516,8 +704,8 @@ def _postprocess_results(all_results: list, target_url: str) -> list:
         # Skip if all values are identical (header/nav artifacts)
         if len(set(values)) == 1 and len(values) > 1:
             return True
-        # Skip records where every value is very short (likely noise)
-        if all(len(v) <= 2 for v in values):
+        # Skip records where every value is very short AND few (likely noise)
+        if all(len(v) <= 2 for v in values) and len(values) <= 2:
             return True
         return False
 
@@ -527,15 +715,35 @@ def _postprocess_results(all_results: list, target_url: str) -> list:
         for r in results:
             key_parts = []
             for v in r.values():
-                if v and str(v).strip():
-                    key_parts.append(str(v).strip()[:80])
+                s = str(v).strip() if v else ""
+                if s and len(s) > 2:
+                    key_parts.append(s[:80])
                     if len(key_parts) >= 3:
                         break
             key = "||".join(key_parts)
-            if key and key not in seen:
+            if not key:
+                # No dedup key possible — include the record
+                unique.append(r)
+            elif key not in seen:
                 seen.add(key)
                 unique.append(r)
         return unique
 
+    junk_count = sum(1 for r in all_results if is_junk_record(r))
+    if junk_count:
+        log.info(f"Post-process: {junk_count}/{len(all_results)} records are junk")
+        if junk_count > 0 and all_results:
+            # Log first junk record for debugging
+            for r in all_results:
+                if is_junk_record(r):
+                    log.info(f"Post-process: sample junk record: {r}")
+                    break
+
     filtered = [r for r in all_results if not is_junk_record(r)]
-    return dedup_results(filtered)
+    unique = dedup_results(filtered)
+
+    deduped = len(filtered) - len(unique)
+    if deduped:
+        log.info(f"Post-process: removed {deduped} duplicate records")
+
+    return unique

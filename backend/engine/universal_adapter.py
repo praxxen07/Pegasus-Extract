@@ -187,6 +187,9 @@ class UniversalAdapter:
         for pat in patterns:
             try:
                 els = await page.query_selector_all(pat)
+                # Skip selectors that match too many elements (too broad)
+                if len(els) > 500:
+                    continue
                 if len(els) > len(best_els):
                     # Avoid choosing tiny inline elements (common false positives,
                     # e.g. tag chips) as "containers".

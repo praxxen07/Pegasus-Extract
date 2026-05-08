@@ -1,0 +1,14 @@
+# Dependencies (reinstalled in Docker)
+node_modules
+
+# Build output (rebuilt in Docker)
+.next
+
+# Environment (passed via build args / env vars)
+.env.local
+.env.production
+
+# OS / IDE
+.DS_Store
+.cursor
+.vscode

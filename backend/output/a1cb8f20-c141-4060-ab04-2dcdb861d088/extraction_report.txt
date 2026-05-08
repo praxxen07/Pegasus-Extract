@@ -1,0 +1,9 @@
+PEGASUS EXTRACT — Extraction Report
+=====================================
+URL: https://www.imdb.com/chart/top
+Pages: 1
+Records: 7
+Duplicates removed: 16
+Fields: ['rank', 'title', 'year', 'rating']
+Engine: LiveDOMExtractor + UniversalAdapter
+=====================================

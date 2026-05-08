@@ -273,7 +273,12 @@ CRITICAL RULES:
 6. The code will be wrapped in: (function() { YOUR_CODE_HERE })()
 7. Always return [] if nothing is found, never throw errors.
 8. Clean text values: trim whitespace, remove excessive newlines.
-9. For numeric fields (rating, price, rank, year), extract JUST the number."""
+9. For numeric fields (rating, rank, year), extract JUST the number.
+10. For price/monetary/area fields: use element.innerText which automatically includes
+    ALL descendant text. Many sites split values across child spans
+    (e.g. <span>₹</span><span>1.20</span><span>Cr</span>). element.innerText gives
+    the complete value "₹ 1.20 Cr". Never use textContent of a single child node for prices.
+11. If a value container has multiple child elements, concatenate their text to get the full value."""
 
     # Build a focused DOM context for the AI — use compressed summary
     dom_context = preprocess_dom(dom_report)
@@ -296,6 +301,19 @@ IMPORTANT:
 - Each object must have these keys: {json.dumps(fields)}
 - Return the array directly. Example: return [{{...}}, {{...}}];
 - Wrap everything in try/catch and return [] on error.
+- For price/monetary fields: use el.innerText on the price CONTAINER element — it auto-includes
+  all child span text (currency symbol + number + unit). Do NOT try to read individual child nodes.
+- For fields whose value comes from the page context (like city name from URL or page title),
+  extract it from document.title or window.location and set it on every record.
+
+RECOMMENDED TEMPLATE (adapt selectors from the DOM report):
+try {{
+  const cards = document.querySelectorAll('CONTAINER_SELECTOR');
+  return Array.from(cards).map(card => ({{
+    field: (card.querySelector('CHILD_SELECTOR')?.innerText || '').trim(),
+    // ... for each field, find the right child selector from the DOM report
+  }}));
+}} catch(e) {{ return []; }}
 
 Write the JavaScript function body NOW:"""
 
@@ -428,10 +446,27 @@ class LiveDOMExtractor:
                 last_error = f"Attempt {attempt} JS execution error: {str(e)[:200]}"
                 log.error(last_error)
 
-        # Step 3: If AI JS failed all attempts, try deterministic table/list extraction
-        if not results:
-            log.info("AI JS extraction failed — trying deterministic fallback")
-            results = await self._deterministic_extract(page, dom_report)
+        # Step 3: If AI JS failed or has low coverage, try deterministic extraction
+        # and pick whichever method produced higher field coverage
+        ai_cov = self._field_coverage(results) if results else 0.0
+        if ai_cov < 0.80:
+            if results:
+                log.info(
+                    f"AI JS coverage {ai_cov:.0%} below 80% — also trying deterministic"
+                )
+            else:
+                log.info("AI JS extraction failed — trying deterministic fallback")
+            det_results = await self._deterministic_extract(page, dom_report)
+            det_cov = self._field_coverage(det_results) if det_results else 0.0
+            if det_cov > ai_cov:
+                log.info(
+                    f"Deterministic ({det_cov:.0%}) beats AI ({ai_cov:.0%}) — using deterministic"
+                )
+                results = det_results
+            elif results:
+                log.info(
+                    f"AI ({ai_cov:.0%}) >= deterministic ({det_cov:.0%}) — keeping AI results"
+                )
 
         return results
 
@@ -445,7 +480,7 @@ class LiveDOMExtractor:
             for rec in records
             for f in self.fields
             if rec.get(f) and str(rec[f]).strip()
-            and str(rec[f]).strip().lower() not in ("none", "null", "undefined", "")
+            and str(rec[f]).strip().lower() not in ("none", "null", "undefined", "", "n/a", "na", "-", "–", "—")
         )
         return filled / max(total_cells, 1)
 
@@ -456,11 +491,11 @@ class LiveDOMExtractor:
         If the DOM has an obvious table or repeated pattern, extract
         directly without calling AI.  Returns [] if no shortcut applies.
 
-        Quality gate: extracted records must populate ≥30% of requested
+        Quality gate: extracted records must populate ≥80% of requested
         fields — otherwise the shortcut found the wrong container.
         """
         compressed = preprocess_dom(dom_report)
-        min_coverage = 0.30
+        min_coverage = 0.80
 
         # ── Shortcut A: TABLE_FOUND — extract table with zero AI tokens ──
         if "TABLE_FOUND" in compressed:
@@ -483,9 +518,20 @@ class LiveDOMExtractor:
                         )
 
         # ── Shortcut B: REPEATED_PATTERN_FOUND — use selector directly ──
+        _NAV_JUNK_RE = re.compile(
+            r'(nav|menu|header|footer|sidebar|breadcrumb|pagination|'
+            r'social|share|ad[-_]|banner|cookie|toolbar|topbar)',
+            re.IGNORECASE,
+        )
         if "REPEATED_PATTERN_FOUND" in compressed:
             candidates = dom_report.get("topCandidates", [])
-            for cand in candidates[:3]:
+            for cand in candidates[:5]:
+                sel = cand.get("selector", "")
+                if _NAV_JUNK_RE.search(sel):
+                    log.info(
+                        f"Pattern shortcut: skipping nav/menu container '{sel}'"
+                    )
+                    continue
                 if cand.get("count", 0) >= 10:
                     results = await self._extract_from_containers(page, cand)
                     if results:
@@ -624,17 +670,39 @@ class LiveDOMExtractor:
                     log.info(f"Deterministic table extraction: {len(results)} records")
                     return results
 
-        # Strategy B: Top repeating container
+        # Strategy B: Top repeating container (skip nav/menu/header/footer)
+        # Try ALL candidates and pick the one with highest field coverage
+        _NAV_RE = re.compile(
+            r'(nav|menu|header|footer|sidebar|breadcrumb|pagination|'
+            r'social|share|ad[-_]|banner|cookie|toolbar|topbar)',
+            re.IGNORECASE,
+        )
         candidates = dom_report.get("topCandidates", [])
+        best_container_results = []
+        best_container_cov = 0.0
+        best_container_sel = ""
         if candidates:
-            for cand in candidates[:3]:
-                results = await self._extract_from_containers(page, cand)
-                if results:
+            for cand in candidates[:5]:
+                sel = cand.get("selector", "")
+                if _NAV_RE.search(sel):
+                    continue
+                cand_results = await self._extract_from_containers(page, cand)
+                if cand_results:
+                    cov = self._field_coverage(cand_results)
                     log.info(
-                        f"Deterministic container extraction ({cand['selector']}): "
-                        f"{len(results)} records"
+                        f"Deterministic container ({sel}): "
+                        f"{len(cand_results)} records, {cov:.0%} coverage"
                     )
-                    return results
+                    if cov > best_container_cov:
+                        best_container_cov = cov
+                        best_container_results = cand_results
+                        best_container_sel = sel
+        if best_container_results:
+            log.info(
+                f"Deterministic container extraction ({best_container_sel}): "
+                f"{len(best_container_results)} records, {best_container_cov:.0%} coverage — best"
+            )
+            return best_container_results
 
         # Strategy C: List extraction
         lists = dom_report.get("lists", [])
@@ -795,8 +863,12 @@ class LiveDOMExtractor:
                         else if (/\\d+\\s*h\\s*\\d*\\s*m/i.test(text) || /\\d+\\s*min/i.test(text)) {{
                             vtype = 'duration';
                         }}
-                        // Price: $XX.XX or XX.XX with currency
-                        else if (/^[\\$\\€\\£]\\s*\\d/.test(text) || /\\d+\\.\\d{{2}}$/.test(text)) {{
+                        // Price: currency symbol + number, or number + currency unit
+                        // Handles: $XX, €XX, £XX, ₹XX, XX Cr, XX Lac, XX L, XX/sqft, XX per sqft
+                        else if (/^[\\$\\€\\£\\u20B9]\\s*\\d/.test(text) || /\\d+\\.\\d{{2}}$/.test(text)
+                            || /\\d+(\\.\\d+)?\\s*(Cr|Lac|Lakh|L|cr|lac|lakh|K|M|B)\\b/.test(text)
+                            || /\\d+(\\.\\d+)?\\s*\\/\\s*(sqft|sq\\.?\\s*ft|sft|sq\\.?\\s*m)/i.test(text)
+                            || /per\\s*(sqft|sq\\.?\\s*ft|sft|sq\\.?\\s*m)/i.test(text)) {{
                             vtype = 'price';
                         }}
                         // Large number with suffix (vote count): "3.2M", "1,500"
@@ -811,6 +883,14 @@ class LiveDOMExtractor:
                         else if (href && href.length > 1) {{
                             vtype = 'link';
                         }}
+                        // Availability/stock status
+                        else if (/\\b(in stock|out of stock|available|unavailable|sold out|pre.?order|coming soon)\\b/i.test(text)) {{
+                            vtype = 'availability';
+                        }}
+                        // CSS class value (passed from class extraction)
+                        else if (elType === 'class_value') {{
+                            vtype = 'class_value';
+                        }}
                         // Title: multi-word text, not a number
                         else if (text.length > 3 && /[a-zA-Z]/.test(text) && (elType === 'heading' || elType === 'link')) {{
                             vtype = 'title';
@@ -819,9 +899,73 @@ class LiveDOMExtractor:
                         pieces.push({{ text, vtype, elType, href: href || '' }});
                     }}
 
+                    // ── Generic 5-source value extraction for ALL elements ──
+                    // Layout words to ignore in CSS class parsing
+                    const _LAYOUT_WORDS = new Set([
+                        'col','row','container','wrapper','flex','grid',
+                        'active','selected','show','hide','visible',
+                        'pull','push','clearfix','float','align',
+                        'small','medium','large','xs','sm','md','lg','xl',
+                        'pull-right','pull-left','in','out','has',
+                        'product','pod','card','item','list','block',
+                        'inline','text','image','icon','button','link',
+                        'nav','menu','header','footer','main','section',
+                        'article','aside','div','span','img','form',
+                        'group','inner','outer','left','right','top',
+                        'bottom','center','first','last','even','odd',
+                        'disabled','enabled','checked','open','closed',
+                        'loading','loaded','error','success','warning',
+                        'primary','secondary','default','info','danger',
+                    ]);
+
+                    function extract5Sources(el) {{
+                        // Source 1: innerText / textContent
+                        let t = (el.innerText || '').trim();
+                        if (t && t.length > 0 && t.length < 200) {{
+                            return {{ text: t, source: 'text' }};
+                        }}
+                        t = (el.textContent || '').trim();
+                        if (t && t.length > 0 && t.length < 200) {{
+                            return {{ text: t, source: 'text' }};
+                        }}
+                        // Source 2: data-* attributes
+                        for (const attr of el.attributes || []) {{
+                            if (attr.name.startsWith('data-') && attr.value.trim()
+                                && attr.value.length < 100 && attr.name !== 'data-testid') {{
+                                return {{ text: attr.value.trim(), source: 'data' }};
+                            }}
+                        }}
+                        // Source 3: aria-label
+                        const aria = el.getAttribute('aria-label');
+                        if (aria && aria.trim().length > 0 && aria.length < 100) {{
+                            return {{ text: aria.trim(), source: 'aria' }};
+                        }}
+                        // Source 4: CSS class names — parsed intelligently
+                        const cls = el.className || '';
+                        if (cls && typeof cls === 'string') {{
+                            const words = cls.split(/[\\s_-]+/).filter(w =>
+                                w.length > 1
+                                && !_LAYOUT_WORDS.has(w.toLowerCase())
+                                && !/^\\d+$/.test(w)
+                            );
+                            if (words.length > 0) {{
+                                return {{ text: words.join(' '), source: 'class' }};
+                            }}
+                        }}
+                        // Source 5: title attribute
+                        const ttl = el.getAttribute('title');
+                        if (ttl && ttl.trim().length > 0 && ttl.length < 200) {{
+                            return {{ text: ttl.trim(), source: 'title_attr' }};
+                        }}
+                        return null;
+                    }}
+
                     // Headings (highest priority for titles)
                     for (const h of container.querySelectorAll('h1,h2,h3,h4,h5,h6')) {{
                         addPiece(h.innerText, 'heading', '', h);
+                        // Also check title attr on child links
+                        const a = h.querySelector('a[title]');
+                        if (a && a.title) addPiece(a.title, 'heading', a.href || '', a);
                     }}
                     // Links
                     for (const a of container.querySelectorAll('a[href]')) {{
@@ -830,16 +974,66 @@ class LiveDOMExtractor:
                         if (t && !href.includes('javascript:')) {{
                             addPiece(t, 'link', href, a);
                         }}
+                        // Source 5: title attribute on links
+                        if (a.title && a.title.trim()) addPiece(a.title.trim(), 'link', href, a);
                     }}
-                    // Leaf spans/elements with short text (metrics, numbers)
-                    for (const s of container.querySelectorAll('span, td, time, [class*="rating"], [class*="score"], [class*="year"], [class*="rank"], [class*="vote"]')) {{
-                        const t = s.innerText.trim();
-                        if (t && t.length < 50) addPiece(t, 'metric', '', s);
-                    }}
-                    // Direct text nodes of container children
-                    for (const child of container.children) {{
-                        const t = child.innerText.trim();
-                        if (t && t.length < 80 && t.length > 0) addPiece(t, 'child', '', child);
+                    // All descendant elements — 5-source extraction
+                    for (const el of container.querySelectorAll('*')) {{
+                        if (el === container) continue;
+                        // Source 0: child text concatenation (targeted)
+                        // Only for SMALL elements with 2-5 children and short child texts
+                        // Handles values split across child spans:
+                        // e.g. <div><span>₹</span><span>1.20</span><span>Cr</span></div> → "₹ 1.20 Cr"
+                        if (el.children && el.children.length >= 2 && el.children.length <= 5) {{
+                            const parts = [];
+                            let allShort = true;
+                            for (const child of el.children) {{
+                                const ct = (child.innerText || '').trim();
+                                if (ct) {{
+                                    if (ct.length > 30) {{ allShort = false; break; }}
+                                    parts.push(ct);
+                                }}
+                            }}
+                            if (allShort && parts.length >= 2) {{
+                                const concat = parts.join(' ').trim();
+                                if (concat && concat.length > 0 && concat.length < 80 && !concat.includes('\\n')) {{
+                                    addPiece(concat, 'metric', '', el);
+                                }}
+                            }}
+                        }}
+                        // Source 1: innerText for leaf-like elements
+                        // Skip multi-line text (parent containers spanning children)
+                        const t = (el.innerText || '').trim();
+                        if (t && t.length > 0 && t.length < 80 && !t.includes('\\n')) {{
+                            addPiece(t, 'metric', '', el);
+                        }}
+                        // Source 2: data-* attributes
+                        for (const attr of el.attributes || []) {{
+                            if (attr.name.startsWith('data-') && attr.value.trim()
+                                && attr.value.length > 0 && attr.value.length < 100
+                                && attr.name !== 'data-testid' && attr.name !== 'data-reactid') {{
+                                addPiece(attr.value.trim(), 'data_attr', '', el);
+                            }}
+                        }}
+                        // Source 3: aria-label
+                        const aria = el.getAttribute('aria-label');
+                        if (aria && aria.trim()) addPiece(aria.trim(), 'aria', '', el);
+                        // Source 4: CSS class names — meaningful words only
+                        const cls = el.className || '';
+                        if (cls && typeof cls === 'string') {{
+                            const words = cls.split(/[\\s_-]+/).filter(w =>
+                                w.length > 2
+                                && !_LAYOUT_WORDS.has(w.toLowerCase())
+                                && !/^\\d+$/.test(w)
+                                && /^[A-Z]/.test(w)  // Capitalized = likely a value
+                            );
+                            for (const w of words) {{
+                                addPiece(w, 'class_value', '', el);
+                            }}
+                        }}
+                        // Source 5: title attribute
+                        const ttl = el.getAttribute('title');
+                        if (ttl && ttl.trim()) addPiece(ttl.trim(), 'title_attr', '', el);
                     }}
 
                     // ── Smart field assignment based on value classification ──
@@ -858,8 +1052,18 @@ class LiveDOMExtractor:
                         const isPrice = ['price','cost','amount'].some(k => fl.includes(k));
                         const isDuration = ['duration','runtime','length','time'].some(k => fl.includes(k));
                         const isVotes = ['votes','vote','count','reviews','popularity'].some(k => fl.includes(k));
+                        const isAvailability = ['availability','stock','in_stock','instock','status'].some(k => fl.includes(k));
 
-                        if (isRank) {{
+                        if (isAvailability) {{
+                            // Availability: prefer classified availability text, then class_value
+                            for (const p of pieces) {{
+                                if (p.vtype === 'availability' && !usedPieces.has(p.text)) {{
+                                    bestVal = p.text;
+                                    usedPieces.add(p.text);
+                                    break;
+                                }}
+                            }}
+                        }} else if (isRank) {{
                             // Rank: use container index (most reliable) or find small number
                             bestVal = String(containerIndex);
                             // But try to find an explicit rank number in the content
@@ -894,7 +1098,7 @@ class LiveDOMExtractor:
                                 }}
                             }}
                         }} else if (isRating) {{
-                            // Rating: prefer clean decimal, fallback to rating_with_info
+                            // Rating: prefer clean decimal, fallback to rating_with_info, then CSS class values
                             for (const p of pieces) {{
                                 if (p.vtype === 'rating' && !usedPieces.has(p.text)) {{
                                     bestVal = p.text;
@@ -908,6 +1112,16 @@ class LiveDOMExtractor:
                                         // Extract just the number: "9.3 (3.2M)" → "9.3"
                                         const m = p.text.match(/(\\d+\\.\\d+)/);
                                         bestVal = m ? m[1] : p.text;
+                                        usedPieces.add(p.text);
+                                        break;
+                                    }}
+                                }}
+                            }}
+                            // Fallback: CSS class values like "One", "Two", "Three" for star ratings
+                            if (!bestVal) {{
+                                for (const p of pieces) {{
+                                    if (p.vtype === 'class_value' && !usedPieces.has(p.text)) {{
+                                        bestVal = p.text;
                                         usedPieces.add(p.text);
                                         break;
                                     }}

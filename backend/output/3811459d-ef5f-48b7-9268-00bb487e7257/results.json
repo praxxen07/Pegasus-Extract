@@ -1,0 +1,461 @@
+[
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Jobs",
+    "salary":"IT jobs",
+    "location":"Sales jobs",
+    "posted_date":"1",
+    "url":"https:\/\/www.naukri.com"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"IT jobs",
+    "salary":"",
+    "location":"",
+    "posted_date":"2",
+    "url":"https:\/\/www.naukri.com\/it-jobs?src=gnbjobs_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Sales jobs",
+    "salary":"",
+    "location":"",
+    "posted_date":"3",
+    "url":"https:\/\/www.naukri.com\/sales-jobs?src=gnbjobs_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Marketing jobs",
+    "salary":"",
+    "location":"",
+    "posted_date":"4",
+    "url":"https:\/\/www.naukri.com\/marketing-jobs?src=gnbjobs_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Data Science jobs",
+    "salary":"",
+    "location":"",
+    "posted_date":"5",
+    "url":"https:\/\/www.naukri.com\/data-science-jobs?src=gnbjobs_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"HR jobs",
+    "salary":"",
+    "location":"",
+    "posted_date":"6",
+    "url":"https:\/\/www.naukri.com\/hr-jobs?src=gnbjobs_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Engineering jobs",
+    "salary":"",
+    "location":"",
+    "posted_date":"7",
+    "url":"https:\/\/www.naukri.com\/engineering-jobs?src=gnbjobs_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Fresher jobs",
+    "salary":"",
+    "location":"",
+    "posted_date":"8",
+    "url":"https:\/\/www.naukri.com\/fresher-jobs?src=gnbjobs_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"MNC jobs",
+    "salary":"",
+    "location":"",
+    "posted_date":"9",
+    "url":"https:\/\/www.naukri.com\/mnc-jobs?src=gnbjobs_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Remote jobs",
+    "salary":"",
+    "location":"",
+    "posted_date":"10",
+    "url":"https:\/\/www.naukri.com\/remote-jobs?src=gnbjobs_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Work from home jobs",
+    "salary":"",
+    "location":"",
+    "posted_date":"11",
+    "url":"https:\/\/www.naukri.com\/work-from-home-jobs?src=gnbjobs_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Walk-in jobs",
+    "salary":"",
+    "location":"",
+    "posted_date":"12",
+    "url":"https:\/\/www.naukri.com\/walkin-jobs?src=gnbjobs_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Part-time jobs",
+    "salary":"",
+    "location":"",
+    "posted_date":"13",
+    "url":"https:\/\/www.naukri.com\/part-time-jobs?src=gnbjobs_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Jobs in Delhi",
+    "salary":"",
+    "location":"",
+    "posted_date":"14",
+    "url":"https:\/\/www.naukri.com\/jobs-in-delhi-ncr"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Jobs in Mumbai",
+    "salary":"",
+    "location":"",
+    "posted_date":"15",
+    "url":"https:\/\/www.naukri.com\/jobs-in-mumbai"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Jobs in Bangalore",
+    "salary":"",
+    "location":"",
+    "posted_date":"16",
+    "url":"https:\/\/www.naukri.com\/jobs-in-bangalore"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Jobs in Hyderabad",
+    "salary":"",
+    "location":"",
+    "posted_date":"17",
+    "url":"https:\/\/www.naukri.com\/jobs-in-hyderabad-secunderabad"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Jobs in Chennai",
+    "salary":"",
+    "location":"",
+    "posted_date":"18",
+    "url":"https:\/\/www.naukri.com\/jobs-in-chennai"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Jobs in Pune",
+    "salary":"",
+    "location":"",
+    "posted_date":"19",
+    "url":"https:\/\/www.naukri.com\/jobs-in-pune"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Companies",
+    "salary":"Unicorn",
+    "location":"MNC",
+    "posted_date":"20",
+    "url":"https:\/\/www.naukri.com\/companies-hiring-in-india?src=gnbCompanies_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Unicorn",
+    "salary":"",
+    "location":"",
+    "posted_date":"21",
+    "url":"https:\/\/www.naukri.com\/unicorn-companies-in-india-cat102?title=Unicorns%20actively%20hiring&src=gnbCompanies_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"MNC",
+    "salary":"",
+    "location":"",
+    "posted_date":"22",
+    "url":"https:\/\/www.naukri.com\/mnc-companies-in-india-cat101?title=MNCs%20actively%20hiring&src=gnbCompanies_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Startup",
+    "salary":"",
+    "location":"",
+    "posted_date":"23",
+    "url":"https:\/\/www.naukri.com\/startup-companies-in-india-cat103?title=Startups%20actively%20hiring&src=gnbCompanies_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Product based",
+    "salary":"",
+    "location":"",
+    "posted_date":"24",
+    "url":"https:\/\/www.naukri.com\/product-companies-in-india-cat106?title=Product%20companies%20actively%20hiring&src=gnbCompanies_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Internet",
+    "salary":"",
+    "location":"",
+    "posted_date":"25",
+    "url":"https:\/\/www.naukri.com\/internet-companies-in-india-cat105?title=Internet%20companies%20actively%20hiring&src=gnbCompanies_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Top companies",
+    "salary":"",
+    "location":"",
+    "posted_date":"26",
+    "url":"https:\/\/www.naukri.com\/companies-hiring-in-india?src=gnbCompanies_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"IT companies",
+    "salary":"",
+    "location":"",
+    "posted_date":"27",
+    "url":"https:\/\/www.naukri.com\/it-companies-in-india-cat116?src=gnbCompanies_homepage_srch&title=IT%20Companies%20Hiring"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Fintech companies",
+    "salary":"",
+    "location":"",
+    "posted_date":"28",
+    "url":"https:\/\/www.naukri.com\/fintech-and-payments-companies-in-india-cat108?title=Fintech%20%26%20Payments%20companies%20actively%20hiring&src=gnbCompanies_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Sponsored companies",
+    "salary":"",
+    "location":"",
+    "posted_date":"29",
+    "url":"https:\/\/www.naukri.com\/allcompanies?searchType=standardLogo&title=Sponsored+companies&branding=%257B%2522pagename%2522%253A%2522ni-desktop-standard-viewAll%2522%257D&pageNo=1&qcount=47&src=gnbCompanies_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Featured companies",
+    "salary":"",
+    "location":"",
+    "posted_date":"30",
+    "url":"https:\/\/www.naukri.com\/allcompanies?searchType=premiumLogo&title=Featured+companies+actively+hiring&branding=%257B%2522pagename%2522%253A%2522ni-desktop-premium-viewAll%2522%257D&pageNo=1&qcount=47&src=gnbCompanies_homepage_srch"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Interview questions",
+    "salary":"",
+    "location":"",
+    "posted_date":"31",
+    "url":"https:\/\/www.ambitionbox.com\/interviews?utm_source=naukri&utm_medium=desktop&utm_campaign=gnb"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Company salaries",
+    "salary":"",
+    "location":"",
+    "posted_date":"32",
+    "url":"https:\/\/www.ambitionbox.com\/salaries?utm_source=naukri&utm_medium=desktop&utm_campaign=gnb"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Company reviews",
+    "salary":"",
+    "location":"",
+    "posted_date":"33",
+    "url":"https:\/\/www.ambitionbox.com\/reviews?utm_source=naukri&utm_medium=desktop&utm_campaign=gnb"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Salary Calculator",
+    "salary":"",
+    "location":"",
+    "posted_date":"34",
+    "url":"https:\/\/www.ambitionbox.com\/salaries\/take-home-salary-calculator?utm_campaign=gnb&utm_source=naukri&utm_medium=desktop"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Services",
+    "salary":"Text resume",
+    "location":"Visual resume",
+    "posted_date":"35",
+    "url":"https:\/\/resume.naukri.com\/?fftid=100001"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Text resume",
+    "salary":"",
+    "location":"",
+    "posted_date":"36",
+    "url":"https:\/\/resume.naukri.com\/resume-writing-services?fftid=101001"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Visual resume",
+    "salary":"",
+    "location":"",
+    "posted_date":"37",
+    "url":"https:\/\/resume.naukri.com\/visual-resume-writing-services?fftid=101002"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Resume critique",
+    "salary":"",
+    "location":"",
+    "posted_date":"38",
+    "url":"https:\/\/resume.naukri.com\/resume-critique?fftid=101006"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Jobs4u",
+    "salary":"",
+    "location":"",
+    "posted_date":"39",
+    "url":"https:\/\/resume.naukri.com\/job-alerts-on-mobile-mail?fftid=101011#jobmail"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Priority applicant",
+    "salary":"",
+    "location":"",
+    "posted_date":"40",
+    "url":"https:\/\/resume.naukri.com\/priority-job-application?fftid=101019"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Contact us",
+    "salary":"",
+    "location":"",
+    "posted_date":"41",
+    "url":"https:\/\/resume.naukri.com\/contact-us?fftid=101015"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Resume display",
+    "salary":"",
+    "location":"",
+    "posted_date":"42",
+    "url":"https:\/\/resume.naukri.com\/resume-display?fftid=101009"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Basic & premium plans",
+    "salary":"",
+    "location":"",
+    "posted_date":"43",
+    "url":"https:\/\/resume.naukri.com\/subscription-product?fftid=101025"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Resume maker",
+    "salary":"",
+    "location":"",
+    "posted_date":"44",
+    "url":"https:\/\/www.naukri.com\/resume-maker?utmTerm=ResumePro_Gnb&utmContent=gnbServices"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Resume quality score",
+    "salary":"",
+    "location":"",
+    "posted_date":"45",
+    "url":"https:\/\/resume.naukri.com\/resume-quality-score?fftid=101003"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Resume samples",
+    "salary":"",
+    "location":"",
+    "posted_date":"46",
+    "url":"https:\/\/resume.naukri.com\/resume-samples?fftid=101004"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Job letter samples",
+    "salary":"",
+    "location":"",
+    "posted_date":"47",
+    "url":"https:\/\/resume.naukri.com\/job-letter-format"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Buy online",
+    "salary":"Naukri Talent Cloud",
+    "location":"Employer Login",
+    "posted_date":"48",
+    "url":"https:\/\/www.naukri.com\/recruit\/buy-resume-database-access-packages"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Buy online",
+    "salary":"",
+    "location":"",
+    "posted_date":"49",
+    "url":"https:\/\/www.naukri.com\/recruit\/buy-resume-database-access-packages"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Naukri Talent Cloud",
+    "salary":"",
+    "location":"",
+    "posted_date":"50",
+    "url":"https:\/\/www.naukritalentcloud.com?utmSource=jobseekerGNB"
+  },
+  {
+    "job_title":"",
+    "company_name":"",
+    "experience":"Employer Login",
+    "salary":"",
+    "location":"",
+    "posted_date":"51",
+    "url":"https:\/\/www.naukri.com\/recruit\/login"
+  }
+]

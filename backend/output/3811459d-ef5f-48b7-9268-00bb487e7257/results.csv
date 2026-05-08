@@ -1,0 +1,52 @@
+job_title,company_name,experience,salary,location,posted_date,url
+,,Jobs,IT jobs,Sales jobs,1,https://www.naukri.com
+,,IT jobs,,,2,https://www.naukri.com/it-jobs?src=gnbjobs_homepage_srch
+,,Sales jobs,,,3,https://www.naukri.com/sales-jobs?src=gnbjobs_homepage_srch
+,,Marketing jobs,,,4,https://www.naukri.com/marketing-jobs?src=gnbjobs_homepage_srch
+,,Data Science jobs,,,5,https://www.naukri.com/data-science-jobs?src=gnbjobs_homepage_srch
+,,HR jobs,,,6,https://www.naukri.com/hr-jobs?src=gnbjobs_homepage_srch
+,,Engineering jobs,,,7,https://www.naukri.com/engineering-jobs?src=gnbjobs_homepage_srch
+,,Fresher jobs,,,8,https://www.naukri.com/fresher-jobs?src=gnbjobs_homepage_srch
+,,MNC jobs,,,9,https://www.naukri.com/mnc-jobs?src=gnbjobs_homepage_srch
+,,Remote jobs,,,10,https://www.naukri.com/remote-jobs?src=gnbjobs_homepage_srch
+,,Work from home jobs,,,11,https://www.naukri.com/work-from-home-jobs?src=gnbjobs_homepage_srch
+,,Walk-in jobs,,,12,https://www.naukri.com/walkin-jobs?src=gnbjobs_homepage_srch
+,,Part-time jobs,,,13,https://www.naukri.com/part-time-jobs?src=gnbjobs_homepage_srch
+,,Jobs in Delhi,,,14,https://www.naukri.com/jobs-in-delhi-ncr
+,,Jobs in Mumbai,,,15,https://www.naukri.com/jobs-in-mumbai
+,,Jobs in Bangalore,,,16,https://www.naukri.com/jobs-in-bangalore
+,,Jobs in Hyderabad,,,17,https://www.naukri.com/jobs-in-hyderabad-secunderabad
+,,Jobs in Chennai,,,18,https://www.naukri.com/jobs-in-chennai
+,,Jobs in Pune,,,19,https://www.naukri.com/jobs-in-pune
+,,Companies,Unicorn,MNC,20,https://www.naukri.com/companies-hiring-in-india?src=gnbCompanies_homepage_srch
+,,Unicorn,,,21,https://www.naukri.com/unicorn-companies-in-india-cat102?title=Unicorns%20actively%20hiring&src=gnbCompanies_homepage_srch
+,,MNC,,,22,https://www.naukri.com/mnc-companies-in-india-cat101?title=MNCs%20actively%20hiring&src=gnbCompanies_homepage_srch
+,,Startup,,,23,https://www.naukri.com/startup-companies-in-india-cat103?title=Startups%20actively%20hiring&src=gnbCompanies_homepage_srch
+,,Product based,,,24,https://www.naukri.com/product-companies-in-india-cat106?title=Product%20companies%20actively%20hiring&src=gnbCompanies_homepage_srch
+,,Internet,,,25,https://www.naukri.com/internet-companies-in-india-cat105?title=Internet%20companies%20actively%20hiring&src=gnbCompanies_homepage_srch
+,,Top companies,,,26,https://www.naukri.com/companies-hiring-in-india?src=gnbCompanies_homepage_srch
+,,IT companies,,,27,https://www.naukri.com/it-companies-in-india-cat116?src=gnbCompanies_homepage_srch&title=IT%20Companies%20Hiring
+,,Fintech companies,,,28,https://www.naukri.com/fintech-and-payments-companies-in-india-cat108?title=Fintech%20%26%20Payments%20companies%20actively%20hiring&src=gnbCompanies_homepage_srch
+,,Sponsored companies,,,29,https://www.naukri.com/allcompanies?searchType=standardLogo&title=Sponsored+companies&branding=%257B%2522pagename%2522%253A%2522ni-desktop-standard-viewAll%2522%257D&pageNo=1&qcount=47&src=gnbCompanies_homepage_srch
+,,Featured companies,,,30,https://www.naukri.com/allcompanies?searchType=premiumLogo&title=Featured+companies+actively+hiring&branding=%257B%2522pagename%2522%253A%2522ni-desktop-premium-viewAll%2522%257D&pageNo=1&qcount=47&src=gnbCompanies_homepage_srch
+,,Interview questions,,,31,https://www.ambitionbox.com/interviews?utm_source=naukri&utm_medium=desktop&utm_campaign=gnb
+,,Company salaries,,,32,https://www.ambitionbox.com/salaries?utm_source=naukri&utm_medium=desktop&utm_campaign=gnb
+,,Company reviews,,,33,https://www.ambitionbox.com/reviews?utm_source=naukri&utm_medium=desktop&utm_campaign=gnb
+,,Salary Calculator,,,34,https://www.ambitionbox.com/salaries/take-home-salary-calculator?utm_campaign=gnb&utm_source=naukri&utm_medium=desktop
+,,Services,Text resume,Visual resume,35,https://resume.naukri.com/?fftid=100001
+,,Text resume,,,36,https://resume.naukri.com/resume-writing-services?fftid=101001
+,,Visual resume,,,37,https://resume.naukri.com/visual-resume-writing-services?fftid=101002
+,,Resume critique,,,38,https://resume.naukri.com/resume-critique?fftid=101006
+,,Jobs4u,,,39,https://resume.naukri.com/job-alerts-on-mobile-mail?fftid=101011#jobmail
+,,Priority applicant,,,40,https://resume.naukri.com/priority-job-application?fftid=101019
+,,Contact us,,,41,https://resume.naukri.com/contact-us?fftid=101015
+,,Resume display,,,42,https://resume.naukri.com/resume-display?fftid=101009
+,,Basic & premium plans,,,43,https://resume.naukri.com/subscription-product?fftid=101025
+,,Resume maker,,,44,https://www.naukri.com/resume-maker?utmTerm=ResumePro_Gnb&utmContent=gnbServices
+,,Resume quality score,,,45,https://resume.naukri.com/resume-quality-score?fftid=101003
+,,Resume samples,,,46,https://resume.naukri.com/resume-samples?fftid=101004
+,,Job letter samples,,,47,https://resume.naukri.com/job-letter-format
+,,Buy online,Naukri Talent Cloud,Employer Login,48,https://www.naukri.com/recruit/buy-resume-database-access-packages
+,,Buy online,,,49,https://www.naukri.com/recruit/buy-resume-database-access-packages
+,,Naukri Talent Cloud,,,50,https://www.naukritalentcloud.com?utmSource=jobseekerGNB
+,,Employer Login,,,51,https://www.naukri.com/recruit/login

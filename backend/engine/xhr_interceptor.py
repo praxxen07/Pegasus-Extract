@@ -92,8 +92,25 @@ class XHRInterceptor:
 
                 idx = selection.get("selected_index")
                 if not isinstance(idx, int) or idx < 0 or idx >= len(self.candidates):
-                    log.warning("XHR: AI returned invalid response index")
-                    return []
+                    log.warning(
+                        f"XHR: AI returned invalid index {idx!r} "
+                        f"(have {len(self.candidates)} candidates) — auto-selecting"
+                    )
+                    # Fallback: pick candidate with the most records
+                    best_idx, best_count = -1, 0
+                    for ci, cand in enumerate(self.candidates):
+                        recs = self._resolve_records(cand["body"], "")
+                        if len(recs) > best_count:
+                            best_count = len(recs)
+                            best_idx = ci
+                    if best_idx < 0:
+                        log.warning("XHR: no candidate has records — giving up")
+                        return []
+                    idx = best_idx
+                    log.info(f"XHR: auto-selected response {idx} ({best_count} records)")
+                    # Use AI's field_mapping if provided, even with bad index
+                    if not selection.get("field_mapping"):
+                        selection["field_mapping"] = {}
 
                 reason = str(selection.get("reason", "")).strip() or "candidate appears relevant"
                 log.info(f"XHR: AI selected response {idx} — {reason}")
@@ -153,7 +170,7 @@ class XHRInterceptor:
                 {
                     "url": url,
                     "body": body_json,
-                    "preview": body_text[:500],
+                    "preview": body_text[:1500],
                 }
             )
         except Exception as e:
@@ -186,6 +203,23 @@ class XHRInterceptor:
             )
         return False
 
+    @staticmethod
+    def _flatten_keys(obj: Any, prefix: str = "", max_depth: int = 6) -> list[str]:
+        """Flatten a JSON object into dot-notation key paths."""
+        keys: list[str] = []
+        if max_depth <= 0:
+            return keys
+        if isinstance(obj, dict):
+            for k, v in obj.items():
+                full_key = f"{prefix}.{k}" if prefix else k
+                if isinstance(v, (dict, list)):
+                    keys.extend(XHRInterceptor._flatten_keys(v, full_key, max_depth - 1))
+                else:
+                    keys.append(f"{full_key} = {str(v)[:80]}")
+        elif isinstance(obj, list) and obj and isinstance(obj[0], dict):
+            keys.extend(XHRInterceptor._flatten_keys(obj[0], prefix, max_depth - 1))
+        return keys
+
     async def _identify_data_response(
         self,
         candidates: list[dict],
@@ -194,8 +228,18 @@ class XHRInterceptor:
     ) -> Optional[dict]:
         rows = []
         for idx, candidate in enumerate(candidates):
+            # Show flattened keys of the first record so AI can map nested fields
+            flat_sample = ""
+            records_array = self._resolve_records(candidate["body"], "")
+            if records_array:
+                flat_keys = self._flatten_keys(records_array[0], max_depth=6)
+                if flat_keys:
+                    flat_sample = "\nFlattened sample record keys:\n" + "\n".join(
+                        f"  {k}" for k in flat_keys[:40]
+                    )
             rows.append(
-                f"Response {idx}\nURL: {candidate['url']}\nPreview: {candidate['preview']}"
+                f"Response {idx}\nURL: {candidate['url']}\n"
+                f"Preview: {candidate['preview']}{flat_sample}"
             )
 
         system_prompt = "You map API JSON responses to client-required records. Return strict JSON only."
@@ -204,12 +248,17 @@ class XHRInterceptor:
             f"Requested fields: {target_fields}\n\n"
             f"Captured API responses ({len(candidates)}):\n\n"
             + "\n\n".join(rows)
-            + "\n\nReturn JSON with this exact shape:\n"
+            + "\n\nIMPORTANT: The JSON may have deeply nested fields. "
+            "Use the flattened sample keys above to find the correct paths.\n"
+            "In field_mapping, use FULL dot-notation paths for nested values.\n"
+            "Example: if price is at cardDetails.price.value, map:\n"
+            '  "price": "cardDetails.price.value"\n\n'
+            "Return JSON with this exact shape:\n"
             "{"
             '\n  "selected_index": <int or null>,'
             '\n  "reason": "...",'
             '\n  "records_path": "dot.path.to.array or empty",'
-            '\n  "field_mapping": {"client_field": "json.path"}'
+            '\n  "field_mapping": {"client_field": "full.dot.path.to.value"}'
             "\n}"
         )
 
@@ -291,10 +340,21 @@ class XHRInterceptor:
         return max(candidates, key=len)
 
     def _dig(self, obj: Any, path: str) -> Any:
+        """Traverse nested dicts/lists using dot-notation path.
+        Supports: 'a.b.c', 'a.0.b' (list index), unlimited depth.
+        """
         cur = obj
         for part in [p for p in path.split(".") if p]:
             if isinstance(cur, dict):
                 cur = cur.get(part)
+            elif isinstance(cur, list):
+                try:
+                    cur = cur[int(part)]
+                except (ValueError, IndexError):
+                    return None
             else:
                 return None
+        # If final value is a dict/list, stringify it
+        if isinstance(cur, (dict, list)):
+            return json.dumps(cur, ensure_ascii=False)
         return cur

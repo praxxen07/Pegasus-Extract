@@ -47,15 +47,19 @@ _SNAPSHOT_JS = """() => {
 
     const bodyText = document.body ? (document.body.innerText || '').trim() : '';
 
+    // Tier 1: native form elements (always useful)
+    // Tier 2: ARIA roles (combobox, searchbox, etc.)
+    // Tier 3: button-like elements by class (btn, submit, cta)
     const selectors = [
-        'input', 'select', 'textarea', 'button', 'form',
-        '[role="button"]', '[role="combobox"]', '[role="listbox"]',
+        'input', 'select', 'textarea', 'button',
+        '[role="searchbox"]', '[role="combobox"]',
+        '[role="listbox"]', '[role="button"]',
         '[role="tab"]', '[role="option"]',
-        '[tabindex]:not([tabindex="-1"])', '[aria-label]', '[data-testid]',
-        '[class*="btn"]', '[class*="button"]', '[class*="cta"]', '[class*="search"]',
-        'a[href]'
+        'a[class*="btn"]', 'a[class*="search"]',
+        'a[class*="submit"]', 'a[class*="cta"]',
+        'div[class*="btn"]', 'div[class*="submit"]',
+        'span[class*="btn"]', 'span[class*="submit"]',
     ];
-
     const seen = new Set();
     const interactive = [];
 
@@ -63,48 +67,80 @@ _SNAPSHOT_JS = """() => {
         try {
             document.querySelectorAll(sel).forEach(el => {
                 if (seen.has(el)) return;
-                if (!visible(el)) return;
+                seen.add(el);
 
-                const tag = el.tagName.toLowerCase();
-                const type = (el.getAttribute('type') || '').toLowerCase();
-                const role = (el.getAttribute('role') || '').toLowerCase();
+                const rect = el.getBoundingClientRect();
+                if (rect.width === 0 && rect.height === 0) return;
+
+                const tag  = el.tagName.toLowerCase();
+                const id   = el.id || '';
+                const name = el.getAttribute('name') || '';
+                const ph   = el.getAttribute('placeholder') || '';
+                const aria = el.getAttribute('aria-label') || '';
+                const role = el.getAttribute('role') || '';
+                const text = (el.innerText || '').trim().substring(0, 30);
+                const val  = (el.value || '').substring(0, 20);
+                const type = el.getAttribute('type') || '';
 
                 // Skip hidden inputs
                 if (tag === 'input' && type === 'hidden') return;
 
-                const text = ((el.innerText || '').trim().replace(/\\s+/g, ' ')).substring(0, 50);
-                const placeholder = el.getAttribute('placeholder') || '';
-                const ariaLabel = el.getAttribute('aria-label') || '';
-                const classNames = (el.className ? String(el.className) : '')
-                    .trim().replace(/\\s+/g, ' ').substring(0, 80);
+                // For non-form elements: skip if zero identifying info
+                if (tag !== 'input' && tag !== 'select' && tag !== 'textarea'
+                    && tag !== 'button') {
+                    if (!id && !name && !ph && !aria && !text && !role) return;
+                }
 
                 interactive.push({
-                    tag,
-                    type,
-                    role,
-                    text,
-                    placeholder,
-                    ariaLabel,
-                    classNames,
-                    id: el.id || '',
-                    name: el.getAttribute('name') || ''
+                    tag, type, role, id, name,
+                    placeholder: ph,
+                    ariaLabel: aria,
+                    text, value: val,
+                    _el: el,
                 });
-
-                seen.add(el);
             });
-        } catch (e) {}
+        } catch(e) {}
     }
 
-    const tableDataRows = Array.from(document.querySelectorAll('table')).reduce((max, t) => {
+    // Count tables with data rows (generic data indicator)
+    let tableDataRows = 0;
+    document.querySelectorAll('table').forEach(t => {
         const rows = t.querySelectorAll('tr').length;
-        return rows > max ? rows : max;
-    }, 0);
+        if (rows > tableDataRows) tableDataRows = rows;
+    });
+
+    // Prioritize: inputs/selects > buttons > role-based > class-based
+    const priority = (el) => {
+        const t = el.tag;
+        if (t === 'input' || t === 'select' || t === 'textarea') return 0;
+        if (t === 'button') return 1;
+        if (el.role) return 2;
+        return 3;
+    };
+    interactive.sort((a, b) => priority(a) - priority(b));
+
+    // Cap at 40 and inject data-pegasus-idx for guaranteed unique selectors
+    const capped = interactive.slice(0, 40);
+
+    // Clear previous pegasus markers
+    document.querySelectorAll('[data-pegasus-idx]').forEach(el => {
+        el.removeAttribute('data-pegasus-idx');
+    });
+
+    // Inject unique index on each captured element
+    const result = capped.map((item, idx) => {
+        if (item._el) {
+            item._el.setAttribute('data-pegasus-idx', String(idx));
+        }
+        const {_el, ...data} = item;
+        return data;
+    });
 
     return {
         url:            location.href,
         title:          document.title,
         bodyTextLength: bodyText.length,
-        interactiveElements: interactive,
+        interactiveElements: result,
         tableDataRows:  tableDataRows,
     };
 }"""
@@ -167,6 +203,7 @@ class AgentNavigator:
 
                 action_type = action.get("type", "FAILED").upper()
                 selector = action.get("selector", "")
+                el_idx = action.get("elementIndex", -1)
                 reasoning = action.get("reasoning", "")
 
                 # Dedup: if AI repeats an action that already failed, skip it
@@ -175,31 +212,36 @@ class AgentNavigator:
                     log.info(
                         f"AgentNavigator step {step_num}: "
                         f"SKIPPED duplicate failed action "
-                        f"{action_type} {selector}"
+                        f"{action_type} [{el_idx}] {selector}"
                     )
                     steps_taken.append({
                         "step": step_num,
                         "type": "SKIPPED",
                         "selector": selector,
+                        "elementIndex": el_idx,
                         "value": action.get("value", ""),
-                        "reasoning": f"Duplicate of previously failed: {action_type} {selector}",
+                        "success": False,
+                        "reasoning": f"Duplicate of previously failed: {action_type} [{el_idx}]",
                     })
                     continue
 
                 log.info(
                     f"AgentNavigator step {step_num}: "
-                    f"{action_type} — {reasoning}"
+                    f"{action_type} [{el_idx}] {selector} — {reasoning}"
                 )
 
-                steps_taken.append({
+                step_record = {
                     "step": step_num,
                     "type": action_type,
                     "selector": selector,
+                    "elementIndex": el_idx,
                     "value": action.get("value", ""),
                     "reasoning": reasoning,
-                })
+                }
 
                 if action_type == "DONE":
+                    step_record["success"] = True
+                    steps_taken.append(step_record)
                     log.info(
                         f"AgentNavigator: reached results at {page.url} "
                         f"after {step_num} steps"
@@ -210,6 +252,8 @@ class AgentNavigator:
                     )
 
                 if action_type == "FAILED":
+                    step_record["success"] = False
+                    steps_taken.append(step_record)
                     msg = (
                         f"AgentNavigator: gave up after "
                         f"{step_num} steps — {reasoning}"
@@ -219,9 +263,40 @@ class AgentNavigator:
                         False, page, steps_taken, browser, owns_browser, msg,
                     )
 
+                url_before = page.url
+                try:
+                    title_before = await page.evaluate("document.title || ''")
+                except Exception:
+                    title_before = ""
+                try:
+                    body_before = await page.evaluate(
+                        "(document.body && document.body.innerText || '').substring(0, 5000)"
+                    )
+                except Exception:
+                    body_before = ""
+
                 success = await self._execute_action(page, action)
+                step_record["success"] = success
+                steps_taken.append(step_record)
                 if not success:
                     failed_actions.add(action_key)
+                elif action_type == "CLICK":
+                    # ── Multi-signal DONE detection (only after CLICK) ──
+                    # TYPE/SELECT just fill fields — only CLICK can submit.
+                    # This prevents premature DONE from autocomplete dropdown text.
+                    await page.wait_for_timeout(1500)
+                    done_signal = await self._detect_results_page(
+                        page, url_before, title_before, body_before
+                    )
+                    if done_signal:
+                        log.info(
+                            f"AgentNavigator: auto-DONE: {done_signal} "
+                            f"at {page.url}"
+                        )
+                        return self._result(
+                            True, page, steps_taken, browser, owns_browser,
+                            f"Results reached ({done_signal}) after {step_num} steps",
+                        )
 
             msg = (
                 f"AgentNavigator: exhausted {MAX_AGENT_STEPS} steps "
@@ -250,6 +325,106 @@ class AgentNavigator:
             "_browser": browser,
             "_owns_browser": owns,
         }
+
+    # ── Multi-signal results-page detection ────────────────────────
+
+    _RESULT_COUNT_RE = re.compile(
+        r'\d+\+?\s*(?:results?|properties|jobs?|listings?|flats?|'
+        r'apartments?|homes?|found|showing|matches|vacancies|'
+        r'openings|records?|items?)',
+        re.IGNORECASE,
+    )
+
+    _CARD_SELECTORS = (
+        "[class*='card']",
+        "[class*='result']",
+        "[class*='listing']",
+        "[class*='item']",
+        "[class*='property']",
+        "[class*='job']",
+        "[class*='srp']",
+    )
+
+    async def _detect_results_page(
+        self, page, url_before: str, title_before: str,
+        body_before: str = "",
+    ) -> str | None:
+        """
+        Check multiple signals to detect if we landed on a results page.
+        Returns a description string if DONE, or None if not yet.
+        """
+        url_after = page.url
+
+        # Signal 1 — URL changed
+        if url_after != url_before:
+            try:
+                body_len = await page.evaluate(
+                    "(document.body && document.body.innerText || '').length"
+                )
+            except Exception:
+                body_len = 0
+            if body_len > 3000:
+                return f"URL changed (body={body_len})"
+
+        # Signal 2 — Page title changed significantly
+        try:
+            title_after = await page.evaluate("document.title || ''")
+        except Exception:
+            title_after = ""
+        if (
+            title_after
+            and title_before
+            and title_after != title_before
+            and len(title_after) > 10
+        ):
+            try:
+                body_len = await page.evaluate(
+                    "(document.body && document.body.innerText || '').length"
+                )
+            except Exception:
+                body_len = 0
+            if body_len > 2000:
+                return (
+                    f"title changed: '{title_before[:40]}' → "
+                    f"'{title_after[:40]}'"
+                )
+
+        # Signal 3 — NEW result count text appeared in body
+        try:
+            body_after = await page.evaluate(
+                "(document.body && document.body.innerText || '').substring(0, 5000)"
+            )
+        except Exception:
+            body_after = ""
+        match = self._RESULT_COUNT_RE.search(body_after)
+        if match:
+            matched_text = match.group(0).strip()
+            # Only trigger if this text is NEW — not present before the action
+            if matched_text not in body_before:
+                return f"result count text found: '{matched_text}'"
+            else:
+                log.debug(
+                    f"Signal 3 skipped: '{matched_text}' was already on page"
+                )
+
+        # Signal 3b — Body text grew substantially (SPA loaded results)
+        if body_before and body_after:
+            growth = len(body_after) - len(body_before)
+            if growth > 3000:
+                return f"body text grew by {growth} chars (SPA results loaded)"
+
+        # Signal 4 — Data containers (cards/listings) appeared
+        for sel in self._CARD_SELECTORS:
+            try:
+                count = await page.evaluate(
+                    f"document.querySelectorAll(\"{sel}\").length"
+                )
+                if count >= 5:
+                    return f"{count} data cards detected ({sel})"
+            except Exception:
+                continue
+
+        return None
 
     # ── Search-form detection — 100 % generic, zero keywords ───────
 
@@ -486,6 +661,38 @@ class AgentNavigator:
 
     # ── AI Brain: decide next action ───────────────────────────────
 
+    @staticmethod
+    def _build_selector(el: dict, idx: int = -1) -> str:
+        """Build a reliable CSS selector from our own element data.
+        Priority: #id > [name] > [placeholder] > [aria-label] > tag[type] > tag[role] > data-pegasus-idx
+        The data-pegasus-idx fallback is ALWAYS unique (injected during snapshot)."""
+        tag = el.get("tag", "div")
+        eid = el.get("id", "")
+        name = el.get("name", "")
+        ph = el.get("placeholder", "")
+        aria = el.get("ariaLabel", "")
+        role = el.get("role", "")
+        etype = el.get("type", "")
+
+        if eid:
+            return f"#{eid}"
+        if name:
+            return f'{tag}[name="{name}"]'
+        if ph:
+            return f'{tag}[placeholder="{ph}"]'
+        if aria:
+            return f'[aria-label="{aria}"]'
+        if etype and tag in ("input", "button"):
+            if role:
+                return f'{tag}[type="{etype}"][role="{role}"]'
+            return f'{tag}[type="{etype}"]'
+        if role and tag in ("button", "div", "span", "a"):
+            return f'{tag}[role="{role}"]'
+        # Guaranteed unique fallback — injected by snapshot JS
+        if idx >= 0:
+            return f'[data-pegasus-idx="{idx}"]'
+        return tag
+
     async def _decide_next_action(
         self,
         snapshot: dict,
@@ -495,83 +702,76 @@ class AgentNavigator:
         attempt: int,
     ) -> dict:
         """
-        Sends structured element JSON + client description to AI.
-        AI returns exactly one action.
+        Sends compact element list + client description to AI.
+        AI returns element INDEX + action type. We build the CSS selector.
         """
-        elements_json = json.dumps(
-            snapshot.get("interactiveElements", []),
-            indent=1,
-            ensure_ascii=False,
-        )
-        # Cap element list to stay within token limits
-        if len(elements_json) > 6000:
-            elements_json = elements_json[:6000] + "\n...(truncated)"
+        elements = snapshot.get("interactiveElements", [])
+        compact_lines = []
+        for i, el in enumerate(elements):
+            parts = [f"[{i}] {el.get('tag', '?')}"]
+            if el.get("id"):
+                parts.append(f"id=\"{el['id']}\"")
+            if el.get("name"):
+                parts.append(f"name=\"{el['name']}\"")
+            if el.get("type"):
+                parts.append(f"type={el['type']}")
+            if el.get("role"):
+                parts.append(f"role={el['role']}")
+            if el.get("placeholder"):
+                parts.append(f"placeholder=\"{el['placeholder']}\"")
+            if el.get("ariaLabel"):
+                parts.append(f"aria-label=\"{el['ariaLabel']}\"")
+            if el.get("text"):
+                parts.append(f"text=\"{el['text']}\"")
+            if el.get("value"):
+                parts.append(f"value=\"{el['value']}\"")
+            compact_lines.append(" ".join(parts))
+        elements_text = "\n".join(compact_lines) if compact_lines else "(no interactive elements found)"
 
         if steps_taken:
             steps_summary = "\n".join(
                 f"  Step {s['step']}: {s['type']} "
-                f"selector={s.get('selector', '')} "
+                f"element={s.get('elementIndex', '?')} "
                 f"value={s.get('value', '')} "
+                f"ok={s.get('success', '?')} "
                 f"— {s.get('reasoning', '')}"
-                for s in steps_taken
+                for s in steps_taken[-5:]
             )
         else:
             steps_summary = "  (none yet — first action)"
 
         system_prompt = (
-            "You are controlling a web browser to help a client find "
-            "data they need. You receive a structured JSON list of every "
-            "interactive element on the current page (tag, type, role, "
-            "text<=50, placeholder, aria-label, classNames). Decide the "
-            "single best next action. Base all selectors ONLY on this JSON."
+            "You control a web browser. You see a numbered list of "
+            "interactive elements. Pick ONE element by its [index] number "
+            "and decide what to do with it. Return JSON only."
         )
 
-        user_prompt = f"""CLIENT WANTS:
-{client_description}
+        user_prompt = f"""CLIENT WANTS: {client_description}
 
-CURRENT PAGE:
-  URL: {current_url}
-  Title: {snapshot.get('title', '')}
-  Body text length: {snapshot.get('bodyTextLength', 0)} chars
+PAGE: {current_url}
+Title: {snapshot.get('title', '')}
+Body text: {snapshot.get('bodyTextLength', 0)} chars
 
-ALL INTERACTIVE ELEMENTS ON THIS PAGE (structured JSON):
-{elements_json}
+ELEMENTS:
+{elements_text}
 
-ACTIONS ALREADY TAKEN:
+STEPS SO FAR:
 {steps_summary}
 
-YOUR JOB:
-Look at the interactive elements. Understand what this page offers.
-Decide the single best next action to reach the data the client wants.
-
-Ask yourself:
-- Is the data already visible? (body text > 5000 AND no search form) → DONE
-- Is there an input field I should type into? → TYPE
-- Is there a dropdown I should select from? → SELECT
-- Is there a button or tab I should click? → CLICK
-- Should I scroll to reveal more content? → SCROLL
-- Should I wait for content to load? → WAIT
-- No path forward? → FAILED
-
-Return exactly ONE action as JSON:
-{{
-  "type": "CLICK" | "TYPE" | "SELECT" | "SCROLL" | "WAIT" | "DONE" | "FAILED",
-  "selector": "CSS selector to target the element. Build it from the element's id, name, class, placeholder, or aria-label that you see in the JSON. Examples: #someId, input[placeholder='...'], button[aria-label='...'], [class*='search']",
-  "value": "text to type or option to select (for TYPE and SELECT only — derive from what the client wants)",
-  "reasoning": "what you see on the page and why this action",
-  "results_visible": false
-}}
+Return exactly one JSON object:
+{{"type":"CLICK|TYPE|SELECT|SCROLL|WAIT|DONE|FAILED","elementIndex":<number from list>,"value":"text to type (TYPE/SELECT only)","reasoning":"brief reason"}}
 
 RULES:
-- Base selectors ONLY on element data you see in the JSON above
-- Never guess or hallucinate selectors
-- Never repeat an action from ACTIONS ALREADY TAKEN
+- elementIndex MUST be a number from the [index] in ELEMENTS above
+- For TYPE: pick an input/textarea/select element and provide value
+- For CLICK: pick a button/link/submit element
+- For SCROLL/WAIT: elementIndex can be 0
+- DONE: data/results are already visible on page (body>5000 chars, no search form)
+- FAILED: no useful path forward
+- Do NOT repeat actions that failed in STEPS SO FAR
 - Ignore cookie banners, login popups, ads
-- For input fields: look at placeholder and aria-label to understand what to type
-- After filling relevant fields → click the search/submit/find button
-- After results load → return DONE with results_visible=true
-- For CLICK: you can also use text= prefix like "text=Search"
-- For TYPE: target the input field's CSS selector"""
+- After filling search fields → click the search/submit button
+- Keep it simple: type location/query → click search"""
 
         # Retry with backoff if all providers are rate-limited
         for retry in range(3):
@@ -585,8 +785,25 @@ RULES:
             provider = response.get("provider", "none")
 
             if provider != "none":
-                log.info(f"AgentNavigator AI response from {provider}")
-                return self._parse_action(text)
+                log.info(f"AgentNavigator AI response from {provider}: {text[:200]}")
+                action = self._parse_action(text)
+
+                # Resolve elementIndex → CSS selector
+                idx = action.get("elementIndex")
+                if idx is not None and isinstance(idx, int) and 0 <= idx < len(elements):
+                    selector = self._build_selector(elements[idx], idx)
+                    action["selector"] = selector
+                    action["elementIndex"] = idx
+                    log.info(f"AgentNavigator: element [{idx}] → selector: {selector}")
+                elif action.get("type", "").upper() not in ("DONE", "FAILED", "SCROLL", "WAIT"):
+                    # AI gave a bad index for an action that needs an element
+                    log.warning(f"AgentNavigator: bad elementIndex={idx}, elements={len(elements)}")
+                    # Try to use selector field as fallback if AI provided one
+                    if not action.get("selector"):
+                        action["type"] = "FAILED"
+                        action["reasoning"] = f"Invalid element index: {idx}"
+
+                return action
 
             if retry < 2:
                 wait = 60 * (retry + 1)
@@ -631,9 +848,12 @@ RULES:
         if not el:
             log.warning(f"AgentNavigator: CLICK target not found: {selector}")
             return False
-        await el.scroll_into_view_if_needed()
+        try:
+            await el.scroll_into_view_if_needed(timeout=3000)
+        except Exception:
+            pass
         await page.wait_for_timeout(random.randint(300, 700))
-        await el.click()
+        await el.click(timeout=5000)
         await page.wait_for_timeout(random.randint(1000, 2000))
         try:
             await page.wait_for_load_state("networkidle", timeout=5000)
@@ -743,17 +963,23 @@ RULES:
             log.warning(f"AgentNavigator: SELECT target not found: {selector}")
             return False
         tag = await el.evaluate("el => el.tagName.toLowerCase()")
+
+        # If it's a text input/textarea, fall back to TYPE (AI often confuses SELECT/TYPE)
+        if tag in ("input", "textarea"):
+            log.info(f"AgentNavigator: SELECT on <{tag}> — falling back to TYPE")
+            return await self._do_type(page, selector, value)
+
         if tag == "select":
             try:
                 await el.select_option(label=value)
                 await page.wait_for_timeout(500)
-                return
+                return True
             except Exception:
                 pass
             try:
                 await el.select_option(value=value)
                 await page.wait_for_timeout(500)
-                return
+                return True
             except Exception:
                 pass
         await el.click()
@@ -771,9 +997,10 @@ RULES:
                                 f"AgentNavigator: selected '{text}'"
                             )
                             await page.wait_for_timeout(500)
-                            return
+                            return True
             except Exception:
                 continue
+        return False
 
     async def _do_scroll(self, page: Page) -> None:
         await page.evaluate(
@@ -788,6 +1015,19 @@ RULES:
         getByPlaceholder, aria-label — fully generic."""
         if not selector:
             return None
+
+        # Sanitize invalid [text='...'] or tag[text='...'] to text=...
+        # AI sometimes generates these despite instructions
+        # Check tag[text='...'] first (more specific)
+        tag_text_match = re.match(r'^\w+\[text=["\'](.+?)["\']\]$', selector)
+        if tag_text_match:
+            selector = f"text={tag_text_match.group(1)}"
+            log.info(f"AgentNavigator: sanitized tag[text=...] to {selector}")
+        else:
+            text_match = re.match(r'^\[text=["\'](.+?)["\']\]$', selector)
+            if text_match:
+                selector = f"text={text_match.group(1)}"
+                log.info(f"AgentNavigator: sanitized [text=...] to {selector}")
 
         if selector.startswith("text="):
             try:

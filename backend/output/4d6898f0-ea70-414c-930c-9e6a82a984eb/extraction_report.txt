@@ -1,0 +1,9 @@
+PEGASUS EXTRACT — Extraction Report
+=====================================
+URL: https://www.naukri.com
+Pages: 1
+Records: 51
+Duplicates removed: 0
+Fields: ['job_title', 'company_name', 'experience', 'salary', 'location', 'url']
+Engine: LiveDOMExtractor + UniversalAdapter
+=====================================

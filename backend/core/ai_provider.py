@@ -1,5 +1,6 @@
 import os
 import logging
+import time
 
 from dotenv import load_dotenv
 
@@ -7,6 +8,22 @@ from dotenv import load_dotenv
 load_dotenv()
 
 log = logging.getLogger("PegasusExtract")
+
+# Cache of failed providers: {provider_key: failure_timestamp}
+# Skip providers that failed in the last 5 minutes
+_PROVIDER_FAIL_CACHE: dict[str, float] = {}
+_FAIL_COOLDOWN = 300  # 5 minutes
+
+
+def _is_provider_dead(key: str) -> bool:
+    ts = _PROVIDER_FAIL_CACHE.get(key)
+    if ts and (time.time() - ts) < _FAIL_COOLDOWN:
+        return True
+    return False
+
+
+def _mark_provider_dead(key: str) -> None:
+    _PROVIDER_FAIL_CACHE[key] = time.time()
 
 
 class AIProvider:
@@ -19,11 +36,11 @@ class AIProvider:
 
     # Free models to try on OpenRouter, in priority order.
     OPENROUTER_MODELS = [
+        "nvidia/nemotron-3-super-120b-a12b:free",
         "meta-llama/llama-3.3-70b-instruct:free",
         "qwen/qwen3-coder:free",
-        "openai/gpt-oss-120b:free",
         "qwen/qwen3-next-80b-a3b-instruct:free",
-        "nvidia/nemotron-3-super-120b-a12b:free",
+        "openai/gpt-oss-120b:free",
     ]
 
     async def complete(
@@ -33,7 +50,7 @@ class AIProvider:
         json_mode: bool = False,
     ) -> dict:
         # ── 1. Try Gemini 2.0 Flash first (1M tokens/day free) ──
-        if self.gemini_key:
+        if self.gemini_key and not _is_provider_dead("gemini"):
             try:
                 from openai import OpenAI
 
@@ -61,9 +78,11 @@ class AIProvider:
                 return {"text": text, "provider": "gemini"}
             except Exception as e:  # noqa: BLE001
                 log.warning(f"Gemini failed: {e}")
+                if "429" in str(e) or "quota" in str(e).lower():
+                    _mark_provider_dead("gemini")
 
         # ── 2. Try Groq ──
-        if self.groq_key:
+        if self.groq_key and not _is_provider_dead("groq"):
             try:
                 from groq import Groq
 
@@ -103,11 +122,13 @@ class AIProvider:
                         log.info("Groq answered successfully after truncation retry")
                         return {"text": text, "provider": "groq"}
                     log.error(f"Groq failed: {e}")
+                    if "429" in str(e) or "rate_limit" in str(e).lower():
+                        _mark_provider_dead("groq")
             except Exception as e:  # noqa: BLE001
                 log.error(f"Groq also failed: {e}")
 
         # ── 3. DeepSeek direct API ──
-        if self.deepseek_key:
+        if self.deepseek_key and not _is_provider_dead("deepseek"):
             try:
                 from openai import OpenAI
 
@@ -135,6 +156,8 @@ class AIProvider:
                 return {"text": text, "provider": "deepseek"}
             except Exception as e:  # noqa: BLE001
                 log.warning(f"DeepSeek failed: {e} — trying OpenRouter")
+                if "402" in str(e) or "balance" in str(e).lower():
+                    _mark_provider_dead("deepseek")
 
         # ── 4. OpenRouter (multiple free models) ──
         if self.openrouter_key:
@@ -152,6 +175,8 @@ class AIProvider:
                 ]
 
                 for model_id in self.OPENROUTER_MODELS:
+                    if _is_provider_dead(f"openrouter/{model_id}"):
+                        continue
                     try:
                         kwargs: dict = {
                             "model": model_id,
@@ -168,6 +193,8 @@ class AIProvider:
                         return {"text": text, "provider": f"openrouter/{model_id}"}
                     except Exception as model_err:  # noqa: BLE001
                         log.warning(f"OpenRouter {model_id} failed: {model_err}")
+                        if "429" in str(model_err) or "402" in str(model_err) or "404" in str(model_err):
+                            _mark_provider_dead(f"openrouter/{model_id}")
                         continue
 
                 log.warning("All OpenRouter models failed — trying Claude")

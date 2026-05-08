@@ -1,0 +1,9 @@
+PEGASUS EXTRACT — Extraction Report
+=====================================
+URL: https://www.magicbricks.com/
+Pages: 1
+Records: 10
+Duplicates removed: 0
+Fields: ['property_title', 'bhk_type', 'carpet_area_sqft', 'price', 'price_per_sqft', 'locality', 'city', 'transaction_type', 'construction_status', 'url']
+Engine: LiveDOMExtractor + UniversalAdapter
+=====================================

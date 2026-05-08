@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -7,9 +9,17 @@ from core.config import settings
 
 app = FastAPI(title="PEGASUS EXTRACT", redirect_slashes=False)
 
+# Allow the frontend origin in production, fall back to permissive for local dev
+_frontend_url = os.getenv("FRONTEND_URL", "")
+_allowed_origins = (
+    [_frontend_url, "http://localhost:3001", "http://localhost:3000"]
+    if _frontend_url
+    else ["*"]
+)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
